@@ -26,6 +26,34 @@ namespace Badroads
         public int ID { get; private set; }
     }
 
+    /// <summary>Точка дефекта на дороге</summary>
+    public class Point : BadroadsDataItem
+    {
+        public Point()
+        { this.Date = DateTime.Now; }
+
+        /// <summary>Метаданные гугл мама, координаты точки</summary>
+        public string GooleMapInfo { get; set; }
+
+        /// <summary>Дата и Время публикации дефекта</summary>
+        public DateTime Date { get; private set; }
+
+        /// <summary>Рейтинг ямы</summary>
+        public int Rate { get; set; }
+
+        /// <summary>Статус проверена или нет</summary>
+        public bool isValid { get; set; }
+
+        /// <summary>Разновидность дефекта</summary>
+        public virtual Defect Defect { get; set; }
+
+        /// <summary>Коллекция комментариев</summary>
+        public virtual ICollection<Comment> Coments { get; set; }
+
+        /// <summary>Коллекция фотографий</summary>
+        public virtual ICollection<Photo> Photos { get; set; }
+    }
+
     /// <summary>Дефект дороги</summary>
     public class Defect: BadroadsDataItem
     {
@@ -73,31 +101,5 @@ namespace Badroads
         }
     }
 
-    /// <summary>Точка дефекта на дороге</summary>
-    public class Point : BadroadsDataItem
-    {
-        public Point()
-        { this.Date = DateTime.Now; }
 
-        /// <summary>Метаданные гугл мама, координаты точки</summary>
-        public string GooleMapInfo { get; set; }
-
-        /// <summary>Дата и Время публикации дефекта</summary>
-        public DateTime Date { get; private set; }
-
-        /// <summary>Рейтинг ямы</summary>
-        public int Rate { get; set; }
-
-        /// <summary>Статус проверена или нет</summary>
-        public bool isValid { get; set; }
-
-        /// <summary>Разновидность дефекта</summary>
-        public  virtual Defect Defect { get; set; }
-
-        /// <summary>Коллекция комментариев</summary>
-        public virtual ICollection<Comment> Coments { get; set; }
-
-        /// <summary>Коллекция фотографий</summary>
-        public virtual ICollection<Photo> Photos { get; set; }
-    }
 }
