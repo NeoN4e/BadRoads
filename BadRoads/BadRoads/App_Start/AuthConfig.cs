@@ -22,9 +22,9 @@ namespace BadRoads
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "1008370482524856",
+                appSecret: "523dd07b2685d973af50bd79440764ea");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
