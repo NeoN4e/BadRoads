@@ -36,6 +36,7 @@ namespace Badroads
         public string GooleMapInfo { get; set; }
 
         /// <summary>Дата и Время публикации дефекта</summary>
+        [Required]
         public DateTime Date { get; private set; }
 
         /// <summary>Рейтинг ямы</summary>
@@ -45,6 +46,7 @@ namespace Badroads
         public bool isValid { get; set; }
 
         /// <summary>Разновидность дефекта</summary>
+        [Required]
         public virtual Defect Defect { get; set; }
 
         /// <summary>Коллекция комментариев</summary>
@@ -57,6 +59,7 @@ namespace Badroads
     /// <summary>Дефект дороги</summary>
     public class Defect: BadroadsDataItem
     {
+        [Required,MaxLength(50)]
         public string Name { get; set; }
 
         public override string ToString()
@@ -68,16 +71,16 @@ namespace Badroads
     /// <summary>Фотография дефекта на дороге</summary>
     public class Photo : BadroadsDataItem
     {
-        [Url]
+        [Required,Url]
         public string Url { get; set; }
 
         public virtual ICollection<Point> Points { get; set; }
 
         /// <summary>Получение родителя текущей картинки</summary>
-        public Point GetPoint()
-        {
-            return Points.First();
-        }
+        //public Point GetPoint()
+        //{
+        //    return Points.First();
+        //}
     }
 
     /// <summary>Комментарий к Дефекту</summary>
@@ -87,18 +90,20 @@ namespace Badroads
         { this.Date = DateTime.Now; }
 
         /// <summary>Дата и Время публикации комментария</summary>
+        [Required]
         public DateTime Date { get; private set; }
 
         /// <summary>Сам текст комментария</summary>
+        [Required]
         public string ContentText { get; set; }
 
         public virtual ICollection<Point> Points { get; set; }
 
-        /// <summary>Получение родителя текущего комметнария</summary>
-        public Point GetPoint()
-        {
-            return Points.First();
-        }
+        ///// <summary>Получение родителя текущего комметнария</summary>
+        //public Point GetPoint()
+        //{
+        //    return Points.First();
+        //}
     }
 
 
