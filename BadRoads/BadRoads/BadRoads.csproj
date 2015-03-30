@@ -206,6 +206,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\badroads_bg.jpg" />
+    <Content Include="Content\img\icon.png" />
     <Content Include="Content\img\logo_badroads.png" />
     <Content Include="Content\img\logo_bg.png" />
     <Content Include="Content\site.css" />
@@ -242,7 +243,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\fontawesome-webfont.woff" />
