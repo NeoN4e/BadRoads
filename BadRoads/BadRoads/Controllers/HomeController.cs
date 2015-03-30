@@ -10,8 +10,6 @@ namespace BadRoads.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Index ViewBag.Message";
-
             return View();
         }
 
