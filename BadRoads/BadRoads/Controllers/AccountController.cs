@@ -19,7 +19,6 @@ namespace BadRoads.Controllers
     {
         //
         // GET: /Account/Login
-        DBModel db = new DBModel();
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -218,53 +217,7 @@ namespace BadRoads.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-            try
-            {
-                if (result.ExtraData.Values.Count == 0)
-                {
-                    User user1 = new User()
-                    {
-                        UserName = result.UserName
-                    };
-                    int exists = (from u in db.User where u.UserName == user1.UserName select u).Count();
-                    if (exists == 0)
-                    {
-                        db.User.Add(user1);
-                        db.SaveChanges();
-                    }
-                }
-
-                else
-                {
-                    List<string> list = new List<string>();
-                    foreach (var item in result.ExtraData.Values)
-                    {
-                        list.Add(item);
-                    }
-                    //0 - id,
-                    //1 - username(email),
-                    //2 - name,
-                    //3 - link,
-                    //4 - gender,
-                    //5 - accesstoken
-                    User user = new User()
-                    {
-                        Email = list.ElementAt(1),
-                        UserName = list.ElementAt(2)
-                    };
-                    int exists = (from u in db.User where (u.UserName == user.UserName && u.Email == user.Email) select u).Count();
-                    if (exists == 0)
-                    {
-                        db.User.Add(user);
-                        db.SaveChanges();
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                var exception = e.Message;
-                throw new Exception();
-            }
+            
 
             if (!result.IsSuccessful)
             {
