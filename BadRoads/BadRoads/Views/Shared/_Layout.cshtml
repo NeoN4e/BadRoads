@@ -1,27 +1,28 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Styles.Render("~/Content/Style.css")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/Scripts/jquery-2.1.3.js")
-        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
-        @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Style.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-2.1.3.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.js")
 
 
-    </head>
-    <body>
-	<div>
+</head>
+<body>
+    <header>
+        <div>
             @using (Html.BeginForm("ChangeCulture", "Home"))
             { 
                 <input type="submit" name="lang" value="en">
                 <input type="submit" name="lang" value="uk">
                 <input type="submit" name="lang" value="ru">
-                @*<select name="lang">
+@*<select name="lang">
                     <option disabled selected>@Resources.Resource.ChooseLang</option>
                     <option value="ru">Русский</option>
                     <option value="en">English</option>
@@ -30,40 +31,40 @@
                 <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">*@
             }
         </div>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - BadRoads</p>
-                </div>
-            </div>
-        </footer>
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink(@Resources.Resource.Logo, "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink(@Resources.Resource.Hom, "Index", "Home")</li>
+                        <li>@Html.ActionLink(@Resources.Resource.Ab, "About", "Home")</li>
+                        <li>@Html.ActionLink(@Resources.Resource.Con, "Contact", "Home")</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - BadRoads</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
 </html>

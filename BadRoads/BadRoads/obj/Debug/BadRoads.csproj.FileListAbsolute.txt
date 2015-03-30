@@ -193,7 +193,6 @@ C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\bin\ru\System.Spatial.resou
 C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\obj\Debug\BadRoads.csproj.App.config
-C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\obj\Debug\BadRoads.csprojResolveAssemblyReference.cache
 C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\obj\Debug\BadRoads.Resources.Resource.resources
 C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\obj\Debug\BadRoads.Resources.Resource.en.resources
 C:\Users\benko\Desktop\BadRoadsGit\BadRoads\BadRoads\obj\Debug\BadRoads.Resources.Resource.uk.resources
