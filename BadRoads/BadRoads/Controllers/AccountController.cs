@@ -218,28 +218,53 @@ namespace BadRoads.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-            List<string> list = new List<string>();
-            foreach (var item in result.ExtraData.Values)
+            try
             {
-                list.Add(item);
+                if (result.ExtraData.Values.Count == 0)
+                {
+                    User user1 = new User()
+                    {
+                        Name = result.UserName
+                    };
+                    int exists = (from u in db.User where u.Name == user1.Name select u.Id).Count();
+                    if (exists == 0)
+                    {
+                        db.User.Add(user1);
+                        db.SaveChanges();
+                    }
+                }
+
+                else
+                {
+                    List<string> list = new List<string>();
+                    foreach (var item in result.ExtraData.Values)
+                    {
+                        list.Add(item);
+                    }
+                    //0 - id,
+                    //1 - username(email),
+                    //2 - name,
+                    //3 - link,
+                    //4 - gender,
+                    //5 - accesstoken
+                    User user = new User()
+                    {
+                        Email = list.ElementAt(1),
+                        Name = list.ElementAt(2),
+                        Photo = list.ElementAt(3)
+                    };
+                    int exists = (from u in db.User where (u.Name == user.Name && u.Email == user.Email) select u.Id).Count();
+                    if (exists == 0)
+                    {
+                        db.User.Add(user);
+                        db.SaveChanges();
+                    }
+                }
             }
-            //0 - id,
-            //1 - username(email),
-            //2 - name,
-            //3 - link,
-            //4 - gender,
-            //5 - accesstoken
-            User user = new User()
+            catch (Exception e)
             {
-                Email = list.ElementAt(1),
-                Name = list.ElementAt(2),
-                Photo = list.ElementAt(3)
-            };
-            int exists = (from u in db.User where (u.Name == user.Name && u.Email == user.Email) select u.Id).Count();
-            if (exists == 0)
-            {
-                db.User.Add(user);
-                db.SaveChanges();
+                var exception = e.Message;
+                throw new Exception();
             }
 
             if (!result.IsSuccessful)

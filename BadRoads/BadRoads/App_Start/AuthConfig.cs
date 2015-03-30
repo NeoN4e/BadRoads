@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
 using BadRoads.Models;
+using BadRoads.VKOauth;
 
 namespace BadRoads
 {
@@ -26,6 +27,11 @@ namespace BadRoads
                 appId: "1008370482524856",
                 appSecret: "523dd07b2685d973af50bd79440764ea");
 
+            OAuthWebSecurity.RegisterClient(
+       client: new VKontakteAuthenticationClient(
+              "4852475", "ulGQqEeM9UNb7pCqORzp"),
+       displayName: "ВКонтакте", // надпись на кнопке
+       extraData: null);
             //OAuthWebSecurity.RegisterGoogleClient();
         }
     }
