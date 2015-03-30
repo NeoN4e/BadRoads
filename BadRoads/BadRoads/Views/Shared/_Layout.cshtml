@@ -17,7 +17,7 @@
             <i class="fa fa-bars fa-2x"></i>
         </div>
         <select name="langlist" id="lang">
-            <option selected value="RU">RU</option>
+            <option value="RU">RU</option>
             <option value="UA">UA</option>
             <option value="EN">EN</option>
         </select>
@@ -31,13 +31,12 @@
         <nav id="navmenu">
             <ul>
                 <li>
-                    <i class="fa fa-home"></i>
-                    @Html.ActionLink("Главная", "Index", "Home")
+                    <i class="fa fa-user"></i>
+                    @Html.Partial("_LoginPartial")
                 </li>
                 <li>
-                    <i class="fa fa-user"></i>
-                    <a href="#">Профиль</a> | <a href="#">Гость</a>
-                    @*           @Html.Partial("_LoginPartial")*@
+                    <i class="fa fa-home"></i>
+                    @Html.ActionLink("Главная", "Index", "Home")
                 </li>
                 <li>
                     <i class="fa fa-globe"></i>
