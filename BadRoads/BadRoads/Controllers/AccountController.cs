@@ -224,9 +224,9 @@ namespace BadRoads.Controllers
                 {
                     User user1 = new User()
                     {
-                        Name = result.UserName
+                        UserName = result.UserName
                     };
-                    int exists = (from u in db.User where u.Name == user1.Name select u.Id).Count();
+                    int exists = (from u in db.User where u.UserName == user1.UserName select u).Count();
                     if (exists == 0)
                     {
                         db.User.Add(user1);
@@ -250,10 +250,9 @@ namespace BadRoads.Controllers
                     User user = new User()
                     {
                         Email = list.ElementAt(1),
-                        Name = list.ElementAt(2),
-                        Photo = list.ElementAt(3)
+                        UserName = list.ElementAt(2)
                     };
-                    int exists = (from u in db.User where (u.Name == user.Name && u.Email == user.Email) select u.Id).Count();
+                    int exists = (from u in db.User where (u.UserName == user.UserName && u.Email == user.Email) select u).Count();
                     if (exists == 0)
                     {
                         db.User.Add(user);
