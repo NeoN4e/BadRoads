@@ -16,21 +16,21 @@
 </head>
 <body>
     <header>
-        <div>
+        @*<div>
             @using (Html.BeginForm("ChangeCulture", "Home"))
             { 
                 <input type="submit" name="lang" value="en">
                 <input type="submit" name="lang" value="uk">
                 <input type="submit" name="lang" value="ru">
-@*<select name="lang">
+<select name="lang">
                     <option disabled selected>@Resources.Resource.ChooseLang</option>
                     <option value="ru">Русский</option>
                     <option value="en">English</option>
                     <option value="uk">Ukrainian</option>
                 </select>
-                <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">*@
+                <input type="submit" name="submit" value="@Resources.Resource.ChooseLang">
             }
-        </div>
+        </div>*@
 
         <div class="content-wrapper">
             <div class="float-left">
