@@ -5,18 +5,28 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Collections;
 
-namespace Badroads
+namespace BadRoads.Models
 {
     /// <summary>Контекст подключения к БД</summary>
     public class BadroadsDataContext : DbContext
     {
-        /// <summary>Обїект подключения к БД</summary>
+        /// <summary>Объект подключения к БД</summary>
         /// <param name="nameOrConnectionString">Строка подключения или имя строки подключения из КОНФИГ файла</param>
-        public BadroadsDataContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public BadroadsDataContext(string nameOrConnectionString = "DefaultConnection")
+            : base(nameOrConnectionString)
         {}
 
         public DbSet<Point> Points { get; set; }
         public DbSet<Photo> Photos { get; private set; }
+        private DbSet<UserProfile> Users { get; set; }
+
+        /// <summary>Получение ссылки на профиль пользователя</summary>
+        /// <param name="User"></param>
+        /// <returns></returns>
+        public UserProfile GetUSerProfile(System.Security.Principal.IPrincipal User)
+        {
+            return this.Users.First(U => U.UserName == User.Identity.Name);
+        }
     }
 
     /// <summary>Базовый клас для всех класов БД</summary>
@@ -29,15 +39,27 @@ namespace Badroads
     /// <summary>Точка дефекта на дороге</summary>
     public class Point : BadroadsDataItem
     {
-        public Point()
-        { this.Date = DateTime.Now; }
-
-        /// <summary>Метаданные гугл мама, координаты точки</summary>
-        public string GooleMapInfo { get; set; }
+        public Point(UserProfile UProfile)
+        {
+            this.Autor = UProfile;
+            this.Date = DateTime.Now;
+            this.isValid = false;
+        }
+        
+        /// <summary>Автор</summary>
+        [Required]
+        public UserProfile Autor { get; private set; }
 
         /// <summary>Дата и Время публикации дефекта</summary>
         [Required]
         public DateTime Date { get; private set; }
+
+        /// <summary>Разновидность дефекта</summary>
+        [Required]
+        public virtual Defect Defect { get; set; }
+
+        /// <summary>Метаданные гугл мама, координаты точки</summary>
+        public string GooleMapInfo { get; set; }
 
         /// <summary>Рейтинг ямы</summary>
         public int Rate { get; set; }
@@ -45,15 +67,24 @@ namespace Badroads
         /// <summary>Статус проверена или нет</summary>
         public bool isValid { get; set; }
 
-        /// <summary>Разновидность дефекта</summary>
-        [Required]
-        public virtual Defect Defect { get; set; }
+        /// <summary>Обложка дефекта</summary>
+        public virtual Photo Cover { get; set; } 
 
         /// <summary>Коллекция комментариев</summary>
-        public virtual ICollection<Comment> Coments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         /// <summary>Коллекция фотографий</summary>
         public virtual ICollection<Photo> Photos { get; set; }
+
+        public void AddPhoto(Photo p)
+        {
+            this.Photos.Add(p);
+        }
+
+        public void AddComent(Comment C)
+        {
+            this.Comments.Add(C);
+        }
     }
 
     /// <summary>Дефект дороги</summary>
@@ -76,34 +107,32 @@ namespace Badroads
 
         public virtual ICollection<Point> Points { get; set; }
 
-        /// <summary>Получение родителя текущей картинки</summary>
-        //public Point GetPoint()
-        //{
-        //    return Points.First();
-        //}
     }
 
     /// <summary>Комментарий к Дефекту</summary>
     public class Comment : BadroadsDataItem
     {
-        public Comment()
-        { this.Date = DateTime.Now; }
+        public Comment(UserProfile UProfile)
+        {
+            this.Autor = UProfile;
+            this.Date = DateTime.Now; 
+        }
 
+        /// <summary>Автор Комментария</summary>
+        [Required] 
+        public UserProfile Autor { get; private set; }
+ 
         /// <summary>Дата и Время публикации комментария</summary>
         [Required]
         public DateTime Date { get; private set; }
 
         /// <summary>Сам текст комментария</summary>
         [Required]
+        [Display(Name = "Comment")]
         public string ContentText { get; set; }
 
         public virtual ICollection<Point> Points { get; set; }
-
-        ///// <summary>Получение родителя текущего комметнария</summary>
-        //public Point GetPoint()
-        //{
-        //    return Points.First();
-        //}
+          
     }
 
 
