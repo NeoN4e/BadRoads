@@ -19,7 +19,7 @@ namespace BadRoads.Controllers
     {
         //
         // GET: /Account/Login
-
+        DBModel db = new DBModel();
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -228,19 +228,20 @@ namespace BadRoads.Controllers
             //2 - name,
             //3 - link,
             //4 - gender,
-            //5 - accesstoken,
-            User u = new Model.User()
+            //5 - accesstoken
+            User user = new User()
             {
                 Email = list.ElementAt(1),
                 Name = list.ElementAt(2),
                 Photo = list.ElementAt(3)
             };
-            var exists = from user in db.User where u.Name == user.Name && u.Email == user.Email select user;
-            if (exists == null)
+            int exists = (from u in db.User where (u.Name == user.Name && u.Email == user.Email) select u.Id).Count();
+            if (exists == 0)
             {
-                db.User.Add(u);
+                db.User.Add(user);
                 db.SaveChanges();
             }
+
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
