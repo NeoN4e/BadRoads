@@ -25,6 +25,7 @@ namespace BadRoads.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -86,6 +87,12 @@ namespace BadRoads.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail")]
+        [EmailAddress]
+        public string Email { get; set; }
     }
 
     public class ExternalLogin

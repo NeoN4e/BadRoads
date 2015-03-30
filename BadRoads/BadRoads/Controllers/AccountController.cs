@@ -79,9 +79,11 @@ namespace BadRoads.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { Email = model.Email });
+                    //Roles.AddUserToRole(model.UserName, "user");
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("AddUser", "Account", model);
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -91,6 +93,13 @@ namespace BadRoads.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public ActionResult AddUser(RegisterModel model)
+        {
+            UserProfile rp = new UserProfile();
+
+            return RedirectToAction("Index", "Home");
         }
 
         //
