@@ -217,7 +217,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.uk.resx</DependentUpon>
     </Compile>
-    <Compile Include="VKontakteAuthenticationClient.cs" />
+    <Compile Include="Models\VKontakteAuthenticationClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\font-awesome.css" />
@@ -283,7 +283,9 @@
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
