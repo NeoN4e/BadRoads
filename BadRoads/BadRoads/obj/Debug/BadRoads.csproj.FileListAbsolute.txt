@@ -194,3 +194,6 @@ D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\obj\Debug\Ba
 D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\obj\Debug\BadRoads.csprojResolveAssemblyReference.cache
 D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\obj\Debug\BadRoads.dll
 D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\obj\Debug\BadRoads.pdb
+D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\BadRoads\obj\Debug\BadRoads.csproj.App.config
+D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\BadRoads\obj\Debug\BadRoads.csprojResolveAssemblyReference.cache
+D:\Documents\Visual Studio 2010\Projects\BadRoads\BadRoads\BadRoads\BadRoads\obj\Debug\BadRoads.dll

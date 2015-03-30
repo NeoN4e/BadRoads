@@ -218,6 +218,29 @@ namespace BadRoads.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+            List<string> list = new List<string>();
+            foreach (var item in result.ExtraData.Values)
+            {
+                list.Add(item);
+            }
+            //0 - id,
+            //1 - username(email),
+            //2 - name,
+            //3 - link,
+            //4 - gender,
+            //5 - accesstoken,
+            User u = new Model.User()
+            {
+                Email = list.ElementAt(1),
+                Name = list.ElementAt(2),
+                Photo = list.ElementAt(3)
+            };
+            var exists = from user in db.User where u.Name == user.Name && u.Email == user.Email select user;
+            if (exists == null)
+            {
+                db.User.Add(u);
+                db.SaveChanges();
+            }
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
