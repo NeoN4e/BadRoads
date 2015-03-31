@@ -1,0 +1,253 @@
+/*=============FONTS=============*/
+
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Condensed&subset=latin,cyrillic-ext,cyrillic);
+
+h1,
+h2,
+h3,
+h4,
+a,
+p,
+input,
+body,
+select, button {
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-weight: 400;
+}
+
+/*=============DEFAULT SETINGS=============*/
+h1 {
+    font-size: 18px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+p {
+    display: inline;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+p a {
+    text-decoration: underline;
+    margin: 0 10px;
+}
+
+.centertext {
+    margin: 0 auto;
+    padding: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #a9aaaa;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
+    ol li {
+        padding: 10px 0;
+    }
+
+        ol li label {
+            display: inline-block;
+            width: 25%;
+        }
+
+        ol li input {
+            display: inline-block;
+            width: 64%;
+        }
+
+input {
+    border: 3px solid #f8d200;
+    margin: 0 5px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    height: 15px;
+    color: black;
+    background-color: gray;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+    input[type="checkbox"] {
+        width: auto;
+    }
+
+    input[type="submit"],
+    input[type="button"] {
+        height: 30px;
+        width: 150px;
+        padding: 5px 10px;
+        margin: 0;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            border: 3px solid black;
+            background-color: #f8d200;
+        }
+
+button {
+    width: 150px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border-radius: 15px;
+    border: 3px solid gray;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: gray;
+        border: 3px solid #f8d200;
+    }
+
+    button[value="vkontakte"] {
+        border: 3px solid gray;
+        background-color: #537599;
+    }
+
+    button[value="facebook"] {
+        border: 3px solid gray;
+        background-color: #44619d;
+    }
+
+        button[value="vkontakte"]:hover,
+        button[value="facebook"]:hover {
+            color: black;
+        }
+
+/*=============BODY STYLES=============*/
+
+#menu {
+    background-color: #556270;
+    position: fixed;
+    width: 250px;
+    height: 100vh;
+    min-height: 520px;
+    margin-left: -250px;
+    z-index: 1000;
+    opacity: 0.97;
+}
+
+#content {
+}
+/*=============MENU=============*/
+
+#btnmenu {
+    background-color: #f8d200;
+    border-radius: 3px;
+    border: 2px solid black;
+    position: absolute;
+    cursor: pointer;
+    left: 270px;
+    top: 20px;
+    width: 34px;
+    height: 31px;
+    text-align: center;
+}
+
+#lang {
+    width: 45px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    left: 198px;
+    background-color: gray;
+    border-radius: 15px;
+    border: 3px solid #f8d200;
+    font-size: 14px;
+}
+
+#logo {
+    width: 12.5em;
+    height: 12.5em;
+    margin: 20px auto;
+}
+
+.search {
+    width: 175px;
+}
+
+    .search[type="submit"],
+    .search[type="button"] {
+        padding: 0;
+        width: 30px;
+    }
+
+#navmenu {
+    margin: 20px 0;
+}
+
+    #navmenu ul li {
+        padding: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        list-style: none;
+        border-bottom: 1px solid transparent;
+    }
+
+        #navmenu ul li:hover,
+        #navmenu ul li.active {
+            border-bottom: 1px solid #f8d200;
+            background-color: gray;
+        }
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    left: 70px;
+    text-align: center;
+}
+
+    footer a {
+        color: black;
+    }
+
+        footer a:hover {
+            color: #f8d200;
+        }
+/*=============OTHERS=============*/
+
+.fullscreen {
+    background: url(/Images/badroads_bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.logo {
+    display: block;
+    margin: 25px auto;
+    height: 360px;
+    width: 360px;
+}
+
+.yellow {
+    display: block;
+    padding: 10%;
+    color: #f8d200;
+}
+
+.btnconfirm[type="submit"] {
+    width: 150px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0;
+}

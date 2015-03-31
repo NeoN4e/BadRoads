@@ -19,7 +19,6 @@ namespace BadRoads.Controllers
     {
         //
         // GET: /Account/Login
-
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -41,7 +40,7 @@ namespace BadRoads.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Логин и/или пароль введены не верно");
             return View(model);
         }
 
@@ -79,8 +78,10 @@ namespace BadRoads.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { Email = model.Email }); // Add Email to defoult Accaunt Table (UserProfile)
+                    //Roles.AddUserToRole(model.UserName, "user"); // Add role to Rigister role
                     WebSecurity.Login(model.UserName, model.Password);
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -218,6 +219,8 @@ namespace BadRoads.Controllers
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+            
+
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
