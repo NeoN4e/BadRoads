@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="cleartype" content="on">
     <title>BadRoads - портал о плохих дорогах</title>
-    <link href="~/Content/img/icon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Images/icon.png" rel="shortcut icon" type="image/x-icon" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/scripts")
 </head>
@@ -43,7 +43,7 @@
                 </li>
                 <li>
                     <i class="fa fa-picture-o"></i>
-                    <a href="#">Фото</a>
+                    @Html.ActionLink("Галерея", "Gallery", "Home")
                 </li>
             </ul>
         </nav>
