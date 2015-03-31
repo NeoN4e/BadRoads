@@ -14,7 +14,9 @@ namespace BadRoads.Models
         /// <param name="nameOrConnectionString">Строка подключения или имя строки подключения из КОНФИГ файла</param>
         public BadroadsDataContext(string nameOrConnectionString = "DefaultConnection")
             : base(nameOrConnectionString)
-        {}
+        {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BadroadsDataContext>());
+        }
 
         public DbSet<Point> Points { get; set; }
         public DbSet<Photo> Photos { get; private set; }
@@ -58,14 +60,16 @@ namespace BadRoads.Models
         [Required]
         public virtual Defect Defect { get; set; }
 
-        /// <summary>Метаданные гугл мама, координаты точки</summary>
-        public string GooleMapInfo { get; set; }
+       
 
         /// <summary>Рейтинг ямы</summary>
         public int Rate { get; set; }
 
         /// <summary>Статус проверена или нет</summary>
         public bool isValid { get; set; }
+
+         /// <summary>Метаданные гугл мама, координаты точки</summary>
+        public virtual GeoData GeoData { get; set; }
 
         /// <summary>Обложка дефекта</summary>
         public virtual Photo Cover { get; set; } 
@@ -85,6 +89,24 @@ namespace BadRoads.Models
         {
             this.Comments.Add(C);
         }
+    }
+
+    /// <summary>Гео данные  ГуглМапс</summary>
+    public class GeoData : BadroadsDataItem
+    {
+        public GeoData(double latitude,double longitude)
+        {
+            this.Latitude = latitude;
+            this.Longitude = longitude;
+        }
+
+        [Required]
+        public double Latitude{get;private set;}
+        [Required]
+        public double Longitude{get;private set;}
+        
+        /// <summary>Точный адрес объекта</summary>
+        public string FullAddress{get;set;}
     }
 
     /// <summary>Дефект дороги</summary>
