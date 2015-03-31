@@ -4,43 +4,42 @@
 }
 <div class="section group">
     <div class="col span_2_of_3">
-        <h1 class="centertext">@ViewBag.Title</h1> 
+        <h1 class="centertext">@ViewBag.Title</h1>
     </div>
 </div>
-<div class="section group">       
+<div class="section group">
     <div class="col span_1_of_3">
         <h2 class="centertext">Заполните поля для регистрации</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Email)
-                @Html.TextBoxFor(m => m.Email)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword) 
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>         
-        </ol>
-        <input class="btnconfirm" type="submit" value="Отправить" />
-}
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                </li>
+            </ol>
+            <input class="btnconfirm" type="submit" value="Отправить" />
+        }
     </div>
     <div class="col span_1_of_3">
         <h2 class="centertext">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
         @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
     </div>
 </div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

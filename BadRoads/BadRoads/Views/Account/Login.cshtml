@@ -30,19 +30,17 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Войти" />
+        <input class="btnconfirm" type="submit" value="Войти" />
     <p>
         @Html.ActionLink("Регистрация", "Register")
     </p>
 }
     </div>
     <div class="col span_1_of_3">
-        <h2 class="centertext">Вы можете войти с помощью учетных записей социальных сетей</h2>
+        <h2 class="centertext">Войти с помощью социальных сетей</h2>
         @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
     </div>
 </div>
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
