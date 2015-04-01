@@ -1,8 +1,54 @@
 ﻿@{
-    ViewBag.Title = "About us";
+    ViewBag.Title = "Галерея";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>@ViewBag.Message</h2>
-</hgroup>
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="centertext">@ViewBag.Title</h1>
+    </div>
+</div>
+<div class="section group">
+    <div class="col span_4_of_5">
+        <div class="grid">
+            <h3 class="title">Title</h3>
+            <img src=""/>
+            <div class="map"></div>
+        </div>
+        <div class="grid">
+            <h3 class="title">Title</h3>
+            <img src=""/>
+            <div class="map"></div>
+        </div>
+        <div class="grid">
+            <h3 class="title">Title</h3>
+            <img src=""/>
+            <div class="map"></div>
+        </div>
+        <div class="grid">
+            <h3 class="title">Title</h3>
+            <img src=""/>
+            <div class="map"></div>
+        </div>
+        <div class="grid">
+            <h3 class="title">Title</h3>
+            <img src=""/>
+            <div class="map"></div>
+        </div>
+        <div class="grid">
+            <h3 class="title">Title</h3>
+            <img src=""/>
+            <div class="map"></div>
+        </div>
+    </div>
+    <div class="col span_1_of_5">
+        <form>
+            <h2 class="centertext">Фильтр</h2>
+            <input class="full filter" type="text" placeholder="Область" />
+            <input class="full filter" type="text" placeholder="Город" />
+            <input class="full filter" type="text" placeholder="Улица" />
+            <input class="btnconfirm" type="submit" value="Фильтровать" />
+        </form>
+    </div>
+</div>
+<div class="section group">
+    <h2 class="centertext">Для пагинатора</h2>
+</div>

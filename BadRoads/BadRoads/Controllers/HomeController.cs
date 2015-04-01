@@ -18,15 +18,11 @@ namespace BadRoads.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "About ViewBag.Message";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Contact ViewBag.Message";
-
             return View();
         }
 
