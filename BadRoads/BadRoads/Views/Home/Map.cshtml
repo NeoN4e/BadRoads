@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BadRoads.Models.Point>
+
+@{
+    ViewBag.Title = "Карта";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
+    {
+
+    <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" dat-id="@item.ID" class="points"></p>
+        }
+    }
+
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="centertext">@ViewBag.Title</h1>
+    </div>
+</div>
+<div class="section group">
+    <div class="col span_4_of_5">
+        <div id="map_canvas"></div>
+        @*блок с картой*@
+        <div id="resultSearch"></div>
+    </div>
+    <div class="col span_1_of_5">
+        <h2 class="centertext">Фильтр</h2>
+        <input class="full filter" placeholder="Значения для фильтрации"  type="text" id="searchAdress" />
+        @*строка поиска по карте*@
+        <input type="button" onclick="CodeAddress();" value="Перейти на карте" />
+    </div>
+</div>
+
+@section Scripts {    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>                                          @*подключение Google Maps API*@
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
+    @Scripts.Render("~/Scripts/map.js")
+}  
