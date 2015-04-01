@@ -12,7 +12,7 @@ namespace BadRoads.Controllers
     public class PointController : Controller
     {        
         [HttpPost]
-        public ActionResult Create(Point Pnt)
+        public ActionResult CreatePoint(Point Pnt)
         {
             BadroadsDataContext db = new BadroadsDataContext();      // объект модели
 
