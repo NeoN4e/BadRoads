@@ -10,12 +10,12 @@ namespace BadRoads.Controllers
 {
     [Culture]
     public class PointController : Controller
-    {        
+    {
+        BadroadsDataContext db = new BadroadsDataContext();      // объект модели
+
         [HttpPost]
         public ActionResult CreatePoint(Point Pnt)
         {
-            BadroadsDataContext db = new BadroadsDataContext();      // объект модели
-
             if (ModelState.IsValid)
             {
                 db.Points.Add(Pnt);
