@@ -6,6 +6,7 @@ var markers = new Array();
 
 function SetPoints() {                                     // метод проставления всех точек на карте
     var masPoints = document.getElementsByClassName("points");   // получаем координаты точек с html
+    var imageMarker = "../../Images/newmarkersmall.png";              // картинка для маркеров
     for (var x = 0; x < masPoints.length; x++) {
         var la = $(masPoints[x]).data('latitude');
         la = la.replace(",", ".");
@@ -14,6 +15,7 @@ function SetPoints() {                                     // метод про�
         markers[x] = new google.maps.Marker({                    // создаем маркер
             position: new google.maps.LatLng(la, ln),
             map: map,
+            icon: imageMarker,
             title: $(masPoints[x]).data('adress')
         });
         markers[x].idPoint = $(masPoints[x]).data('id');                        // присваиваем маркеру свойство с ID точки
