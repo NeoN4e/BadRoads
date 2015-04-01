@@ -79,6 +79,7 @@ namespace BadRoads.Models
 
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email Address")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

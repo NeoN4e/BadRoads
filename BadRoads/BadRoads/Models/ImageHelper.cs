@@ -16,7 +16,8 @@ namespace BadRoads.Models
     /// This class provides info about GPS Metadata in images
     /// Author: Yuriy Kovalenko (anekosheik@gmail.com)
     /// </summary>
-    public class GPSMetadataReader
+    //public class GPSMetadataReader
+    public class ImageHelper
     {
 
 #region Fields
@@ -37,7 +38,7 @@ namespace BadRoads.Models
         /// Constructs and initializes a new instance 
         /// </summary>
         /// <param name="filename">The path of the file to use in the new instance</param>
-        public GPSMetadataReader(string filename)
+        public ImageHelper(string filename)
         {
             try
             {
@@ -218,6 +219,43 @@ namespace BadRoads.Models
         private string GetString(string query)
         {
             return (string)bitmapMetadata.GetQuery(query);
+        }
+
+
+        public static void SaveUploadFiles(IEnumerable<HttpPostedFileBase> upload)
+        {
+            try
+            {
+                if (upload != null)
+                {
+                    string directory = "~/Images/FotoRoads/"; // заменить путь
+                    List<string> fileList = new List<string>();
+                    foreach (var file in upload)
+                    {
+                        if (file != null)
+                        {
+                            string fileName = Path.Combine(directory, System.IO.Path.GetFileName(file.FileName));
+                            file.SaveAs(fileName);
+                            fileList.Add(fileName);
+                        }
+                    }
+
+                    FileConverter(fileList); // заглушка метод Саши Богуславского
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine(ex.Message); 
+            }
+        }
+
+        public static void FileConverter(List<string> fileList) // заглушка
+        {
+            return; 
         }
 
 #endregion
