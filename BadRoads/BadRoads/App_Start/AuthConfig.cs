@@ -32,7 +32,7 @@ namespace BadRoads
               "4852475", "ulGQqEeM9UNb7pCqORzp"),
        displayName: "ВКонтакте", // надпись на кнопке
        extraData: null);
-            //OAuthWebSecurity.RegisterGoogleClient();
+            OAuthWebSecurity.RegisterGoogleClient();
         }
     }
 }
