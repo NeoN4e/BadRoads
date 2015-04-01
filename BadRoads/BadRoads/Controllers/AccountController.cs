@@ -19,6 +19,8 @@ namespace BadRoads.Controllers
     {
         //
         // GET: /Account/Login
+        
+        
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -78,7 +80,7 @@ namespace BadRoads.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { Email = model.Email }); // Add Email to defoult Accaunt Table (UserProfile)
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password/*, new { Email = model.Email }*/); // Add Email to defoult Accaunt Table (UserProfile)
                     //Roles.AddUserToRole(model.UserName, "user"); // Add role to Rigister role
                     WebSecurity.Login(model.UserName, model.Password);
 
