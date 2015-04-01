@@ -23,7 +23,10 @@ namespace BadRoads
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            //CSS for Layout
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/col.css", "~/Content/html5reset.css", "~/Content/font-awesome.min.css"));
+            //SCRIPTS for Layout
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include("~/Scripts/jquery-2.1.3.min.js", "~/Scripts/jquery.unobtrusive-ajax.js", "~/Scripts/jquery-ui-1.11.4.js", "~/Scripts/site.js"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
