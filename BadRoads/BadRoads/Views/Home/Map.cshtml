@@ -1,102 +1,39 @@
 ﻿@model IEnumerable<BadRoads.Models.Point>
 
 @{
-    ViewBag.Title = "Map";
+    ViewBag.Title = "Карта";
 }
 
-<style type="text/css">
-    html {
-        height: 100%;
-    }
-
-    body {
-        height: 100%;
-    }
-
-    #map_canvas {
-        width: 80%;
-        position: absolute;
-        height: 80%;
-        margin-left: 18%;
-        margin-top: 4%;
-        border: 2px groove black;
-    }
-</style>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>                                          @*подключение Google Maps API*@
-
-<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
-
-<script type="text/javascript">
-        $(document).ready(function () { Initialize(); });
-    var myLatlng = new google.maps.LatLng(48.466601, 35.018155);  // центр карты
-    var map;                                                  // карта
-    var geocoder;                                             // объект класса Geocoder
-    var markers = new Array();
-
-    function SetPoints() {                                     // метод проставления всех точек на карте
-        var masPoints = document.getElementsByClassName("points");   // получаем координаты точек с html
-        for (var x = 0; x < masPoints.length; x++) {
-            var la = $(masPoints[x]).data('latitude');
-            la = la.replace(",", ".");
-            var ln = $(masPoints[x]).data('longitude');
-            ln = ln.replace(",", ".");
-            markers[x] = new google.maps.Marker({                    // создаем маркер
-                position: new google.maps.LatLng(la, ln),
-                map: map,
-                title: $(masPoints[x]).data('adress')
-            });
-            markers[x].idPoint = $(masPoints[x]).data('id');                        // присваиваем маркеру свойство с ID точки
-            google.maps.event.addListener(markers[x], 'click', function () {       // подписываем маркер на событие click
-                alert("ID точки " + this.idPoint);                             //  здесь будет вызываться экшен с подробным отображением точки, по которой кликнули. Передаем туда ID точки
-            });
-        }
-
-    }
-    function Initialize() {
-        geocoder = new google.maps.Geocoder();      // создание объекта Geocoder
-        var mapOptions = {                          // задание настроек для карты
-            center: myLatlng,
-            zoom: 12,
-            mapTypeId: google.maps.MapTypeId.ROADMAP      // тип карты. ROADMAP - дорожная
-        };
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);           // создание карты
-        SetPoints();                                                                            // вызываем метод проставления всех точек на карте
-        var markerClusterer = new MarkerClusterer(map, markers,                                 // создание объекта MarkerClusterer для группировки маркеров на карте
-{                                                                                               // настройки группировки
-    maxZoom: 13,
-    gridSize: 50,
-    styles: null
-});
-    }
-    function CodeAddress() {                                                                    // центрирование карты по адресу введенному в строке поиска
-        geocoder.geocode({ 'address': $('#searchAdress').val() }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-            } else {
-                alert('Geocode was not successful for the following reason: ' + status);         // сообщение, если геокодирование не удалось, например, нет совпадения с введенным адресом
-            }
-        });
-    }
-
-</script>
-
-<body>
-    
-    @if (Model != null && Model.Count() > 0)
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
     {
-        foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
-        {
-            <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" dat-id="@item.ID" class="points"></p>
+
+    <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" dat-id="@item.ID" class="points"></p>
+        }
     }
-}
 
-    <div id="map_canvas"></div>                         @*блок с картой*@
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="centertext">@ViewBag.Title</h1>
+    </div>
+</div>
+<div class="section group">
+    <div class="col span_4_of_5">
+        <div id="map_canvas"></div>
+        @*блок с картой*@
+        <div id="resultSearch"></div>
+    </div>
+    <div class="col span_1_of_5">
+        <h2 class="centertext">Фильтр</h2>
+        <input class="full filter" placeholder="Значения для фильтрации"  type="text" id="searchAdress" />
+        @*строка поиска по карте*@
+        <input type="button" onclick="CodeAddress();" value="Перейти на карте" />
+    </div>
+</div>
 
-    <input type="text" id="searchAdress" />                             @*строка поиска по карте*@
-    <input type="button" onclick="CodeAddress();" value="Перейти на карте" />
-
-    <div id="resultSearch"></div>
-    <br /><br /><br />
-
-</body>
-
+@section Scripts {    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>                                          @*подключение Google Maps API*@
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
+    @Scripts.Render("~/Scripts/map.js")
+}  

@@ -91,7 +91,6 @@ input {
         height: 30px;
         width: 150px;
         padding: 5px 10px;
-        margin: 0;
         cursor: pointer;
         background-color: #f1c40f;
     }
@@ -165,14 +164,14 @@ button {
     position: absolute;
     top: 5px;
     left: 198px;
-    background-color: gray;
+    background-color: #f8d200;
     border-radius: 3px;
     font-size: 14px;
     border: 0;
 }
 
     #lang:hover {
-        background-color: #f8d200;
+        background-color: gray;
     }
 
 #logo {
@@ -291,6 +290,10 @@ footer {
     padding: 5px 0;
 }
 
-.map {
-    height: 65px;
+#map_canvas {
+    width: 99%;
+    height: 720px;
+    margin: 0.5%;
+    border-radius: 3px;
+    border: 1px solid #bdc3c7;
 }
