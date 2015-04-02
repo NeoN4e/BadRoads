@@ -352,3 +352,27 @@ nav {
     padding: 0;
     height: 88vh;
 }
+
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+
+    .map {
+        height: 65vh;
+    }
+
+    #map_canvas {
+        height: 65vh;
+    }
+
+    .logo {
+        display: block;
+        margin: 25px auto;
+        height: 260px;
+        width: 260px;
+    }
+
+    .grid {
+        width: 98%;
+        height: 70vh;
+    }
+}
