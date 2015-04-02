@@ -8,21 +8,12 @@ using System.Web.Security;
 
 namespace BadRoads.Models
 {
-    /// <summary>
-    /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
-    /// </summary>
-    /// <typeparam name="TContext"></typeparam>
-    private class AccountInitializer<TContext> : IDatabaseInitializer<TContext>
-        where TContext : DbContext
-    { }
-
     public class UsersContext : DbContext
     {
         public UsersContext()
             : base("DefaultConnection")
         {
         }
-
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
 

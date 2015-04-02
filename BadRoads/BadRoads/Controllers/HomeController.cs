@@ -16,6 +16,11 @@ namespace BadRoads.Controllers
 
         public ActionResult Index()
         {
+            if (User.IsInRole("User"))
+            {
+                db.Points.Add(new Point(db.GetUSerProfile(User)));
+                db.SaveChanges();
+            }
             return View();
         }
 

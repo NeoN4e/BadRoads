@@ -7,6 +7,19 @@ using System.Collections;
 
 namespace BadRoads.Models
 {
+    /// <summary>
+    /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
+    /// </summary>
+    /// <typeparam name="TContext"></typeparam>
+    class DbInitializer : CreateDatabaseIfNotExists<BadroadsDataContext>
+    {
+        protected override void Seed(BadroadsDataContext context)
+        {
+//             base.Seed(context);
+            context.Database.ExecuteSqlCommand("inser into Defect(Name) values('Яма')");
+        }
+    }
+
     /// <summary>Контекст подключения к БД</summary>
     public class BadroadsDataContext : DbContext
     {
@@ -15,7 +28,8 @@ namespace BadRoads.Models
         public BadroadsDataContext(string nameOrConnectionString = "DefaultConnection")
             : base(nameOrConnectionString)
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BadroadsDataContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<BadroadsDataContext>());
+            //Database.SetInitializer(new DbInitializer());
         }
 
         public DbSet<Point> Points { get; set; }
