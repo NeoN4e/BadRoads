@@ -32,7 +32,10 @@ a {
     color: black;
     text-decoration: none;
 }
-
+#content p {
+    margin:0;
+    padding;0;
+}
 p a {
     text-decoration: underline;
     margin: 0 10px;
@@ -89,7 +92,7 @@ button[value="google"] {
 
 /*=============SIZE=============*/
 
-input, select, textarea, button, .t, .map {
+input, select, textarea, button, .t, .map, p {
     margin: 0.5%;
     padding: 0.5%;
 }
@@ -330,7 +333,7 @@ nav {
 }
 
 #map_canvas {
-    height: 93vh;
+    height: 91vh;
     margin: 0.5%;
     border-radius: 3px;
 }
