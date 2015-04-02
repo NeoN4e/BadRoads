@@ -15,8 +15,8 @@ namespace BadRoads.Models
     {
         protected override void Seed(BadroadsDataContext context)
         {
-//             base.Seed(context);
-            context.Database.ExecuteSqlCommand("inser into Defect(Name) values('Яма')");
+            base.Seed(context);
+            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
         }
     }
 
@@ -28,9 +28,25 @@ namespace BadRoads.Models
         public BadroadsDataContext(string nameOrConnectionString = "DefaultConnection")
             : base(nameOrConnectionString)
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<BadroadsDataContext>());
-            //Database.SetInitializer(new DbInitializer());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<BadroadsDataContext>());
+            Database.SetInitializer(new DbInitializer());
         }
+
+        //Построитель модели
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+
+        //    modelBuilder.Entity<Point>()
+        //        .HasMany(p => p.Comments)
+        //        .WithMany(c => c.Points)
+        //        .Map(mc =>
+        //        {
+        //            mc.ToTable("PointJoinComent");
+        //            mc.MapLeftKey("id_Point");
+        //            mc.MapRightKey("id_Comment");
+        //        });
+        //}
 
         public DbSet<Point> Points { get; set; }
         public DbSet<Photo> Photos { get; private set; }
@@ -62,10 +78,6 @@ namespace BadRoads.Models
             this.isValid = false;
         }
         
-        /// <summary>Автор</summary>
-        [Required]
-        public UserProfile Autor { get; private set; }
-
         /// <summary>Дата и Время публикации дефекта</summary>
         [Required]
         public DateTime Date { get; private set; }
@@ -73,14 +85,16 @@ namespace BadRoads.Models
         /// <summary>Разновидность дефекта</summary>
         [Required]
         public virtual Defect Defect { get; set; }
-
-       
-
+        
         /// <summary>Рейтинг ямы</summary>
         public int Rate { get; set; }
 
         /// <summary>Статус проверена или нет</summary>
         public bool isValid { get; set; }
+
+        /// <summary>Автор</summary>
+        //[Required]
+        public virtual UserProfile Autor { get; private set; }
 
          /// <summary>Метаданные гугл мама, координаты точки</summary>
         public virtual GeoData GeoData { get; set; }
@@ -153,11 +167,7 @@ namespace BadRoads.Models
             this.Autor = UProfile;
             this.Date = DateTime.Now; 
         }
-
-        /// <summary>Автор Комментария</summary>
-        [Required] 
-        public UserProfile Autor { get; private set; }
- 
+        
         /// <summary>Дата и Время публикации комментария</summary>
         [Required]
         public DateTime Date { get; private set; }
@@ -166,6 +176,10 @@ namespace BadRoads.Models
         [Required]
         [Display(Name = "Comment")]
         public string ContentText { get; set; }
+
+        /// <summary>Автор Комментария</summary>
+        //[Required]
+        public virtual UserProfile Autor { get; private set; }
 
         public virtual ICollection<Point> Points { get; set; }
           

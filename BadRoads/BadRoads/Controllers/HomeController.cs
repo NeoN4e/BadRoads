@@ -13,7 +13,7 @@ namespace BadRoads.Controllers
     {
         public ActionResult Index()
         {
-             return View();
+            return View();
         }
 
         public ActionResult About()
@@ -53,6 +53,7 @@ namespace BadRoads.Controllers
 
         public ActionResult Map()   // отображение основной карты со всеми сохраненными точками
         {
+            BadroadsDataContext db = new BadroadsDataContext();      // объект модели
             //List<Point> listPoints = db.Points.ToList<Point>();                список всех точек в базе
             List<Point> listPoints = new List<Point>();
             for (int x = 0; x < 100; x++)                              // заглушка. чтобы наполнить список с точками, которых пока нет в базе
@@ -66,7 +67,9 @@ namespace BadRoads.Controllers
                 Point p = new Point(u);
                 p.GeoData = g;
                 listPoints.Add(p);
+                db.Points.Add(p);
             }
+          //  db.SaveChanges();
             return View(listPoints);
         }
     }
