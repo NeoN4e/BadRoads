@@ -15,19 +15,28 @@
         <div id="btnmenu" title="Меню">
             <i class="fa fa-bars fa-2x"></i>
         </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="/Home/Add">
+                <div id="btnadd" title="Добавить место">
+                    <i class="fa fa-plus-square fa-2x"></i>
+                </div>
+            </a>
+        }
         <select name="lang" id="lang">
             <option value="RU">RU</option>
             <option value="UK">UA</option>
             <option value="EN">EN</option>
         </select>
         <div id="logo">
-            <a href="/"><img src="~/Images/logo_badroads.png" alt="badroads"></a>
+            <a href="/">
+                <img src="~/Images/logo_badroads.png" alt="badroads"></a>
         </div>
         <form>
             <input class="search" type="text" placeholder="Поиск">
             <input class="search" type="submit" value="GO">
         </form>
-        <nav id="navmenu">
+        <nav>
             <ul>
                 <li>
                     @Html.Partial("_LoginPartial")
@@ -40,9 +49,6 @@
                 </li>
                 <li>
                     @Html.ActionLink("Галерея", "Gallery", "Home")
-                </li>
-                <li>
-                    @Html.ActionLink("Добавить", "Add", "Home")
                 </li>
             </ul>
         </nav>

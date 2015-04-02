@@ -2,18 +2,16 @@
 @{
     ViewBag.Title = "Register";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Associate your @ViewBag.ProviderDisplayName account.</h2>
-</hgroup>
-
+<div class="section group hd"></div>
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="ct">@ViewBag.Title</h1>
+        <h2>Профиль @ViewBag.ProviderDisplayName.</h2>
+    </div>
+</div>
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Association Form</legend>
         <p>
             You've successfully authenticated with <strong>@ViewBag.ProviderDisplayName</strong>.
             Please enter a user name for this site below and click the Confirm button to finish
@@ -27,8 +25,7 @@
             </li>
         </ol>
         @Html.HiddenFor(m => m.ExternalLoginData)
-        <input type="submit" value="Register" />
-    </fieldset>
+        <input type="submit" value="Зарегистрировать" />
 }
 
 @section Scripts {

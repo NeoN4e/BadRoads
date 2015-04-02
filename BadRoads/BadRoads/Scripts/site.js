@@ -14,7 +14,7 @@ function Size() {
     
     //выделение активного пункта меню
     var link = window.location.pathname;
-    $('#navmenu ul li a[href="'+link+'"]').parent().addClass('active');
+    $('nav ul li a[href="'+link+'"]').parent().addClass('active');
 };
 
 function HideShowMenu() {
