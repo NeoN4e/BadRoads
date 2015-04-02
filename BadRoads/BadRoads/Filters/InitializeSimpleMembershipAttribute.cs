@@ -29,16 +29,34 @@ namespace BadRoads.Filters
 
                 try
                 {
+                    bool isNewDb = false; //Флаг создана новая БД
+
                     using (var context = new UsersContext())
                     {
                         if (!context.Database.Exists())
                         {
                             // Create the SimpleMembership database without Entity Framework migration schema
                             ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                            isNewDb = true;
                         }
                     }
 
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                   
+                    //Начавльное наполнение БД
+                    if (isNewDb)
+                    {
+                        //Создание пользователя Admin
+                        WebMatrix.WebData.WebSecurity.CreateUserAndAccount("Admin", "Admin", new { Email = "Admin@BadRoads.dp.ua" }); // Add Email to defoult Accaunt Table (UserProfile)
+
+                        //Создание ролей
+                        System.Web.Security.Roles.CreateRole("Administator");
+                        System.Web.Security.Roles.CreateRole("Moderator");
+                        System.Web.Security.Roles.CreateRole("User");
+
+                        //Назначение ролей админу
+                        System.Web.Security.Roles.AddUserToRoles("Admin", new[] { "User", "Moderator", "Administator" });
+                    }
                 }
                 catch (Exception ex)
                 {
