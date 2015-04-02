@@ -48,7 +48,7 @@ label {
 
 /*=============STYLES AND COLORS=============*/
 
-input, input[type="file"]::-webkit-file-upload-button, select, textarea, button, #map_canvas, .map {
+input, input[type="file"]::-webkit-file-upload-button, select, textarea, button, #map_canvas, .map, .grid {
     background-color: #D2D7D3;
     border: 1px solid #95a5a6;
     border-radius: 3px;
@@ -103,6 +103,9 @@ input, select, textarea, button, .hd {
     height: 25px;
 }
 
+input {
+    margin: 1% 0.5%;
+}
 select {
     height: 34px;
 }
@@ -302,10 +305,9 @@ nav {
 .grid {
     display: inline-table;
     width: 24.2%;
+    height: 44vh;
     text-align: center;
     margin: 0.5% 0 0 0.5%;
-    border-radius: 3px;
-    background-color: #f1c40f;
 }
 
     .grid:hover {
@@ -315,22 +317,14 @@ nav {
     }
 
     .grid img {
+        background-color: gray;
         display: block;
         width: 100%;
-        height: 250px;
+        height: 90%;
     }
 
-.full {
-    width: 88%;
-}
-
-.filter {
-    height: 20px;
-    margin: 7px 5px;
-}
-
 .title {
-    height: 20px;
+    height: 10%;
     padding: 5px 0;
 }
 
