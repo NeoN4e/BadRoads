@@ -87,7 +87,8 @@ button[value="google"] {
 }
 
     button[value="vkontakte"]:hover,
-    button[value="facebook"]:hover {
+    button[value="facebook"]:hover,
+    button[value="google"]:hover {
         color: black;
     }
 
