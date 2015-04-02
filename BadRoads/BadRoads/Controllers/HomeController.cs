@@ -58,7 +58,7 @@ namespace BadRoads.Controllers
         {
             //List<Point> listPoints = db.Points.ToList<Point>();                список всех точек в базе
             List<Point> listPoints = new List<Point>();
-            for(int x = 0; x<100;x++)                              // заглушка. чтобы наполнить список с точками, которых пока нет в базе
+            for (int x = 0; x < 100; x++)                              // заглушка. чтобы наполнить список с точками, которых пока нет в базе
             {
                 double latitude = 48.459015 + (x * 0.00045);
                 double longitude = 35.042302 + (x * 0.00045);
