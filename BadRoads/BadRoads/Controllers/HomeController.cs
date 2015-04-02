@@ -11,17 +11,9 @@ namespace BadRoads.Controllers
     [Culture]
     public class HomeController : Controller
     {
-
-        BadroadsDataContext db = new BadroadsDataContext();      // объект модели
-
         public ActionResult Index()
         {
-            if (User.IsInRole("User"))
-            {
-                db.Points.Add(new Point(db.GetUSerProfile(User)));
-                db.SaveChanges();
-            }
-            return View();
+             return View();
         }
 
         public ActionResult About()
