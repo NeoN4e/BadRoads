@@ -38,6 +38,95 @@ p a {
     margin: 0 10px;
 }
 
+label {
+    display: block;
+}
+/*=============STYLES AND COLORS=============*/
+
+input, input[type="file"]::-webkit-file-upload-button, select, textarea, button, #map_canvas, .map {
+    background-color: #D2D7D3;
+    border: 1px solid #95a5a6;
+    border-radius: 3px;
+}
+
+::-webkit-input-placeholder {
+    color: #34495e;
+}
+
+input[type="submit"],
+input[type="button"],
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #f1c40f;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover,
+    input[type="button"]:hover,
+    button:hover {
+        -moz-box-shadow: inset 0px 0px 5px #ecf0f1;
+        -webkit-box-shadow: inset 0px 0px 5px #ecf0f1;
+        box-shadow: inset 0px 0px 5px #ecf0f1;
+    }
+
+button[value="vkontakte"] {
+    background-color: #537599;
+}
+
+button[value="facebook"] {
+    background-color: #44619d;
+}
+
+    button[value="vkontakte"]:hover,
+    button[value="facebook"]:hover {
+        color: black;
+    }
+
+
+/*=============SIZE=============*/
+
+input, select, textarea, button, .t, .map {
+    margin: 0.5%;
+    padding: 0.5%;
+}
+
+input, select, textarea, button {
+    height: 25px;
+}
+
+select {
+    height: 30px;
+}
+
+.f {
+    width: 96%;
+}
+
+.sel.f {
+    width: 97.2%;
+}
+
+.f-2 {
+    width: 46.6%;
+}
+.ht {
+    height: 200px;
+}
+
+
+#navmenu ul li:hover,
+#navmenu ul li.active,
+#lang:hover,
+.grid img,
+.textarea {
+    background-color: #bdc3c7;
+    border: 1px solid #95a5a6;
+    color: black;
+}
+
+
+
+
+
 .centertext {
     margin: 0 auto;
     padding: 10px;
@@ -48,7 +137,7 @@ p a {
 body {
     width: 100%;
     height: 100%;
-    background-color: #ECECEC;
+    background-color: #ecf0f1;
 }
 
 ol, ul {
@@ -71,13 +160,6 @@ ol, ul {
         }
 
 input {
-    border: 0;
-    margin: 0 5px;
-    border-radius: 3px;
-    padding: 5px 10px;
-    height: 15px;
-    color: black;
-    background-color: gray;
     font-weight: 600;
     font-size: 14px;
 }
@@ -90,15 +172,8 @@ input {
     input[type="button"] {
         height: 30px;
         width: 150px;
-        padding: 5px 10px;
         cursor: pointer;
-        background-color: #f1c40f;
     }
-
-        input[type="submit"]:hover,
-        input[type="button"]:hover {
-            background-color: gray;
-        }
 
 button {
     width: 150px;
@@ -106,32 +181,14 @@ button {
     font-size: 16px;
     font-weight: 600;
     color: white;
-    border-radius: 3px;
-    border: 0;
     cursor: pointer;
 }
 
-    button:hover {
-        background-color: gray;
-    }
-
-    button[value="vkontakte"] {
-        background-color: #537599;
-    }
-
-    button[value="facebook"] {
-        background-color: #44619d;
-    }
-
-        button[value="vkontakte"]:hover,
-        button[value="facebook"]:hover {
-            color: black;
-        }
 
 /*=============BODY STYLES=============*/
 
 #menu {
-    background-color: #556270;
+    background-color: #34495e;
     position: fixed;
     width: 250px;
     height: 100vh;
@@ -142,6 +199,7 @@ button {
 }
 
 #content {
+
 }
 /*=============MENU=============*/
 
@@ -169,10 +227,6 @@ button {
     font-size: 14px;
     border: 0;
 }
-
-    #lang:hover {
-        background-color: gray;
-    }
 
 #logo {
     width: 12.5em;
@@ -206,7 +260,6 @@ button {
         #navmenu ul li:hover,
         #navmenu ul li.active {
             border-bottom: 1px solid #f8d200;
-            background-color: gray;
         }
 
 footer {
@@ -246,14 +299,6 @@ footer {
     color: #f8d200;
 }
 
-.btnconfirm[type="submit"] {
-    width: 150px;
-    height: 35px;
-    font-size: 16px;
-    font-weight: 600;
-    margin: 10px 5px;
-}
-
 .grid {
     display: inline-table;
     width: 24.2%;
@@ -273,7 +318,6 @@ footer {
         display: block;
         width: 100%;
         height: 250px;
-        background-color: gray;
     }
 
 .full {
@@ -289,13 +333,15 @@ footer {
     height: 20px;
     padding: 5px 0;
 }
-/*.map {
-    height: 65px;
-}*/
+
 #map_canvas {
-    width: 99%;
+    width: 96%;
     height: 590px;
     margin: 0.5%;
     border-radius: 3px;
-    border: 1px solid #bdc3c7;
+}
+
+.map {
+    padding: 0;
+    height: 88vh;
 }

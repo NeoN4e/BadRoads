@@ -30,28 +30,22 @@
         <nav id="navmenu">
             <ul>
                 <li>
-                    <i class="fa fa-user"></i>
                     @Html.Partial("_LoginPartial")
                 </li>
                 <li>
-                    <i class="fa fa-home"></i>
                     @Html.ActionLink("Главная", "Index", "Home")
                 </li>
                 <li>
-                    <i class="fa fa-globe"></i>
                     @Html.ActionLink("Карта", "Map", "Home")
                 </li>
                 <li>
-                    <i class="fa fa-picture-o"></i>
-                    @Html.ActionLink("Галерея", "About", "Home")
+                    @Html.ActionLink("Галерея", "Gallery", "Home")
+                </li>
+                <li>
+                    @Html.ActionLink("Добавить", "Add", "Home")
                 </li>
             </ul>
         </nav>
-        <footer>
-            <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
-            <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
-            <a href="#"><i class="fa fa-vk fa-lg"></i></a>
-        </footer>
     </header>
     <div id="content">
         @RenderSection("featured", required: false)

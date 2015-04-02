@@ -19,12 +19,12 @@ namespace BadRoads.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Gallery()
         {
             return View();
         }       
 
-        public ActionResult Contact()
+        public ActionResult Add()
         {
             return View();
         }
