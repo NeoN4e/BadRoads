@@ -48,7 +48,7 @@ label {
 
 /*=============STYLES AND COLORS=============*/
 
-input, select, textarea, button, #map_canvas, #map, .grid {
+input, select, textarea, button, #map_canvas, #map, .grid, .block {
     background-color: #D2D7D3;
     border: 1px solid #95a5a6;
     border-radius: 3px;
@@ -102,11 +102,27 @@ button[value="google"] {
         color: black;
     }
 
+.bt {
+    background-color: transparent;
+}
+
 /*=============SIZE=============*/
 
-input, select, textarea, button, .t, #map, p {
+input, select, textarea, button, .t, #map, p, .block, .pad {
     margin: 1% 2.5% 1% 2.5%;
     padding: 1%;
+}
+
+.bordernull {
+    border: 0;
+}
+
+.block {
+    padding: 0;
+}
+
+.ml {
+    margin-left: 2.5%;
 }
 
 input, select, textarea, button, .hd {
@@ -131,6 +147,22 @@ select {
 
 .ht {
     height: 180px;
+}
+
+.hp {
+    height: 157px;
+}
+
+.h-2 {
+    height: 50vh;
+}
+
+.h-3 {
+    height: 33vh;
+}
+
+.h-4 {
+    height: 25vh;
 }
 
 .ct {
@@ -348,6 +380,7 @@ nav {
     padding: 0;
     height: 86vh;
 }
+
 .points {
     display: none;
 }
