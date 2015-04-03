@@ -36,7 +36,7 @@ function Initialize() {
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP      // тип карты. ROADMAP - дорожная
     };
-    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);           // создание карты
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);           // создание карты
     SetPoints();                                                                            // вызываем метод проставления всех точек на карте
     var markerClusterer = new MarkerClusterer(map, markers,                                 // создание объекта MarkerClusterer для группировки маркеров на карте
         {                                                                                               // настройки группировки
