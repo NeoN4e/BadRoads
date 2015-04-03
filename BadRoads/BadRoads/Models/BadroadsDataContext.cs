@@ -7,6 +7,41 @@ using System.Collections;
 
 namespace BadRoads.Models
 {
+    /// <summary>
+    /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
+    /// </summary>
+    /// <typeparam name="TContext"></typeparam>
+    class DbInitializer : DropCreateDatabaseAlways<BadroadsDataContext>
+    {
+        protected override void Seed(BadroadsDataContext context)
+        {
+            base.Seed(context);
+
+            //Дефолтные виды проблем
+            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
+            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
+            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Отсутствие разметки')");
+
+            // заглушка. чтобы наполнить список с точками, которых пока нет в базе
+            Defect d = context.Defects.First();
+            for (int x = 0; x < 100; x++)
+            {
+                double latitude = 48.459015 + (x * 0.00045);
+                double longitude = 35.042302 + (x * 0.00045);
+                string adress = String.Format("Проблема на улице " + x);
+
+                GeoData g = new GeoData(latitude, longitude, adress);
+
+                Point p = new Point();
+                p.GeoData = g;
+                p.Defect = d;
+
+                context.Points.Add(p);
+            }
+            
+        }
+    }
+
     /// <summary>Контекст подключения к БД</summary>
     public class BadroadsDataContext : DbContext
     {
@@ -15,13 +50,42 @@ namespace BadRoads.Models
         public BadroadsDataContext(string nameOrConnectionString = "DefaultConnection")
             : base(nameOrConnectionString)
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BadroadsDataContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<BadroadsDataContext>());
+            Database.SetInitializer(new DbInitializer());
+        }
+
+        //Построитель модели
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //Связь Поинта и Коментариев
+            modelBuilder.Entity<Point>()
+                .HasMany(p => p.Comments)
+                .WithMany(c => c.Points)
+                .Map(mc =>
+                {
+                    mc.ToTable("PointsJoinComents");
+                    //mc.MapLeftKey("id_Point");
+                    //mc.MapRightKey("id_Comment");
+                });
+
+            //Связь Поинта и Фото
+            modelBuilder.Entity<Point>()
+                .HasMany(po => po.Photos)
+                .WithMany(ph => ph.Points)
+                .Map(mc =>
+                {
+                    mc.ToTable("PointsJoinPhotos");
+                    //mc.MapLeftKey("id_Point");
+                    //mc.MapRightKey("id_Photo");
+                });
         }
 
         public DbSet<Point> Points { get; set; }
-        public DbSet<Photo> Photos { get; private set; }
-        private DbSet<UserProfile> Users { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<Defect> Defects { get; set; }
+        private DbSet<UserProfile> Users { get; set; }
 
         /// <summary>Получение ссылки на профиль пользователя</summary>
         /// <param name="User"></param>
@@ -42,17 +106,13 @@ namespace BadRoads.Models
     /// <summary>Точка дефекта на дороге</summary>
     public class Point : BadroadsDataItem
     {
-        public Point(UserProfile UProfile)
+        public Point()
         {
-            this.Autor = UProfile;
+            //this.Autor = UProfile;
             this.Date = DateTime.Now;
             this.isValid = false;
         }
         
-        /// <summary>Автор</summary>
-        [Required]
-        public UserProfile Autor { get; private set; }
-
         /// <summary>Дата и Время публикации дефекта</summary>
         [Required]
         public DateTime Date { get; private set; }
@@ -60,14 +120,16 @@ namespace BadRoads.Models
         /// <summary>Разновидность дефекта</summary>
         [Required]
         public virtual Defect Defect { get; set; }
-
-       
-
+        
         /// <summary>Рейтинг ямы</summary>
         public int Rate { get; set; }
 
         /// <summary>Статус проверена или нет</summary>
         public bool isValid { get; set; }
+
+        /// <summary>Автор</summary>
+        //[Required]
+        public virtual UserProfile Autor { get; set; }
 
          /// <summary>Метаданные гугл мама, координаты точки</summary>
         public virtual GeoData GeoData { get; set; }
@@ -95,11 +157,15 @@ namespace BadRoads.Models
     /// <summary>Гео данные  ГуглМапс</summary>
     public class GeoData : BadroadsDataItem
     {
-        public GeoData(double latitude,double longitude)
+        public GeoData(double latitude, double longitude, string fullAddress="")
         {
             this.Latitude = latitude;
             this.Longitude = longitude;
+            this.FullAddress = fullAddress;
         }
+
+        public GeoData()
+        { }
 
         [Required]
         public double Latitude{get;private set;}
@@ -135,16 +201,12 @@ namespace BadRoads.Models
     /// <summary>Комментарий к Дефекту</summary>
     public class Comment : BadroadsDataItem
     {
-        public Comment(UserProfile UProfile)
+        public Comment()
         {
-            this.Autor = UProfile;
+          // this.Autor = UProfile;
             this.Date = DateTime.Now; 
         }
-
-        /// <summary>Автор Комментария</summary>
-        [Required] 
-        public UserProfile Autor { get; private set; }
- 
+        
         /// <summary>Дата и Время публикации комментария</summary>
         [Required]
         public DateTime Date { get; private set; }
@@ -153,6 +215,10 @@ namespace BadRoads.Models
         [Required]
         [Display(Name = "Comment")]
         public string ContentText { get; set; }
+
+        /// <summary>Автор Комментария</summary>
+        //[Required]
+        public virtual UserProfile Autor { get;  set; }
 
         public virtual ICollection<Point> Points { get; set; }
           

@@ -39,6 +39,21 @@ namespace BadRoads.Filters
                     }
 
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                   
+                    //Начавльное наполнение БД
+                    if (!System.Web.Security.Roles.RoleExists("Administator"))
+                    {
+                        //Создание пользователя Admin
+                        WebMatrix.WebData.WebSecurity.CreateUserAndAccount("Admin", "Admin", new { Email = "Admin@BadRoads.dp.ua" }); // Add Email to defoult Accaunt Table (UserProfile)
+
+                        //Создание ролей
+                        System.Web.Security.Roles.CreateRole("Administator");
+                        System.Web.Security.Roles.CreateRole("Moderator");
+                        System.Web.Security.Roles.CreateRole("User");
+
+                        //Назначение ролей админу
+                        System.Web.Security.Roles.AddUserToRoles("Admin", new[] { "User", "Moderator", "Administator" });
+                    }
                 }
                 catch (Exception ex)
                 {
