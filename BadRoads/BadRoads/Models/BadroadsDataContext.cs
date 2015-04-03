@@ -152,6 +152,16 @@ namespace BadRoads.Models
         {
             this.Comments.Add(C);
         }
+        public DateTime GetLastCommentDate()
+        {
+            DateTime lastCommentDate = new DateTime(1970, 01, 01, 00, 00, 00);//для инициализации  переменной используем дату 01.01.1970
+            foreach (var item in this.Comments)
+            {
+                if (item.Date > lastCommentDate)
+                    lastCommentDate = item.Date;
+            }
+            return lastCommentDate;
+        }
     }
 
     /// <summary>Гео данные  ГуглМапс</summary>
@@ -220,9 +230,7 @@ namespace BadRoads.Models
         //[Required]
         public virtual UserProfile Autor { get;  set; }
 
-        public virtual ICollection<Point> Points { get; set; }
+        public virtual ICollection<Point> Points { get; set; }        
           
     }
-
-
 }
