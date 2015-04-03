@@ -312,8 +312,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\Gallery.cshtml" />
-    <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Point\Gallery.cshtml" />
+    <Content Include="Views\Point\Add.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
