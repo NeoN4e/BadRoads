@@ -63,6 +63,7 @@ namespace BadRoads.Models
 
         public DbSet<Point> Points { get; set; }
         public DbSet<Photo> Photos { get; private set; }
+        public DbSet<Defect> Defects { get; private set; }
         private DbSet<UserProfile> Users { get; set; }
 
         /// <summary>Получение ссылки на профиль пользователя</summary>
