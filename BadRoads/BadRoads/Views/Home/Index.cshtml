@@ -1,4 +1,22 @@
-﻿<div class="fullscreen">
+﻿@section scripts {
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+
+    <script>
+        function save() {
+            $.ajax({
+                type: "POST",
+                url: "/Home/Index",
+                data: { content: CKEDITOR.instances["editor1"].getData(), id: model.ID },
+                success: function () {
+                    window.location = "/Home";
+                },
+                dataType: "json"
+            });
+        }
+    </script>
+}
+
+<div class="fullscreen">
     <div class="section group">
         <div class="col span_1_of_2">
             <img class="logo" src="~/Images/logo_bg.png">
@@ -8,6 +26,10 @@
                 Согласно действующему Государственному стандарту Украины 3587-97, размеры ям не должны быть больше 0,5 м² или 6 см в глубину. Все ямы, которые больше хотя бы по одному параметру, должны быть устранены в течение 10-дневного срока (максимум). Детальнее о повреждениях дорожного покрытия — в разделе «Стандарты и нормативы ».                  
                 Статья 40 Конституции Украины гласит: «Все имеют право направлять индивидуальные или коллективные письменные обращения или лично обращаться к органам государственной власти, органов местного самоуправления, должностным и служебным лицам этих органов, которые обязаны рассмотреть обращение и дать обоснованный ответ в установленный законом срок», т. е. — 31 день.               
             </p>
+            <textarea class="ckeditor" name="editor1">
+         @ViewBag.Content
+    </textarea>
+            <button class="btn btn-primary" onclick="save()">save</button>
         </div>
     </div>
 </div>

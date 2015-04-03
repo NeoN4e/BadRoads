@@ -33,7 +33,7 @@ namespace BadRoads.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        /// <summary>  Передача во "view" данных о выброной "точке"  </summary>
+        /// <summary>  Передача во "view" данных о выбраной "точке"  </summary>
         /// <param name="id">Выбранная "точка"</param>
         /// <returns>Point</returns>
         public ActionResult PointInfo(int id)
@@ -73,7 +73,15 @@ namespace BadRoads.Controllers
         public ActionResult Gallery()
         {
             return View();
-        }   
-
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult Edit(string content, int P_Id, int C_Id) // передаётся только стринг !?
+        {
+            Point p = (from entry in db.Points where entry.ID == P_Id select entry).Single();
+            p.Comments.ElementAt(C_Id).ContentText = content;
+            //HttpContext.Cache["content"] = content;
+            return Json("OK");
+        }
     }
 }
