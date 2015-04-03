@@ -74,13 +74,32 @@ namespace BadRoads.Controllers
         {
             return View();
         }
+
+        public ActionResult Test()   // отображение основной карты со всеми сохраненными точками
+        {
+            List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
+            Point p = listPoints[0];
+
+            Comment c = new Comment();
+            c.ContentText = "Start";
+
+            p.Comments.Add(c);
+            db.SaveChanges();
+
+            ViewBag.Content = p.Comments.ElementAt(0).ContentText;
+
+            return View(p);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult Edit(string content, int P_Id, int C_Id) // передаётся только стринг !?
+        public JsonResult Edit(string content, int Id_P, string Id_C) 
         {
-            Point p = (from entry in db.Points where entry.ID == P_Id select entry).Single();
-            p.Comments.ElementAt(C_Id).ContentText = content;
-            //HttpContext.Cache["content"] = content;
+            List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
+            listPoints[0].Comments.ElementAt(0).ContentText = content;
+            db.SaveChanges();
+            //Point p = (from entry in db.Points where entry.ID == P_Id select entry).Single();
+            //p.Comments.ElementAt(C_Id).ContentText = content;
             return Json("OK");
         }
     }

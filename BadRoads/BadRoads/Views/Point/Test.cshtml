@@ -1,0 +1,55 @@
+﻿@model BadRoads.Models.Point
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+
+    <script>
+        function save(mod_Id) {
+            $.ajax({
+                type: "POST",
+                url: "/Point/Edit",
+                data: { content: CKEDITOR.instances["editor1"].getData(), Id_P: mod_Id },
+                success: function () {
+                    window.location = "/Home/Index";
+                },
+                dataType: "json"
+            });
+        }
+    </script>
+}
+
+<fieldset>
+    <legend>Test</legend>
+    <div>
+        <div style="margin-left: 200px">
+            <div>
+                <h3>Author:
+                    @Html.DisplayFor(model => model.Autor)
+                </h3>
+            </div>
+            <div>
+                <h3>Defect: 
+                    @Html.DisplayFor(model => model.Defect.Name)
+                </h3>
+            </div>
+            <div>
+                <h3>Comm Count: 
+                    @Html.DisplayFor(model => model.Comments.Count)
+                </h3>
+            </div>
+            <div>
+                <h3>GeoData: 
+                    @Html.DisplayFor(model => model.GeoData.FullAddress)
+                </h3>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<textarea class="ckeditor" name="editor1">
+         @ViewBag.Content
+    </textarea>
+<button class="btn btn-primary" onclick="save(@Model.ID)">save</button>
