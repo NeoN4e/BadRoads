@@ -16,8 +16,29 @@ namespace BadRoads.Models
         protected override void Seed(BadroadsDataContext context)
         {
             base.Seed(context);
+
+            //Дефолтные виды проблем
             context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
             context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
+            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Отсутствие разметки')");
+
+            // заглушка. чтобы наполнить список с точками, которых пока нет в базе
+            Defect d = context.Defects.First();
+            for (int x = 0; x < 100; x++)
+            {
+                double latitude = 48.459015 + (x * 0.00045);
+                double longitude = 35.042302 + (x * 0.00045);
+                string adress = String.Format("Проблема на улице " + x);
+
+                GeoData g = new GeoData(latitude, longitude, adress);
+
+                Point p = new Point();
+                p.GeoData = g;
+                p.Defect = d;
+
+                context.Points.Add(p);
+            }
+            
         }
     }
 
@@ -62,8 +83,8 @@ namespace BadRoads.Models
         }
 
         public DbSet<Point> Points { get; set; }
-        public DbSet<Photo> Photos { get; private set; }
-        public DbSet<Defect> Defects { get; private set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Defect> Defects { get; set; }
         private DbSet<UserProfile> Users { get; set; }
 
         /// <summary>Получение ссылки на профиль пользователя</summary>
@@ -85,9 +106,9 @@ namespace BadRoads.Models
     /// <summary>Точка дефекта на дороге</summary>
     public class Point : BadroadsDataItem
     {
-        public Point(UserProfile UProfile)
+        public Point()
         {
-            this.Autor = UProfile;
+            //this.Autor = UProfile;
             this.Date = DateTime.Now;
             this.isValid = false;
         }
@@ -108,7 +129,7 @@ namespace BadRoads.Models
 
         /// <summary>Автор</summary>
         //[Required]
-        public virtual UserProfile Autor { get; private set; }
+        public virtual UserProfile Autor { get; set; }
 
          /// <summary>Метаданные гугл мама, координаты точки</summary>
         public virtual GeoData GeoData { get; set; }
@@ -136,11 +157,15 @@ namespace BadRoads.Models
     /// <summary>Гео данные  ГуглМапс</summary>
     public class GeoData : BadroadsDataItem
     {
-        public GeoData(double latitude,double longitude)
+        public GeoData(double latitude, double longitude, string fullAddress="")
         {
             this.Latitude = latitude;
             this.Longitude = longitude;
+            this.FullAddress = fullAddress;
         }
+
+        public GeoData()
+        { }
 
         [Required]
         public double Latitude{get;private set;}
@@ -176,9 +201,9 @@ namespace BadRoads.Models
     /// <summary>Комментарий к Дефекту</summary>
     public class Comment : BadroadsDataItem
     {
-        public Comment(UserProfile UProfile)
+        public Comment()
         {
-            this.Autor = UProfile;
+          // this.Autor = UProfile;
             this.Date = DateTime.Now; 
         }
         
@@ -193,7 +218,7 @@ namespace BadRoads.Models
 
         /// <summary>Автор Комментария</summary>
         //[Required]
-        public virtual UserProfile Autor { get; private set; }
+        public virtual UserProfile Autor { get;  set; }
 
         public virtual ICollection<Point> Points { get; set; }
           
