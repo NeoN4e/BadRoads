@@ -19,15 +19,9 @@ namespace BadRoads.Controllers
             return View();
         }
 
-        public ActionResult Gallery()
-        {
-            return View();
-        }       
+    
 
-        public ActionResult Add()
-        {
-            return View();
-        }
+
 
         public ActionResult ChangeCulture(string lang)
         {
