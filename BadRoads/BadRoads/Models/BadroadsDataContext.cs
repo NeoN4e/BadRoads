@@ -34,20 +34,32 @@ namespace BadRoads.Models
         }
 
         //Построитель модели
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //    modelBuilder.Entity<Point>()
-        //        .HasMany(p => p.Comments)
-        //        .WithMany(c => c.Points)
-        //        .Map(mc =>
-        //        {
-        //            mc.ToTable("PointJoinComent");
-        //            mc.MapLeftKey("id_Point");
-        //            mc.MapRightKey("id_Comment");
-        //        });
-        //}
+            //Связь Поинта и Коментариев
+            modelBuilder.Entity<Point>()
+                .HasMany(p => p.Comments)
+                .WithMany(c => c.Points)
+                .Map(mc =>
+                {
+                    mc.ToTable("PointsJoinComents");
+                    //mc.MapLeftKey("id_Point");
+                    //mc.MapRightKey("id_Comment");
+                });
+
+            //Связь Поинта и Фото
+            modelBuilder.Entity<Point>()
+                .HasMany(po => po.Photos)
+                .WithMany(ph => ph.Points)
+                .Map(mc =>
+                {
+                    mc.ToTable("PointsJoinPhotos");
+                    //mc.MapLeftKey("id_Point");
+                    //mc.MapRightKey("id_Photo");
+                });
+        }
 
         public DbSet<Point> Points { get; set; }
         public DbSet<Photo> Photos { get; private set; }

@@ -16,6 +16,7 @@ namespace BadRoads.Controllers
 
         public ActionResult Index()
         {
+            db.Database.Initialize(false);
             return View();
         }
 
