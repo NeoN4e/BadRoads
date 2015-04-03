@@ -1,8 +1,4 @@
-﻿@{
-    ViewBag.Title = "Добавить";
-}
-
-@if (Model != null && Model.Count > 0)
+﻿@if (Model != null && Model.Count > 0)
 {
     foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
     {
@@ -12,21 +8,15 @@
 }
 
 <div class="section group">
-    <div class="col span_3_of_3">
-        <h1 class="ct">@ViewBag.Title</h1>
-    </div>
-</div>
-<div class="section group">
     <div class="col span_2_of_3">
-        <h2 class="ct">Укажите место на карте</h2>
+        <h1 class="ct">Укажите место на карте</h1>
         <div id="map"></div>
-    </div>
+    </div>   
     <div class="col span_1_of_3">
        @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-            <h2 class=" ct">
-                Заполните данные
-            </h2>
+            <h1 class=" ct">
+                Добавить информацию о проблеме на дороге</h1>
             <label class="f t">Адрес:</label>
             <input id="adresset" class="f" type="text" disabled />              @*адрес точки*@
             <label class="f t">Координаты:</label>
@@ -35,29 +25,20 @@
             <label class="f t">Выберите фото для загрузки:</label>
             <input name="upload" class="f" type="file" multiple />
             <label class="f t">Выберите проблему:</label>
-<<<<<<< HEAD
-            <select class="sel f">
-=======
             <select name="DefName" class="sel f">
-
-
-
-
->>>>>>> VBenko
                 @if (ViewBag.Problems != null && ViewBag.Problems.Count > 0)
                 {
                     foreach (var item in ViewBag.Problems)
                     {
                         <option>@item.Name</option>
                     }
-
                 }
             </select>
             <label class="f t">Дополнительное описание:</label>
             <textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>
             <input id="subm" type="submit" value="Отправить" disabled />
        }
-    </div>
+    </div>   
 </div>
 
 @section Scripts {
