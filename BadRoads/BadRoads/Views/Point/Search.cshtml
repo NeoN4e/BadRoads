@@ -1,0 +1,21 @@
+﻿@model PagedList.IPagedList<BadRoads.Models.Point>
+@using PagedList.Mvc;
+@using PagedList;
+@Styles.Render("~/Content/PagedList.css")
+
+
+
+<div id="resultSearch">
+    
+    @foreach (var item in Model)
+    {
+        
+        <div class="grid">
+            <h3 class="title">@item.Defect on @item.GeoData.FullAddress</h3> @* NEED MULTILANGUAGE TITLE *@
+            <img src="@item.Cover"/>
+        </div>
+        
+    }
+    @Html.PagedListPager(Model, page => Url.Action("Gallery", new { page, flag = true }), new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 5 })
+</div>
+
