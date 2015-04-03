@@ -11,12 +11,34 @@ namespace BadRoads.Models
     /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    class DbInitializer : CreateDatabaseIfNotExists<BadroadsDataContext>
+    class DbInitializer : IDatabaseInitializer<BadroadsDataContext> //DropCreateDatabaseAlways<BadroadsDataContext>//CreateDatabaseIfNotExists<BadroadsDataContext> IDatabaseInitializer<BadroadsDataContext> //
     {
-        protected override void Seed(BadroadsDataContext context)
+        public void InitializeDatabase(BadroadsDataContext context)
         {
-            base.Seed(context);
+            if (context.Database.Exists())
+            {
+                context.Database.Delete();
+            }
+            
+            //Установим сортировку
+            string DbName = context.Database.Connection.Database;
+           //context.Database.ExecuteSqlCommand("CREATE DATABASE " + DbName + " COLLATE  Cyrillic_General_CI_AS");
+            context.Database.Create();          
 
+        //    //Наполним
+        //    //Seed(context);
+        //}
+        
+        //protected override void Seed(BadroadsDataContext context)
+        //{
+            //base.Seed(context);
+            //Установим сортировку
+            //string DbName = context.Database.Connection.Database;
+            //context.Database.UseTransaction(new DbContextTransaction());
+            //context.Database.ExecuteSqlCommand("Alter database [" + DbName + "] SET SINGLE_USER");
+            //context.Database.ExecuteSqlCommand("Alter database [" + DbName + "] collate Cyrillic_General_CI_AS");
+            //context.Database.ExecuteSqlCommand("ALTER TABLE [Defects] ALTER COLUMN NAME VARCHAR(50) COLLATE  Cyrillic_General_CI_AS");
+            
             //Дефолтные виды проблем
             context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
             context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
@@ -40,6 +62,7 @@ namespace BadRoads.Models
             }
             
         }
+
     }
 
     /// <summary>Контекст подключения к БД</summary>
@@ -58,7 +81,7 @@ namespace BadRoads.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             //Связь Поинта и Коментариев
             modelBuilder.Entity<Point>()
                 .HasMany(p => p.Comments)
@@ -80,6 +103,7 @@ namespace BadRoads.Models
                     //mc.MapLeftKey("id_Point");
                     //mc.MapRightKey("id_Photo");
                 });
+            
         }
 
         public DbSet<Point> Points { get; set; }
