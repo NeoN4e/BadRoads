@@ -17,7 +17,7 @@
         </div>
         @if (User.Identity.IsAuthenticated)
         {
-            <a href="/Home/Add">
+            <a href="/Point/Add">
                 <div id="btnadd" title="Добавить место">
                     <i class="fa fa-plus-square fa-2x"></i>
                 </div>
@@ -48,7 +48,7 @@
                     @Html.ActionLink("Карта", "Map", "Home")
                 </li>
                 <li>
-                    @Html.ActionLink("Галерея", "Gallery", "Home")
+                    @Html.ActionLink("Галерея", "Gallery", "Point")
                 </li>
             </ul>
         </nav>

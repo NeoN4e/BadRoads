@@ -6,9 +6,11 @@ var markers = new Array();
 
 var searchMarker; // Маркер поиска улицы
 
+var imageSearchMarker = "../../Images/newmarker.png";  // картинка для маркера поиска улицы
+
 function SetPoints() {                                     // метод проставления всех точек на карте
     var masPoints = document.getElementsByClassName("points");   // получаем координаты точек с html
-    var imageMarker = "../../Images/newmarkersmall.png";              // картинка для маркеров
+    var imageMarker = "../../Images/marker.png";              // картинка для маркеров
     for (var x = 0; x < masPoints.length; x++) {
         var la = $(masPoints[x]).data('latitude');
         la = la.replace(",", ".");
@@ -22,7 +24,8 @@ function SetPoints() {                                     // метод про�
         });
         markers[x].idPoint = $(masPoints[x]).data('id');                        // присваиваем маркеру свойство с ID точки
         google.maps.event.addListener(markers[x], 'click', function () {       // подписываем маркер на событие click
-            alert("ID точки " + this.idPoint);                             //  здесь будет вызываться экшен с подробным отображением точки, по которой кликнули. Передаем туда ID точки
+            window.location.assign("../../Point/PointInfo/"+this.idPoint);   // переход на экшен подробного отображения точки
+
         });
     }
 
@@ -47,22 +50,14 @@ function Initialize() {
     //02 04 2015 Коноваленко А.В.
     searchMarker = new google.maps.Marker({
         map: map,
+        icon: imageSearchMarker,
         draggable: true,
     });
     google.maps.event.addListener(searchMarker, 'click', function () {   // подписываем маркер на событие click
-        alert("GO TO Create point action");                              //  здесь будет вызываться экшен с подробным отображением точки, по которой кликнули. Передаем туда ID точки
+        window.location.assign("../../Point/Add/");   // переход в экшен создания точки
     });
 }
 
-function CodeAddress() {                                                                    // центрирование карты по адресу введенному в строке поиска
-    geocoder.geocode({ 'address': $('#searchAdress').val() }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);         // сообщение, если геокодирование не удалось, например, нет совпадения с введенным адресом
-        }
-    });
-}
 
 //Автокомплит плюс позиционирование
 //02 04 2015 Коноваленко А.В.
