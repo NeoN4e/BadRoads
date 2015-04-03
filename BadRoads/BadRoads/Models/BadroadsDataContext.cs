@@ -17,6 +17,7 @@ namespace BadRoads.Models
         {
             base.Seed(context);
             context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
+            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
         }
     }
 
