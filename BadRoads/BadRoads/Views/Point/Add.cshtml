@@ -33,9 +33,17 @@
             <input id="latitude" class="f-2" type="text" disabled />            @*координаты - широта*@
             <input id="longitude" class="f-2" type="text" disabled />           @*координаты  - долгота*@
             <label class="f t">Выберите фото для загрузки:</label>
-            <input class="f" type="file" multiple />
+            <input name="upload" class="f" type="file" multiple />
             <label class="f t">Выберите проблему:</label>
+<<<<<<< HEAD
             <select class="sel f">
+=======
+            <select name="DefName" class="sel f">
+
+
+
+
+>>>>>>> VBenko
                 @if (ViewBag.Problems != null && ViewBag.Problems.Count > 0)
                 {
                     foreach (var item in ViewBag.Problems)
@@ -46,7 +54,7 @@
                 }
             </select>
             <label class="f t">Дополнительное описание:</label>
-            <textarea class="f ht" placeholder="или коментарий к фото"></textarea>
+            <textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>
             <input id="subm" type="submit" value="Отправить" disabled />
        }
     </div>

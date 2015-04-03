@@ -13,23 +13,26 @@ namespace BadRoads.Controllers
     {
         BadroadsDataContext db = new BadroadsDataContext();      // объект модели
 
-        [HttpPost]
-        public ActionResult CreatePoint(Point Pnt)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Points.Add(Pnt);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(Pnt);
-        }
-
         // экшен, который принимает данные с формы для создания новой точки
         
         [HttpPost]
-        public ActionResult Add(FormCollection collection)
+        [Authorize]
+        public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
+            //UserProfile Autor = db.GetUSerProfile(User);
+
+            Point p = new Point()
+            {
+                GeoData = new GeoData(Convert.ToDouble(collection["latitude"]), Convert.ToDouble(collection["latitude"]), collection["adresset"]),
+                //Autor = Autor,
+                Defect = new Defect() { Name = collection["DefName"] },
+            };
+            p.AddComent(new Comment() { ContentText = collection["FirstComment"] });//, Autor = Autor });
+
+            db.Points.Add(p);
+            db.SaveChanges();
+            //int id = p.ID;
+            //ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
             return RedirectToAction("Index", "Home");
         }
 
