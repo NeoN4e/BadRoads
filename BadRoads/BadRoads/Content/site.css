@@ -319,7 +319,7 @@ nav {
 .grid {
     display: inline-table;
     width: 24%;
-    height: 44vh;
+    height: 43vh;
     text-align: center;
     margin: 0.5% 0 0 0.5%;
 }
@@ -343,14 +343,14 @@ nav {
 }
 
 #map_canvas {
-    height: 93vh;
+    height: 92vh;
     margin: 0.5%;
     border-radius: 3px;
 }
 
 .map {
     padding: 0;
-    height: 88vh;
+    height: 87vh;
 }
 
 /*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
