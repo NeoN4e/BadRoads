@@ -19,12 +19,16 @@ namespace BadRoads.Models
             {
                 context.Database.Delete();
             }
-            
+            context.Database.Create();
+
             //Установим сортировку
             string DbName = context.Database.Connection.Database;
-           //context.Database.ExecuteSqlCommand("CREATE DATABASE " + DbName + " COLLATE  Cyrillic_General_CI_AS");
-            context.Database.Create();          
+            context.Defects.Add(new Defect() { Name="яма"});
+            context.SaveChanges();
 
+            //context.Database.ExecuteSqlCommand("CREATE DATABASE " + DbName + " COLLATE  Cyrillic_General_CI_AS");
+           // context.Database.Create();    
+            
         //    //Наполним
         //    //Seed(context);
         //}
@@ -40,26 +44,26 @@ namespace BadRoads.Models
             //context.Database.ExecuteSqlCommand("ALTER TABLE [Defects] ALTER COLUMN NAME VARCHAR(50) COLLATE  Cyrillic_General_CI_AS");
             
             //Дефолтные виды проблем
-            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
-            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
-            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Отсутствие разметки')");
+            //context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
+            //context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
+            //context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Отсутствие разметки')");
 
             // заглушка. чтобы наполнить список с точками, которых пока нет в базе
-            Defect d = context.Defects.First();
-            for (int x = 0; x < 100; x++)
-            {
-                double latitude = 48.459015 + (x * 0.00045);
-                double longitude = 35.042302 + (x * 0.00045);
-                string adress = String.Format("Проблема на улице " + x);
+            //Defect d = context.Defects.First();
+            //for (int x = 0; x < 100; x++)
+            //{
+            //    double latitude = 48.459015 + (x * 0.00045);
+            //    double longitude = 35.042302 + (x * 0.00045);
+            //    string adress = String.Format("Проблема на улице " + x);
 
-                GeoData g = new GeoData(latitude, longitude, adress);
+            //    GeoData g = new GeoData(latitude, longitude, adress);
 
-                Point p = new Point();
-                p.GeoData = g;
-                p.Defect = d;
+            //    Point p = new Point();
+            //    p.GeoData = g;
+            //    p.Defect = d;
 
-                context.Points.Add(p);
-            }
+            //    context.Points.Add(p);
+            //}
             
         }
 
