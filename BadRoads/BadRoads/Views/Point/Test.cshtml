@@ -1,0 +1,30 @@
+﻿@model BadRoads.Models.Point
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@section scripts {
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+
+    <script>
+        // Функция срабатывает при нажатии на кнопку "save". Получает ID текущей модели(Model) и ID комментария
+        function save(model_Id, comment_Id) {
+            $.ajax({
+                type: "POST",
+                url: "/Point/EditComments", // отправка на Экшен изменения и сохранения данных в Editor
+                data: { content: CKEDITOR.instances["edit"].getData(), Id_Point: model_Id, Id_Comment: comment_Id }, // передаваемые значения в Экшен
+                success:  // В случаи успеха
+                    function () {
+                        window.location = "/Home/Index";
+                    },
+                dataType: "json"
+            });
+        }
+    </script>
+}
+
+<textarea class="ckeditor" name="edit">
+         @ViewBag.Content 
+    </textarea>
+<button class="btn btn-primary" onclick="save(@Model.ID, @ViewBag.Comment_Id)">save</button>
