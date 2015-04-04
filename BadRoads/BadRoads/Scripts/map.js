@@ -25,7 +25,6 @@ function SetPoints() {                                     // метод про�
         markers[x].idPoint = $(masPoints[x]).data('id');                        // присваиваем маркеру свойство с ID точки
         google.maps.event.addListener(markers[x], 'click', function () {       // подписываем маркер на событие click
             window.location.assign("../../Point/PointInfo/"+this.idPoint);   // переход на экшен подробного отображения точки
-
         });
     }
 

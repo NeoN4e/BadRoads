@@ -1,33 +1,38 @@
 ﻿@model BadRoads.Models.RegisterExternalLoginModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Регистрация";
 }
 <div class="section group hd"></div>
 <div class="section group">
     <div class="col span_4_of_4">
         <h1 class="ct">@ViewBag.Title</h1>
-        <h2>Профиль @ViewBag.ProviderDisplayName.</h2>
+        <h2 class="ct">Профиль @ViewBag.ProviderDisplayName</h2>
     </div>
 </div>
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-        <p>
-            You've successfully authenticated with <strong>@ViewBag.ProviderDisplayName</strong>.
-            Please enter a user name for this site below and click the Confirm button to finish
-            logging in.
-        </p>
-        <ol>
-            <li class="name">
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-        </ol>
-        @Html.HiddenFor(m => m.ExternalLoginData)
-        <input type="submit" value="Зарегистрировать" />
-}
+<div class="section group">
+    <div class="col span_1_of_3 hd"></div>
+    <div class="col span_1_of_3">
+        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+ @Html.AntiForgeryToken()
+ @Html.ValidationSummary(true)
+            <p>
+                Вы успешно прошли проверку подлинности <strong>@ViewBag.ProviderDisplayName</strong>.
+            Пожалуйста, введите имя пользователя для этого сайта ниже и нажмите кнопку подтверждения.      
+            </p>
+            <ol>
+                <li class="name">
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </li>
+            </ol>
+ @Html.HiddenFor(m => m.ExternalLoginData)
 
+            <input type="submit" value="Зарегистрировать" />
+        }
+    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

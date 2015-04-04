@@ -11,7 +11,7 @@ namespace BadRoads.Models
     /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    class DbInitializer : CreateDatabaseIfNotExists<BadroadsDataContext>
+    class DbInitializer : DropCreateDatabaseAlways<BadroadsDataContext>
     {
         protected override void Seed(BadroadsDataContext context)
         {
