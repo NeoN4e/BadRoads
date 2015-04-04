@@ -26,7 +26,7 @@ namespace BadRoads.Controllers
         }
 
         // экшен, который принимает данные с формы для создания новой точки
-        
+
         [HttpPost]
         public ActionResult Add(FormCollection collection)
         {
@@ -65,7 +65,7 @@ namespace BadRoads.Controllers
         {
             List<Defect> df = db.Defects.ToList<Defect>();
             ViewBag.Problems = df;                // список дефектов для выбора их на форме заполнения точки
-            
+
             List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
             return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
         }
@@ -75,31 +75,45 @@ namespace BadRoads.Controllers
             return View();
         }
 
-        public ActionResult Test()   // отображение основной карты со всеми сохраненными точками
+        /// <summary>Тестовый Экшен-заглушка для корректной работы "EditComments"</summary>
+        /// <returns>Объект типа Point</returns>
+        public ActionResult Test()
         {
             List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
-            Point p = listPoints[0];
+            Point p = listPoints[0]; // получаем точку под индексом "0"
 
+            // создаём и заполняем объект типа "Comment"
             Comment c = new Comment();
             c.ContentText = "Start";
 
+            // добавляем новый коммент в БД и сохраняем изменения
             p.Comments.Add(c);
             db.SaveChanges();
 
-            ViewBag.Content = p.Comments.ElementAt(0).ContentText;
+            ViewBag.Content = p.Comments.ElementAt(0).ContentText; // для вывода во View содержимого "Comments"
+            ViewBag.Comment_Id = p.Comments.ElementAt(0).ID;       // для получения ID выводимого комментария
 
             return View(p);
         }
 
+        /// <summary> Editor для изменения комментариев </summary>
+        /// <param name="content">Новое содержимое комментария</param>
+        /// <param name="Id_Point">ID точки в котором меняем комментарий</param>
+        /// <param name="Id_Comment">ID необходимого комментария</param>
         [HttpPost]
         [ValidateInput(false)]
-        public JsonResult Edit(string content, int Id_P, string Id_C) 
+        public JsonResult EditComments(string content, int Id_Point, int Id_Comment)
         {
-            List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
-            listPoints[0].Comments.ElementAt(0).ContentText = content;
-            db.SaveChanges();
-            //Point p = (from entry in db.Points where entry.ID == P_Id select entry).Single();
-            //p.Comments.ElementAt(C_Id).ContentText = content;
+            Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
+            Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
+
+            // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
+            if (Cmt.ContentText != content)
+            {
+                Cmt.ContentText = content;
+                db.SaveChanges();
+            }
+
             return Json("OK");
         }
     }
