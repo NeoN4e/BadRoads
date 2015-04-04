@@ -13,8 +13,11 @@
         <div id="map"></div>
     </div>   
     <div class="col span_1_of_3">
-       @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+       @using (Html.BeginForm("Add", "Point", FormMethod.Post,
+          new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
             <h1 class=" ct">
                 Добавить информацию о проблеме на дороге</h1>
             <label class="f t">Адрес:</label>
@@ -23,7 +26,8 @@
             <input id="latitude" class="f-2" type="text" disabled />            @*координаты - широта*@
             <input id="longitude" class="f-2" type="text" disabled />           @*координаты  - долгота*@
             <label class="f t">Выберите фото для загрузки:</label>
-            <input name="upload" class="f" type="file" multiple />
+            <input name="upload" class="f" type="file"  /> //
+            //<input name="upload" class="f" type="file" multiple />
             <label class="f t">Выберите проблему:</label>
             <select name="DefName" class="sel f">
                 @if (ViewBag.Problems != null && ViewBag.Problems.Count > 0)

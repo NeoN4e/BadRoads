@@ -27,12 +27,12 @@ namespace BadRoads.Controllers
                 //Autor = Autor,
                 Defect = new Defect() { Name = collection["DefName"] },
             };
-            p.AddComent(new Comment() { ContentText = collection["FirstComment"] });//, Autor = Autor });
+            //p.AddComent(new Comment() { ContentText = collection["FirstComment"] });//, Autor = Autor });
 
             db.Points.Add(p);
             db.SaveChanges();
-            //int id = p.ID;
-            //ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
+            int id = p.ID;
+            List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
             return RedirectToAction("Index", "Home");
         }
 
