@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
 
 namespace BadRoads.Controllers
 {
@@ -12,6 +14,8 @@ namespace BadRoads.Controllers
     public class PointController : Controller
     {
         BadroadsDataContext db = new BadroadsDataContext();      // объект модели
+
+        static List<Point> PaginatorList;
 
         // экшен, который принимает данные с формы для создания новой точки
 
@@ -73,11 +77,42 @@ namespace BadRoads.Controllers
             return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
         }
 
-        public ActionResult Gallery()
+        /// <summary>
+        /// show points on Gallery View
+        /// Default sorting by last comment date [SOON]
+        /// </summary>
+        /// <param name="page"> current page </param>
+        /// <param name="flag"> is filtred data? </param>
+        /// <returns> PartialView LIST (All pages) </returns>
+        public ActionResult Gallery(int? page,bool? flag)
         {
-            return View();
+            int pointsOnPage = 8;//maximum Point elements on page
+            if (flag != true)
+            {
+                PaginatorList = db.Points.ToList<Point>();
+            }
+            return View(PaginatorList.ToPagedList<Point>(page??1,pointsOnPage));
         }
+        /// <summary>
+        /// show points on pages using partial view
+        /// </summary>
+        /// <param name="searchText"> search string from forms </param>
+        /// <param name="page"> current page </param>
+        /// <returns> Partial view LIST(one page) </returns>
+        public ActionResult Search(string searchText = "", int page = -1)
+        {
+            int pointsOnPage = 8;//maximum Point elements on page
+            PaginatorList = db.Points.Where(p => p.GeoData.FullAddress.Contains(searchText)).ToList();
 
+            if (page == -1)
+            {
+                return PartialView(PaginatorList.ToPagedList<Point>(1, pointsOnPage));
+            }
+            else
+            {
+                return PartialView(PaginatorList.ToPagedList<Point>(page, pointsOnPage));
+            }
+        }
         /// <summary>Тестовый Экшен-заглушка для корректной работы "EditComments"</summary>
         /// <returns>Объект типа Point</returns>
         public ActionResult Test()
