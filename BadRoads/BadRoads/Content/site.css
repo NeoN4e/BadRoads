@@ -19,7 +19,14 @@ select, button {
 .ui-menu-item {
     cursor: pointer;
 }
-
+.ui-menu {
+    width: 200px;
+    overflow: hidden;
+}
+.ui-helper-hidden-accessible {
+    display: none;
+    visibility: hidden;
+}
 h1 {
     font-size: 18px;
 }
@@ -236,7 +243,6 @@ li form {
     min-height: 520px;
     margin-left: -250px;
     z-index: 1000;
-    opacity: 0.97;
 }
 
 /*=============MENU=============*/

@@ -34,10 +34,12 @@
                     @Html.PasswordFor(m => m.ConfirmPassword)
                 </li>
             </ol>
+            <div class="ct">
             <input type="submit" value="Зарегистрировать" />
-        }
-        <h2 class="ct">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
+                </div>
+        }      
         <div class="ct">
+             <h2 class="ct">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
             @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
         </div>
     </div>
