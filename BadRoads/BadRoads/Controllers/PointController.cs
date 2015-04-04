@@ -33,8 +33,8 @@ namespace BadRoads.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        /// <summary>  Передача во "view" данных о выбраной "точке"  </summary>
-        /// <param name="id">Выбранная "точка"</param>
+        /// <summary>Передача во "view" данных о выбранной "точке" </summary>
+        /// <param name="id">ID Выбранной "точке"</param>
         /// <returns>Point</returns>
         public ActionResult PointInfo(int id)
         {
