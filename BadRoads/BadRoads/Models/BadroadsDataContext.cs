@@ -18,10 +18,10 @@ namespace BadRoads.Models
             base.Seed(context);
 
             //Дефолтные виды проблем
-            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Яма')");
-            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Открытый люк')");
-            context.Database.ExecuteSqlCommand("insert into Defects(Name) values('Отсутствие разметки')");
-
+            context.Defects.Add(new Defect() { Name="Яма"});
+            context.Defects.Add(new Defect() { Name="Открытый люк"});
+            context.Defects.Add(new Defect() { Name="Отсутствие разметки"});
+            context.SaveChanges();
             // заглушка. чтобы наполнить список с точками, которых пока нет в базе
             Defect d = context.Defects.First();
             for (int x = 0; x < 100; x++)
