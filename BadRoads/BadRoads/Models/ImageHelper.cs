@@ -221,26 +221,61 @@ namespace BadRoads.Models
             return (string)bitmapMetadata.GetQuery(query);
         }
 
-
-        public static void SaveUploadFiles(IEnumerable<HttpPostedFileBase> upload)
+        /// <summary>
+        /// Method for save files in Extension ".jpg" or ".jpeg"
+        /// </summary>
+        /// <param name="idPoint">id point</param>
+        /// <param name="upload">uploading files</param>
+        /// <returns></returns>
+        public static List<string> SaveUploadFiles(int idPoint, IEnumerable<HttpPostedFileBase> upload)
         {
+            List<string> fileList = new List<string>();
             try
             {
                 if (upload != null)
                 {
-                    string directory = "~/Images/FotoRoads/"; // заменить путь
-                    List<string> fileList = new List<string>();
+                    string basePath = HttpContext.Current.Server.MapPath("~/Images/Galery/");
+                    string directory = "point_" + idPoint.ToString();
+                    if (!System.IO.Directory.Exists(basePath + directory))
+                    {
+                        Directory.CreateDirectory(basePath + directory);
+                    }
+
+                    int countFile = 1;
+                    string fileName;
                     foreach (var file in upload)
                     {
                         if (file != null)
                         {
-                            string fileName = Path.Combine(directory, System.IO.Path.GetFileName(file.FileName));
-                            file.SaveAs(fileName);
-                            fileList.Add(fileName);
+                            FileInfo f = new FileInfo(file.FileName);
+                            if (f.Extension == ".jpg" || f.Extension == ".jpeg") // only file extensions ".jpg", ".jpeg"
+                            {
+                                bool stop = false;
+                                do
+                                {
+                                    fileName = Path.Combine(basePath + directory, "img_" + idPoint.ToString() + "_" + countFile + f.Extension);
+                                    if (!File.Exists(fileName))
+                                    {
+                                        file.SaveAs(fileName);
+                                        fileList.Add(fileName);
+                                        stop = true;
+                                    }
+                                    else
+                                    {
+                                        countFile++;
+                                    }
+                                } while (stop);
+                            }
+                            else
+                            {
+                                throw new ArgumentOutOfRangeException();
+                            }
+                        }
+                        else
+                        {
+                            throw new ArgumentOutOfRangeException();
                         }
                     }
-
-                    FileConverter(fileList); // заглушка метод Саши Богуславского
                 }
                 else
                 {
@@ -251,23 +286,21 @@ namespace BadRoads.Models
             {
                 //Console.WriteLine(ex.Message); 
             }
+                return fileList;
         }
+        
 
-        public static void FileConverter(List<string> fileList) // заглушка
-        {
-            return; 
-        }
 
 #endregion
 
-#region Private Constants
+        #region Private Constants
         private const long DEGREES_OFFSET = 0x100000000;
         private const long MINUTES_OFFSET = 0x100000000;
         private const long SECONDS_OFFSET = 0x6400000000;
         private const double COORDINATE_ROUNDING_FACTOR = 1000000.0;
-#endregion
+        #endregion
 
-#region Photo Metadata Policy : GPS
+        #region Photo Metadata Policy : GPS
         // GPS tag version
         private const string GPSVersionIDQuery = "/app1/ifd/gps/subifd:{ulong=0}"; // BYTE 4
         // North or South Latitude
@@ -278,60 +311,11 @@ namespace BadRoads.Models
         private const string GPSLongitudeRefQuery = "/app1/ifd/gps/subifd:{ulong=3}"; // ASCII 2
         // Longitude
         private const string GPSLongitudeQuery = "/app1/ifd/gps/subifd:{ulong=4}"; // RATIONAL 3
-        // Altitude reference
-        private const string GPSAltitudeRefQuery = "/app1/ifd/gps/subifd:{ulong=5}"; // BYTE 1
-        // Altitude
-        private const string GPSAltitudeQuery = "/app1/ifd/gps/subifd:{ulong=6}"; // RATIONAL 1
         // GPS time (atomic clock)
         private const string GPSTimeStampQuery = "/app1/ifd/gps/subifd:{ulong=7}"; // RATIONAL 3
-        // GPS satellites used for measurement
-        private const string GPSSatellitesQuery = "/app1/ifd/gps/subifd:{ulong=8}"; // ASCII Any
-        // GPS receiver status
-        private const string GPSStatusQuery = "/app1/ifd/gps/subifd:{ulong=9}"; // ASCII 2
-        // GPS measurement mode
-        private const string GPSMeasureModeQuery = "/app1/ifd/gps/subifd:{ulong=10}"; // ASCII 2
-        // Measurement precision
-        private const string GPSDOPQuery = "/app1/ifd/gps/subifd:{ulong=11}"; // RATIONAL 1
-        // Speed unit
-        private const string GPSSpeedRefQuery = "/app1/ifd/gps/subifd:{ulong=12}"; // ASCII 2
-        // Speed of GPS receiver
-        private const string GPSSpeedQuery = "/app1/ifd/gps/subifd:{ulong=13}"; // RATIONAL 1
-        // Reference for direction of movement
-        private const string GPSTrackRefQuery = "/app1/ifd/gps/subifd:{ulong=14}"; // ASCII 2
-        // Direction of movement
-        private const string GPSTrackQuery = "/app1/ifd/gps/subifd:{ulong=15}"; // RATIONAL 1
-        // Reference for direction of image
-        private const string GPSImgDirectionRefQuery = "/app1/ifd/gps/subifd:{ulong=16}"; // ASCII 2
-        // Direction of image
-        private const string GPSImgDirectionQuery = "/app1/ifd/gps/subifd:{ulong=17}"; // RATIONAL 1
-        // Geodetic survey data used
-        private const string GPSMapDatumQuery = "/app1/ifd/gps/subifd:{ulong=18}"; // ASCII Any
-        // Reference for latitude of destination
-        private const string GPSDestLatitudeRefQuery = "/app1/ifd/gps/subifd:{ulong=19}"; // ASCII 2
-        // Latitude of destination
-        private const string GPSDestLatitudeQuery = "/app1/ifd/gps/subifd:{ulong=20}"; // RATIONAL 3
-        // Reference for longitude of destination
-        private const string GPSDestLongitudeRefQuery = "/app1/ifd/gps/subifd:{ulong=21}"; // ASCII 2
-        // Longitude of destination
-        private const string GPSDestLongitudeQuery = "/app1/ifd/gps/subifd:{ulong=22}"; // RATIONAL 3
-        // Reference for bearing of destination
-        private const string GPSDestBearingRefQuery = "/app1/ifd/gps/subifd:{ulong=23}"; // ASCII 2
-        // Bearing of destination
-        private const string GPSDestBearingQuery = "/app1/ifd/gps/subifd:{ulong=24}"; // RATIONAL 1
-        // Reference for distance to destination
-        private const string GPSDestDistanceRefQuery = "/app1/ifd/gps/subifd:{ulong=25}"; // ASCII 2
-        // Distance to destination
-        private const string GPSDestDistanceQuery = "/app1/ifd/gps/subifd:{ulong=26}"; // RATIONAL 1
-        // Name of GPS processing method
-        private const string GPSProcessingMethodQuery = "/app1/ifd/gps/subifd:{ulong=27}"; // UNDEFINED Any
-        // Name of GPS area
-        private const string GPSAreaInformationQuery = "/app1/ifd/gps/subifd:{ulong=28}"; // UNDEFINED Any
         // GPS date
         private const string GPSDateStampQuery = "/app1/ifd/gps/subifd:{ulong=29}"; // ASCII 11
-        // GPS differential correction
-        private const string GPSDifferentialQuery = "/app1/ifd/gps/subifd:{ulong=30}"; // SHORT 1
-#endregion
-
+        #endregion
 
     }
 }
