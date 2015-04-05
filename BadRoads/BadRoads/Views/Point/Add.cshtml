@@ -9,7 +9,7 @@
 
 <div class="section group">
     <div class="col span_2_of_3">
-        <h1 class="ct">Укажите место на карте</h1>
+        <h1 class="ct">Укажите дефект на карте</h1>
         <div id="map"></div>
     </div>   
     <div class="col span_1_of_3">
@@ -18,8 +18,7 @@
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <h1 class=" ct">
-                Добавить информацию о проблеме на дороге</h1>
+            <h1 class=" ct">Добавить информацию о дефекте на дороге</h1>
             <label class="f t">Адрес:</label>
             <input id="adresset" class="f" type="text" disabled />              @*адрес точки*@
             <label class="f t">Координаты:</label>
