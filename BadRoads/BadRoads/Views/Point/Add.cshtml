@@ -20,10 +20,10 @@
             @Html.ValidationSummary(true)
             <h1 class=" ct">Добавить информацию о дефекте на дороге</h1>
             <label class="f t">Адрес:</label>
-            <input id="adresset" class="f" type="text" disabled />              @*адрес точки*@
+            <input name="adresset" id="adresset" class="f" type="text" readonly />              @*адрес точки*@
             <label class="f t">Координаты:</label>
-            <input id="latitude" class="f-2" type="text" disabled />            @*координаты - широта*@
-            <input id="longitude" class="f-2" type="text" disabled />           @*координаты  - долгота*@
+            <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
+            <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
             <label class="f t">Выберите фото для загрузки:</label>
             <input name="upload" class="f" type="file" multiple />
             <label class="f t">Выберите проблему:</label>
