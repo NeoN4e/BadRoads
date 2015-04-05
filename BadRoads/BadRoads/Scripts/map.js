@@ -53,7 +53,8 @@ function Initialize() {
         draggable: true,
     });
     google.maps.event.addListener(searchMarker, 'click', function () {   // подписываем маркер на событие click
-        window.location.assign("../../Point/Add/");   // переход в экшен создания точки
+        var stringForMap = this.latOk + "-" + this.longOk;
+        window.location.assign("../../Point/Add?stringForMap=" + stringForMap);   // переход в экшен создания точки
     });
 }
 
@@ -91,6 +92,8 @@ $(function() {
             map.setCenter(location);
 
             searchMarker.setPosition(location);
+            searchMarker.latOk = ui.item.latitude;
+            searchMarker.longOk = ui.item.longitude;
             searchMarker.setTitle(ui.item.FullAddress);
         }
     });

@@ -25,10 +25,16 @@ namespace BadRoads.Controllers
         {
             //UserProfile Autor = db.GetUSerProfile(User);
             string lat = collection["latitude"];
-            lat = lat.Substring(0, 10);
+            if(lat.Count()>10)
+            { 
+                lat = lat.Substring(0, 10);
+            }
             lat = lat.Replace(".", ",");
             string lng = collection["longitude"];
-            lng = lng.Substring(0, 10);
+            if (lng.Count() > 10)
+            {
+                lng = lng.Substring(0, 10);
+            }
             lng = lng.Replace(".", ",");
             double latdouble = Convert.ToDouble(lat);
             double lngdouble = Convert.ToDouble(lng);
@@ -76,13 +82,22 @@ namespace BadRoads.Controllers
             //return View(pnt);
         }
 
-        public ActionResult Add()                    // оформление добавления новой точки
+        public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
         {
-            List<Defect> df = db.Defects.ToList<Defect>();
-            ViewBag.Problems = df;                // список дефектов для выбора их на форме заполнения точки
+            if (User.Identity.IsAuthenticated)                                 // если пользователь авторизован
+            {
 
-            List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
-            return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
+                ViewBag.MarkerLocation = stringForMap;
+                List<Defect> df = db.Defects.Distinct().ToList<Defect>();
+                ViewBag.Problems = df;                // список дефектов для выбора их на форме заполнения точки
+
+                List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
+                return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+            }
         }
 
         /// <summary>
