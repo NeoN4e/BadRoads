@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@{
     ViewBag.Title = "Галерея";
 }
@@ -65,3 +66,28 @@
 <div class="section group">
     <h2 class="ct">Для пагинатора</h2>
 </div>
+=======
+﻿@model IEnumerable<BadRoads.Models.Point>
+@{
+    ViewBag.Title = "Галерея";
+}
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="ct">@ViewBag.Title</h1>
+    </div>
+</div>
+<div class="section group">
+    <div class="col span_1_of_5">
+        <h2 class="ct">Фильтр</h2>
+        @using (Ajax.BeginForm("Search", new AjaxOptions { UpdateTargetId = "resultSearch" }))
+        {
+            <input class="f" type="text" placeholder="Улица" />
+            <input type="submit" value="Фильтровать" name="searchtext" />
+        }
+    </div>
+    <div class="col span_4_of_5">
+        @Html.Partial("Search")
+    </div>
+</div>
+
+>>>>>>> c4ce2f8d74f84c16c5b1e3e7c06b1e046b979fbe
