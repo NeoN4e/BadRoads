@@ -19,14 +19,17 @@ select, button {
 .ui-menu-item {
     cursor: pointer;
 }
+
 .ui-menu {
     width: 200px;
     overflow: hidden;
 }
+
 .ui-helper-hidden-accessible {
     display: none;
     visibility: hidden;
 }
+
 h1 {
     font-size: 18px;
 }
