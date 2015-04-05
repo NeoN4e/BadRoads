@@ -11,7 +11,7 @@ namespace BadRoads.Models
     /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    class DbInitializer : DropCreateDatabaseAlways<BadroadsDataContext>
+    class DbInitializer : DropCreateDatabaseIfModelChanges<BadroadsDataContext>
     {
         protected override void Seed(BadroadsDataContext context)
         {
@@ -111,6 +111,9 @@ namespace BadRoads.Models
             //this.Autor = UProfile;
             this.Date = DateTime.Now;
             this.isValid = false;
+
+            this.Photos = new HashSet<Photo>();
+            this.Comments = new HashSet<Comment>();
         }
         
         /// <summary>Дата и Время публикации дефекта</summary>

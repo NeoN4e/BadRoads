@@ -15,7 +15,7 @@ namespace BadRoads.Controllers
         
         public ActionResult Index()
         {
-            db.Database.Delete();
+            //db.Database.Delete();
             db.Database.Initialize(false);
             
             return View();
