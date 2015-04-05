@@ -6,7 +6,8 @@
     @foreach (var item in Model)
     {
         <div class="grid">
-            <h3 class="title">@item.Defect on @item.GeoData.FullAddress</h3> @* NEED MULTILANGUAGE TITLE *@
+            @* NEED MULTILANGUAGE TITLE *@
+            <h3 class="title">@item.Defect на @item.GeoData.FullAddress</h3> 
             <img src="@item.Cover"/>
         </div>
     }
