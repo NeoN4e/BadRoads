@@ -21,11 +21,6 @@ namespace BadRoads.Controllers
             return View();
         }
 
-        public ActionResult Details()
-        {
-            return View();
-        }
-
         public ActionResult ChangeCulture(string lang)
         {
             string returnUrl = Request.UrlReferrer.AbsolutePath;
@@ -51,8 +46,9 @@ namespace BadRoads.Controllers
             return Redirect(returnUrl);
         }
 
-        public ActionResult Map()   // отображение основной карты со всеми сохраненными точками
+        public ActionResult Map(string stringForMap = null)   // отображение основной карты со всеми сохраненными точками. Принимает координаты для центра карты, если переходили с экшена PointInfo
         {
+            ViewBag.MarkerLocation = stringForMap;
             List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
             return View(listPoints);
         }
