@@ -24,10 +24,18 @@ namespace BadRoads.Controllers
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
             //UserProfile Autor = db.GetUSerProfile(User);
+            string lat = collection["latitude"];
+            lat = lat.Substring(0, 10);
+            lat = lat.Replace(".", ",");
+            string lng = collection["longitude"];
+            lng = lng.Substring(0, 10);
+            lng = lng.Replace(".", ",");
+            double latdouble = Convert.ToDouble(lat);
+            double lngdouble = Convert.ToDouble(lng);
 
             Point p = new Point()
             {
-                GeoData = new GeoData(Convert.ToDouble(collection["latitude"]), Convert.ToDouble(collection["latitude"]), collection["adresset"]),
+                GeoData = new GeoData(latdouble, lngdouble, collection["adresset"]),
                 //Autor = Autor,
                 Defect = new Defect() { Name = collection["DefName"] },
             };
