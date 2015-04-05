@@ -13,8 +13,11 @@
         <div id="map"></div>
     </div>   
     <div class="col span_1_of_3">
-       @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+       @using (Html.BeginForm("Add", "Point", FormMethod.Post,
+          new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
             <h1 class=" ct">
                 Добавить информацию о проблеме на дороге</h1>
             <label class="f t">Адрес:</label>

@@ -234,7 +234,7 @@ namespace BadRoads.Models
             {
                 if (upload != null)
                 {
-                    string basePath = HttpContext.Current.Server.MapPath("~/Images/Galery/");
+                    string basePath = HttpContext.Current.Server.MapPath("~/Images/Gallery/");
                     string directory = "point_" + idPoint.ToString();
                     if (!System.IO.Directory.Exists(basePath + directory))
                     {
@@ -250,7 +250,7 @@ namespace BadRoads.Models
                             FileInfo f = new FileInfo(file.FileName);
                             if (f.Extension == ".jpg" || f.Extension == ".jpeg") // only file extensions ".jpg", ".jpeg"
                             {
-                                bool stop = false;
+                                bool stop = true;
                                 do
                                 {
                                     fileName = Path.Combine(basePath + directory, "img_" + idPoint.ToString() + "_" + countFile + f.Extension);
@@ -258,7 +258,7 @@ namespace BadRoads.Models
                                     {
                                         file.SaveAs(fileName);
                                         fileList.Add(fileName);
-                                        stop = true;
+                                        stop = false;
                                     }
                                     else
                                     {
