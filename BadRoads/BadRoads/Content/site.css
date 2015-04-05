@@ -349,8 +349,10 @@ nav {
 
 .yellow {
     display: block;
-    padding: 10%;
+    margin: 0;
+    padding: 0 10%;
     color: #f8d200;
+    font-size: 1.2em;
 }
 
 .grid {
@@ -415,6 +417,10 @@ nav {
     .grid {
         width: 98%;
         height: 70vh;
+    }
+
+    .h-3.index {
+        height: 0;
     }
 
     .col.first {
