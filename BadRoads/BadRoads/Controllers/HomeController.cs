@@ -4,29 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BadRoads.Models;
 
 namespace BadRoads.Controllers
 {
-
     [Culture]
     public class HomeController : Controller
     {
+        BadroadsDataContext db = new BadroadsDataContext();      // объект модели
+        
         public ActionResult Index()
         {
+            //db.Database.Delete();
+            db.Database.Initialize(false);
+            
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Details()
         {
-            ViewBag.Message = "About ViewBag.Message";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Contact ViewBag.Message";
-
             return View();
         }
 
@@ -53,6 +49,12 @@ namespace BadRoads.Controllers
             }
             Response.Cookies.Add(cookie);
             return Redirect(returnUrl);
+        }
+
+        public ActionResult Map()   // отображение основной карты со всеми сохраненными точками
+        {
+            List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
+            return View(listPoints);
         }
     }
 }

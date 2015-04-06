@@ -1,32 +1,28 @@
 ﻿@model BadRoads.Models.LocalPasswordModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "Редактировать профиль";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-
-<p class="message-success">@ViewBag.StatusMessage</p>
-
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
-
-@if (ViewBag.HasLocalPassword)
-{
-    @Html.Partial("_ChangePasswordPartial")
+<div class="section group hd"></div>
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="ct">@ViewBag.Title</h1>
+    </div>
+</div>
+<div class="section group">
+    <div class="col span_1_of_3 hd"></div>
+    <div class="col span_1_of_3">
+        <p>Вы вошли как <strong>@User.Identity.Name</strong>.</p><br />
+        @if (ViewBag.HasLocalPassword)
+        {
+ @Html.Partial("_ChangePasswordPartial")
 }
-else
-{ 
-    @Html.Partial("_SetPasswordPartial")
+        else
+        { 
+ @Html.Partial("_SetPasswordPartial")
 }
-
-<section id="externalLogins">
-    @Html.Action("RemoveExternalLogins")
-
-    <h3>Add an external login</h3>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
-
+            @Html.Action("RemoveExternalLogins")
+    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

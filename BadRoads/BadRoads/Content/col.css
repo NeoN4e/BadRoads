@@ -1,210 +1,240 @@
 /*========================SECTIONS========================*/
 
 .section {
-	clear: both;
-	padding: 0px;
-	margin: 0px;
+    clear: both;
+    padding: 0px;
+    margin: 0px;
 }
 
 /*========================GROUPING========================*/
 
 .group:before,
 .group:after {
-    content:"";
-    display:table;
+    content: "";
+    display: table;
 }
+
 .group:after {
-    clear:both;
+    clear: both;
 }
+
 .group {
-    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+    zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }
 
 /*========================GRID COLUMN SETUP========================*/
 
 .col {
-	display: block;
-	float:left;
-	margin: 0.4% 0 0.4% 0.4%;
+    display: block;
+    float: left;
+    margin: 0;
 }
 
-.col:first-child { margin-left: 0; } /* all browsers except IE6 and lower */
+    .col:first-child {
+        margin-left: 0;
+    }
+/* all browsers except IE6 and lower */
 
-/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
-@media only screen and (max-width: 480px) {
-	.col { 
-		margin: 1% 0 1% 0%;
-	}
+/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .col {
+        margin: 1% 0 1% 0%;
+    }
+
+    .section.group {
+        display: flex;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
 }
 
 /*========================GRID OF TWO========================*/
 
 .span_2_of_2 {
-	width: 100%;
+    width: 100%;
 }
 
 .span_1_of_2 {
-	width: 49.8%;
+    width: 49.8%;
 }
 
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-@media only screen and (max-width: 480px) {
-	.span_2_of_2 {
-		width: 100%; 
-	}
-	.span_1_of_2 {
-		width: 100%; 
-	}
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .span_2_of_2 {
+        width: 100%;
+    }
+
+    .span_1_of_2 {
+        width: 100%;
+    }
 }
 
 /*========================GRID OF THREE========================*/
-	
+
 .span_3_of_3 {
-	width: 100%; 
+    width: 100%;
 }
 
 .span_2_of_3 {
-	width: 62.2%;
-    padding: 0 2%; 
+    width: 66.66%;
 }
 
 .span_1_of_3 {
-	width: 28.8%;
-    padding: 0 2%; 
+    width: 33.33%;
 }
 
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-@media only screen and (max-width: 480px) {
-	.span_3_of_3 {
-		width: 100%; 
-	}
-	.span_2_of_3 {
-		width: 100%; 
-	}
-	.span_1_of_3 {
-		width: 100%;
-	}
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .span_3_of_3 {
+        width: 100%;
+    }
+
+    .span_2_of_3 {
+        width: 100%;
+    }
+
+    .span_1_of_3 {
+        width: 100%;
+    }
 }
 
 /*========================GRID OF FOUR========================*/
 
 .span_4_of_4 {
-	width: 100%; 
+    width: 100%;
 }
 
 .span_3_of_4 {
-	width: 74.9%; 
+    width: 75%;
 }
 
 .span_2_of_4 {
-	width: 49.8%; 
+    width: 50%;
 }
 
 .span_1_of_4 {
-	width: 24.7%; 
+    width: 25%;
 }
 
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-@media only screen and (max-width: 480px) {
-	.span_4_of_4 {
-		width: 100%; 
-	}
-	.span_3_of_4 {
-		width: 100%; 
-	}
-	.span_2_of_4 {
-		width: 100%; 
-	}
-	.span_1_of_4 {
-		width: 100%; 
-	}
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .span_4_of_4 {
+        width: 100%;
+    }
+
+    .span_3_of_4 {
+        width: 100%;
+    }
+
+    .span_2_of_4 {
+        width: 100%;
+    }
+
+    .span_1_of_4 {
+        width: 100%;
+    }
 }
 
 /*========================GRID OF FIVE========================*/
-	
+
 .span_5_of_5 {
-	width: 100%;
+    width: 100%;
 }
 
 .span_4_of_5 {
-  	width: 79.68%; 
+    width: 80%;
 }
 
 .span_3_of_5 {
-  	width: 59.36%; 
+    width: 60%;
 }
 
 .span_2_of_5 {
-  	width: 39.04%;
+    width: 40%;
 }
 
 .span_1_of_5 {
-  	width: 19.68%;
+    width: 20%;
 }
 
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-@media only screen and (max-width: 480px) {
-	.span_5_of_5 {
-		width: 100%; 
-	}
-	.span_4_of_5 {
-		width: 100%; 
-	}
-	.span_3_of_5 {
-		width: 100%; 
-	}
-	.span_2_of_5 {
-		width: 100%; 
-	}
-	.span_1_of_5 {
-		width: 100%; 
-	}
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .span_5_of_5 {
+        width: 100%;
+    }
+
+    .span_4_of_5 {
+        width: 100%;
+    }
+
+    .span_3_of_5 {
+        width: 100%;
+    }
+
+    .span_2_of_5 {
+        width: 100%;
+    }
+
+    .span_1_of_5 {
+        width: 100%;
+    }
 }
 
 /*========================GRID OF SIX========================*/
 
 .span_6_of_6 {
-	width: 100%;
+    width: 100%;
 }
 
 .span_5_of_6 {
-  	width: 83.06%;
+    width: 83.3%;
 }
 
 .span_4_of_6 {
-  	width: 66.13%;
+    width: 66.64%;
 }
 
 .span_3_of_6 {
-  	width: 49.2%;
+    width: 49.98%;
 }
 
 .span_2_of_6 {
-  	width: 32.26%;
+    width: 33.32%;
 }
 
 .span_1_of_6 {
-  	width: 16.33%
+    width: 16.66%;
 }
 
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-@media only screen and (max-width: 480px) {
-	.span_6_of_6 {
-		width: 100%; 
-	}
-	.span_5_of_6 {
-		width: 100%; 
-	}
-	.span_4_of_6 {
-		width: 100%; 
-	}
-	.span_3_of_6 {
-		width: 100%; 
-	}
-	.span_2_of_6 {
-		width: 100%; 
-	}
-	.span_1_of_6 {
-		width: 100%; 
-	}
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .span_6_of_6 {
+        width: 100%;
+    }
+
+    .span_5_of_6 {
+        width: 100%;
+    }
+
+    .span_4_of_6 {
+        width: 100%;
+    }
+
+    .span_3_of_6 {
+        width: 100%;
+    }
+
+    .span_2_of_6 {
+        width: 100%;
+    }
+
+    .span_1_of_6 {
+        width: 100%;
+    }
 }
