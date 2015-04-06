@@ -17,6 +17,17 @@ namespace BadRoads.Controllers
 
         static List<Point> PaginatorList;
 
+        /// <summary>
+        /// Sorting Point list by last comment date
+        /// </summary>
+        /// <param name="list">list of Points for sort</param>
+        /// <returns>sorted list</returns>
+        public List<Point> SortByLastComment(List<Point> list)
+        {
+            //list.Sort((x, y) => x.Comments.LastOrDefault().Date.CompareTo(y.Comments.LastOrDefault().Date));
+            list.Sort((x, y) => x.Comments.Max(c => c.Date).CompareTo(y.Comments.Max(c => c.Date)));
+            return list;
+        }
         // экшен, который принимает данные с формы для создания новой точки
 
         [HttpPost]
@@ -111,7 +122,7 @@ namespace BadRoads.Controllers
             {
                 PaginatorList = db.Points.ToList<Point>();
             }
-            return View(PaginatorList.ToPagedList<Point>(page??1,pointsOnPage));
+            return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
         /// show points on pages using partial view
@@ -126,11 +137,11 @@ namespace BadRoads.Controllers
 
             if (page == -1)
             {
-                return PartialView(PaginatorList.ToPagedList<Point>(1, pointsOnPage));
+                return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(1, pointsOnPage));
             }
             else
             {
-                return PartialView(PaginatorList.ToPagedList<Point>(page, pointsOnPage));
+                return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(page, pointsOnPage));
             }
         }
         /// <summary>Тестовый Экшен-заглушка для корректной работы "EditComments"</summary>
