@@ -15,17 +15,17 @@
     <div class="col span_1_of_5 hd"></div>
     <div class="col span_3_of_5">
         <div class="block sel f h-2">
-            @if(Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
-            { 
-            foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
+            @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
             {
-                string path = "../../Images/nophoto.png";
-                if(item.Url!=null)
-                { 
-                    path = item.Url; 
-                } 
+                foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
+                {
+                    string path = "../../Images/nophoto.png";
+                    if (item.Url != null)
+                    {
+                        path = item.Url;
+                    } 
                 <img src="@path" />
-            }
+                }
             }
             else                                             // если коллекция пуста
             {
@@ -51,7 +51,7 @@
                     @ViewBag.Description
                 </div>
                 <label class="f ml">Комментарии:</label>
-                @if (Model.Comments != null && Model.Comments.Count>0)                       // если коллекция с комментариями не пуста
+                @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
                 {
                     foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
                     {
@@ -62,16 +62,16 @@
                 {
                     <div class="sel f block bt">Пока нет комментариев. Будьте первым.</div>            // добавляем одну заглушку
                 }
-                @if(Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
-                { 
-using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
-          new { enctype = "multipart/form-data" }))
-{
-    <textarea name="Comment" id="textcomment" class="f ht" placeholder="комментируем..." onchange="CanSend();"></textarea>
-    <div class="ct">
-        <input id="subm" type="submit" value="Отправить" disabled />
-    </div>
-}
+                @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
+                {
+                    using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
+                              new { enctype = "multipart/form-data" }))
+                    {
+                    <textarea name="Comment" id="textcomment" class="f ht" placeholder="комментируем..." onchange="CanSend();"></textarea>
+                    <div class="ct">
+                        <input id="subm" type="submit" value="Отправить" disabled />
+                    </div>
+                    }
                 }
             </div>
         </div>
