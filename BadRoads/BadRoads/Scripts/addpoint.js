@@ -1,4 +1,4 @@
-﻿$(document).ready(function () { Initialize(); });
+﻿$(document).ready(function () { Initialize(); AlreadySetLocation(); });
 var myLatlng = new google.maps.LatLng(48.466601, 35.018155);  // центр карты
 var map;                                                  // карта
 var geocoder;                                             // объект класса Geocoder
@@ -72,4 +72,24 @@ function Initialize() {
 
 
     });
+}
+
+function AlreadySetLocation() {                    // функция проставляет маркер для новой точки, если координаты для точки проставлялись изначально с 
+    var stringLocation = $("#stringforMap").data("str");
+    if (stringLocation != "") {                                            // выполняется, только если передавались координаты из экшена
+        var arr = stringLocation.split("-");
+        var latlng = new google.maps.LatLng(arr[0], arr[1]);
+        searchMarker.setPosition(latlng);                            // установили маркер в то же место, что на основной карте
+        map.setCenter(latlng);                                      // отцентрировали карту по этому месту
+        $("#latitude").val(arr[0]);          // добавили широту на форму
+        $("#longitude").val(arr[1]);          // добавили долготу на форму
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                $("#adresset").val(results[0].address_components[1].long_name);           // добавили улицу (если вне улицы кликнули - то район)
+                $("#subm").removeAttr("disabled");                                        // сделали кнопку отправки на форме доступной
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);       // сообщение, если геокодирование не удалось
+            }
+        });
+    }
 }

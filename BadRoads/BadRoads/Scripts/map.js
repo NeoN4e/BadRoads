@@ -1,16 +1,33 @@
-﻿$(document).ready(function () { Initialize(); });
-var myLatlng = new google.maps.LatLng(48.466601, 35.018155);  // центр карты
-var map;                                                  // карта
-var geocoder;                                             // объект класса Geocoder
-var markers = new Array();
+﻿$(document).ready(function () { AlreadySetLocation();  Initialize(); });
+var myLatlng;                                              // центр карты
+var map;                                                   // карта
+var geocoder;                                              // объект класса Geocoder
+var markers = new Array();                                 // массив с маркерами для всех точек на карте
+var searchMarker;                                          // Маркер поиска улицы
+var imageMarker = "../../Images/marker.png";               // картинка для маркеров
+var imageSearchMarker = "../../Images/newmarker.png";      // картинка для маркера поиска улицы
+var zoom;                                                  // масштаб карты
 
-var searchMarker; // Маркер поиска улицы
 
-var imageSearchMarker = "../../Images/newmarker.png";  // картинка для маркера поиска улицы
+function AlreadySetLocation() {                                          // функция, если для карты заданы конкретные координаты центра. При переходе из экшена PointInfo
+    var stringLocation = $("#stringforMap").data("str");
+    if (stringLocation != "") {                                            // выполняется, только если передавались координаты из экшена
+        var arr = stringLocation.split("-");
+        myLatlng = new google.maps.LatLng(arr[0], arr[1]);                // задаем конкретные координаты
+        zoom = 14;                                                        // задаем приближенный масштаб для карты
+    }
+    else
+    {
+        myLatlng = new google.maps.LatLng(48.466601, 35.018155);             // задаем координаты центра Днепропетровска
+        zoom = 13;                                                           // задаем обычный масштаб для карты
+    }
+        
+}
+
 
 function SetPoints() {                                     // метод проставления всех точек на карте
     var masPoints = document.getElementsByClassName("points");   // получаем координаты точек с html
-    var imageMarker = "../../Images/marker.png";              // картинка для маркеров
+
     for (var x = 0; x < masPoints.length; x++) {
         var la = $(masPoints[x]).data('latitude');
         la = la.replace(",", ".");
@@ -29,11 +46,13 @@ function SetPoints() {                                     // метод про�
     }
 
 }
+
+
 function Initialize() {
     geocoder = new google.maps.Geocoder();      // создание объекта Geocoder
     var mapOptions = {                          // задание настроек для карты
         center: myLatlng,
-        zoom: 12,
+        zoom: zoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP      // тип карты. ROADMAP - дорожная
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);           // создание карты
@@ -53,9 +72,11 @@ function Initialize() {
         draggable: true,
     });
     google.maps.event.addListener(searchMarker, 'click', function () {   // подписываем маркер на событие click
-        window.location.assign("../../Point/Add/");   // переход в экшен создания точки
+        var stringForMap = this.latOk + "-" + this.longOk;
+        window.location.assign("../../Point/Add?stringForMap=" + stringForMap);   // переход в экшен создания точки
     });
 }
+
 
 
 //Автокомплит плюс позиционирование
@@ -91,6 +112,8 @@ $(function() {
             map.setCenter(location);
 
             searchMarker.setPosition(location);
+            searchMarker.latOk = ui.item.latitude;
+            searchMarker.longOk = ui.item.longitude;
             searchMarker.setTitle(ui.item.FullAddress);
         }
     });
