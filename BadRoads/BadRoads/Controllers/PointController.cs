@@ -23,7 +23,7 @@ namespace BadRoads.Controllers
         [Authorize]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
-            //UserProfile Autor = db.GetUSerProfile(User);
+            UserProfile CurAutor = db.GetUSerProfile(User);
             string lat = collection["latitude"];
             if(lat.Count()>10)
             { 
@@ -42,10 +42,10 @@ namespace BadRoads.Controllers
             Point p = new Point()
             {
                 GeoData = new GeoData(latdouble, lngdouble, collection["adresset"]),
-                //Autor = Autor,
-                Defect = new Defect() { Name = collection["DefName"] },
+                Autor = CurAutor,
+                Defect = db.GetDefect(collection["DefName"])
             };
-            //p.AddComent(new Comment() { ContentText = collection["FirstComment"] });//, Autor = Autor });
+            p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
 
             db.Points.Add(p);
             db.SaveChanges();
