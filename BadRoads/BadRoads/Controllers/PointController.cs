@@ -57,7 +57,7 @@ namespace BadRoads.Controllers
                 p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
             }
             p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
-
+            db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
