@@ -21,6 +21,7 @@ namespace BadRoads.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateInput(false)]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
             //UserProfile Autor = db.GetUSerProfile(User);
@@ -45,7 +46,9 @@ namespace BadRoads.Controllers
                 //Autor = Autor,
                 Defect = new Defect() { Name = collection["DefName"] },
             };
-            //p.AddComent(new Comment() { ContentText = collection["FirstComment"] });//, Autor = Autor });
+            p.AddComent(new Comment() { ContentText = collection["editor"] });//, Autor = Autor });
+
+            string t = p.Comments.ElementAt(0).ContentText;
 
             db.Points.Add(p);
             db.SaveChanges();

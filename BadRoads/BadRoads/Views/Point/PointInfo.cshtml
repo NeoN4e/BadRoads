@@ -29,13 +29,14 @@
             }
             else                                             // если коллекция пуста
             {
-                <img src="../../Images/nophoto.png" style="height:80%; border:1px solid black; margin: 5%;" />             // добавляем одну фотографию-заглушку
+                <img src="../../Images/nophoto.png" style="height: 80%; border: 1px solid black; margin: 5%;" />             // добавляем одну фотографию-заглушку
             }
         </div>
         <div class="block group sel f bt bordernull">
             <div class="col span_1_of_2">
                 <div class="block sel f hp ">
-                    <div id="map" style="height:98%; width:98%;"></div>       @*Юра Хилько, здесь нужно что-то сделать))
+                    <div id="map" style="height: 98%; width: 98%;"></div>
+                    @*Юра Хилько, здесь нужно что-то сделать))
                                                                                 и желательно, как-то дать понять пользователю, что клик по карте отправляет на основную карту. Не придумал пока.*@
                 </div>
             </div>
@@ -48,14 +49,15 @@
             <div class="col span_2_of_2">
                 <label class="f ml">Описание:</label>
                 <div class="sel f block">
-                    @ViewBag.Description
+                        @Html.Raw(ViewBag.Description)
                 </div>
                 <label class="f ml">Комментарии:</label>
                 @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
                 {
                     foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
                     {
-                        <div class="sel f block bt">@item.Date - @item.Autor<br/> @item.ContentText</div>
+                    <div class="sel f block bt">@item.Date - @item.Autor<br />
+                        @Html.Raw(item.ContentText)</div>
                     }
                 }
                 else                                             // если коллекция пуста
@@ -67,8 +69,8 @@
                     using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
                               new { enctype = "multipart/form-data" }))
                     {
-                    @*<textarea name="Comment" id="textcomment" class="f ht" placeholder="комментируем..." onchange="CanSend();"></textarea>*@
-                    <textarea class="ckeditor" name="edit">Test</textarea>
+@*<textarea name="Comment" id="textcomment" class="f ht" placeholder="комментируем..." onchange="CanSend();"></textarea>*@
+                    <textarea class="ckeditor" name="edit" disabled="disabled">@ViewBag.Description</textarea>
                     <div class="ct">
                         <input id="subm" type="submit" value="Отправить" disabled />
                     </div>
@@ -80,11 +82,13 @@
 </div>
 
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
-    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>
+    @*подключение Google Maps API*@
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
+    @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/pointinfo.js")
     @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
 }
 
-  
+
 

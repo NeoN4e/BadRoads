@@ -15,8 +15,8 @@
     </div>   
     <div class="col span_1_of_3">
        @using (Html.BeginForm("Add", "Point", FormMethod.Post,
-          new { enctype = "multipart/form-data" }))
-        {
+           new { enctype = "multipart/form-data" }))
+       {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
             <h1 class=" ct">Добавить информацию о дефекте на дороге</h1>
@@ -29,16 +29,14 @@
             <input name="upload" class="f" type="file" multiple />
             <label class="f t">Выберите проблему:</label>
             <select name="DefName" class="sel f">
-
                     @foreach (var item in ViewBag.Problems)
                     {
                         <option>@item</option>
                     }
-
             </select>
             <label class="f t">Дополнительное описание:</label>
             @*<textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>*@
-           <textarea class="ckeditor" name="edit">Test</textarea>
+           <textarea class="ckeditor" name="editor">Test</textarea>
             <div class="ct">
                 <input id="subm" type="submit" value="Отправить" disabled />
             </div>
