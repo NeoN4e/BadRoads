@@ -37,7 +37,8 @@
 
             </select>
             <label class="f t">Дополнительное описание:</label>
-            <textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>
+            @*<textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>*@
+           <textarea class="ckeditor" name="edit">Test</textarea>
             <div class="ct">
                 <input id="subm" type="submit" value="Отправить" disabled />
             </div>
@@ -49,4 +50,5 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/addpoint.js")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
 }  

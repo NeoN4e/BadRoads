@@ -25,8 +25,8 @@ namespace BadRoads.Controllers
         {
             //UserProfile Autor = db.GetUSerProfile(User);
             string lat = collection["latitude"];
-            if(lat.Count()>10)
-            { 
+            if (lat.Count() > 10)
+            {
                 lat = lat.Substring(0, 10);
             }
             lat = lat.Replace(".", ",");
@@ -67,8 +67,8 @@ namespace BadRoads.Controllers
         public ActionResult PointInfo(int id)                  // экшен выводит описание одной точки
         {
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
-            Comment c = p.Comments.Where(v => v.Date == p.Date).FirstOrDefault();              // передаем первый комментарий к точке как описание
-            if(c!= null)
+            Comment c = p.Comments.Where(v => v.Date == p.Date).FirstOrDefault();               // передаем первый комментарий к точке как описание
+            if (c != null)
             {
                 ViewBag.Description = c.ContentText;
             }
@@ -77,6 +77,45 @@ namespace BadRoads.Controllers
                 ViewBag.Description = "Нет описания к проблеме.";
             }
             return View(p);
+        }
+
+        /// <summary>Передача во "view" данных о выбранной "точке" </summary>
+        /// <param name="id">ID Выбранной "точке"</param>
+        /// <returns>Перенаправляет на экшен</returns>
+        public ActionResult PointEdit(int id)
+        {
+            Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
+            Comment c = p.Comments.Where(v => v.Date == p.Date).FirstOrDefault();               // передаем первый комментарий к точке как описание
+            if (c != null)
+            {
+                ViewBag.Description = c.ContentText;
+            }
+            else
+            {
+                ViewBag.Description = "Нет описания к проблеме.";
+            }
+
+            return View(p);
+        }
+        /// <summary>Изменение данных точки</summary>
+        /// <param name="id">ID Выбранной "точке"</param>
+        /// <returns>Point</returns>
+        [HttpPost]
+        public ActionResult PointEdit(int id, FormCollection collection)
+        {
+            try
+            {
+                Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
+                Comment c = p.Comments.Where(v => v.Date == p.Date).FirstOrDefault();               // передаем первый комментарий к точке как описание
+
+                //c.ContentText = collection["Description"]
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
@@ -104,14 +143,14 @@ namespace BadRoads.Controllers
         /// <param name="page"> current page </param>
         /// <param name="flag"> is filtred data? </param>
         /// <returns> PartialView LIST (All pages) </returns>
-        public ActionResult Gallery(int? page,bool? flag)
+        public ActionResult Gallery(int? page, bool? flag)
         {
             int pointsOnPage = 8;//maximum Point elements on page
             if (flag != true)
             {
                 PaginatorList = db.Points.ToList<Point>();
             }
-            return View(PaginatorList.ToPagedList<Point>(page??1,pointsOnPage));
+            return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
         /// show points on pages using partial view
