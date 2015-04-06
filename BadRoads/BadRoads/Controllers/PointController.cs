@@ -52,6 +52,13 @@ namespace BadRoads.Controllers
             int id = p.ID;
             List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
             return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
+            foreach (var item in fileList)
+            {
+                p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
+            }
+            p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
+
+            return RedirectToAction("Index", "Home");
         }
 
         /// <summary>Передача во "view" данных о выбранной "точке" </summary>
