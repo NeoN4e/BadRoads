@@ -18,26 +18,27 @@ namespace BadRoads.Models
             base.Seed(context);
 
             //Дефолтные виды проблем
-            context.Defects.Add(new Defect() { Name="Яма"});
-            context.Defects.Add(new Defect() { Name="Открытый люк"});
-            context.Defects.Add(new Defect() { Name="Отсутствие разметки"});
+            context.Defects.Add(new Defect() { Name = "Яма"});
+            context.Defects.Add(new Defect() { Name = "Открытый люк"});
+            context.Defects.Add(new Defect() { Name = "Отсутствие разметки"});
+            context.Defects.Add(new Defect() { Name = "Забитая ливневка" });
             context.SaveChanges();
             // заглушка. чтобы наполнить список с точками, которых пока нет в базе
-            Defect d = context.Defects.First();
-            for (int x = 0; x < 100; x++)
-            {
-                double latitude = 48.459015 + (x * 0.00045);
-                double longitude = 35.042302 + (x * 0.00045);
-                string adress = String.Format("Проблема на улице " + x);
+            //Defect d = context.Defects.First();
+            //for (int x = 0; x < 100; x++)
+            //{
+            //    double latitude = 48.459015 + (x * 0.00045);
+            //    double longitude = 35.042302 + (x * 0.00045);
+            //    string adress = String.Format("Проблема на улице " + x);
 
-                GeoData g = new GeoData(latitude, longitude, adress);
+            //    GeoData g = new GeoData(latitude, longitude, adress);
 
-                Point p = new Point();
-                p.GeoData = g;
-                p.Defect = d;
+            //    Point p = new Point();
+            //    p.GeoData = g;
+            //    p.Defect = d;
 
-                context.Points.Add(p);
-            }
+            //    context.Points.Add(p);
+            //}
             
         }
     }
@@ -85,7 +86,7 @@ namespace BadRoads.Models
         public DbSet<Point> Points { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Defect> Defects { get; set; }
-        private DbSet<UserProfile> Users { get; set; }
+        public DbSet<UserProfile> Users { get; set; }
 
         /// <summary>Получение ссылки на профиль пользователя</summary>
         /// <param name="User"></param>
