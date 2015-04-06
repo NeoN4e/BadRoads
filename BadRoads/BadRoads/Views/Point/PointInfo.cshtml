@@ -38,7 +38,7 @@
         {
             foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
             {
-                <label class="f mtopnul bold">@item.Date - @item.Autor</label>
+                <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
                 <p class="in-block f mtopnul">@item.ContentText</p>
             }
         }
@@ -52,7 +52,7 @@
             using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
                       new { enctype = "multipart/form-data" }))
             {
-            <textarea name="Comment" id="textcomment" class="f h80" placeholder="комментируем..." onchange="CanSend();"></textarea>
+            <textarea name="Comment" id="textcomment" class="f h80" placeholder="комментируем..."></textarea>
             <div class="ct">
                 <input id="subm" type="submit" value="Отправить" disabled />
             </div>

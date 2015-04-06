@@ -67,8 +67,8 @@ namespace BadRoads.Controllers
         public ActionResult PointInfo(int id)                  // экшен выводит описание одной точки
         {
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
-            Comment c = p.Comments.Where(v => v.Date == p.Date).FirstOrDefault();              // передаем первый комментарий к точке как описание
-            if(c!= null)
+            Comment c = p.Comments.First();              // передаем первый комментарий к точке как описание
+            if(c.ContentText != null)
             {
                 ViewBag.Description = c.ContentText;
             }
