@@ -16,7 +16,7 @@ function Initialize() {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP      // тип карты. ROADMAP - дорожная
     };
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);           // создание карты
+    map = new google.maps.Map(document.getElementById("mapinfo"), mapOptions);           // создание карты
     var imageMarker = "../../Images/marker.png";              // картинка для маркерa
     marker = new google.maps.Marker({                    // создаем маркер
         position: myLatlng,

@@ -2,19 +2,13 @@
 
 @{
     ViewBag.Title = String.Format(Model.Defect + " по адресу: " + Model.GeoData.FullAddress);
-    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>
-    
+    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    
 }
 
 <div class="section group">
-    <div class="col span_5_of_5">
-        <h1 class="ct">@ViewBag.Title</h1>
-    </div>
-</div>
-<div class="section group">
-    <div class="col span_1_of_5 hd"></div>
     <div class="col span_3_of_5">
-        <div class="block sel f h-2">
+        <h1 class="ct">@ViewBag.Title</h1>
+        <div class="block f pimgh">
             @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
             {
                 foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
@@ -24,57 +18,51 @@
                     {
                         path = item.Url;
                     } 
+
                 <img src="@path" />
                 }
             }
             else                                             // если коллекция пуста
             {
-                <img src="../../Images/nophoto.png" style="height:80%; border:1px solid black; margin: 5%;" />             // добавляем одну фотографию-заглушку
+
+                <img src="../../Images/nophoto.png" style="height: 80%; border: 1px solid black; margin: 5%;" />             // добавляем одну фотографию-заглушку
             }
         </div>
-        <div class="block group sel f bt bordernull">
-            <div class="col span_1_of_2">
-                <div class="block sel f hp ">
-                    <div id="map" style="height:98%; width:98%;"></div>       @*Юра Хилько, здесь нужно что-то сделать))
-                                                                                и желательно, как-то дать понять пользователю, что клик по карте отправляет на основную карту. Не придумал пока.*@
-                </div>
-            </div>
-            <div class="col span_1_of_2">
-                <label class="f t">Адрес:</label>
-                <input class="f" type="text" value="@Model.GeoData.FullAddress"/>
-                <label class="f t">Проблема:</label>
-                <input class="f" type="text"  value="@Model.Defect.Name"/>
-            </div>
-            <div class="col span_2_of_2">
-                <label class="f ml">Описание:</label>
-                <div class="sel f block">
-                    @ViewBag.Description
-                </div>
-                <label class="f ml">Комментарии:</label>
-                @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
-                {
-                    foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
-                    {
-                        <div class="sel f block bt">@item.Date - @item.Autor<br/> @item.ContentText</div>
-                    }
+        <div id="mapinfo" class="block f mtopnul"></div>
+        <label class="f-2 mtopnul in-block">Адрес:</label>
+        <label class="f-2 mtopnul in-block">Проблема:</label>
+        <input class="f-2 mtopnul hd2" type="text" value="@Model.GeoData.FullAddress"/>
+        <input class="f-2 mtopnul hd2" type="text"  value="@Model.Defect.Name"/>
+    </div>
+    <div class="col span_2_of_5">     
+        <label class="f mtop50 bold">Описание:</label>
+        <label class="f mtopnul">@ViewBag.Description</label>
+        <label class="f mtopnul bold">Комментарии:</label>
+        <div class="scrolly comnt">
+        @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
+        {
+            foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
+            {
+                <label class="f mtopnul bold">@item.Date - @item.Autor</label>
+                <p class="in-block f mtopnul">@item.ContentText</p>
+            }
+        }
+        else                                             // если коллекция пуста
+        {
+            <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
                 }
-                else                                             // если коллекция пуста
-                {
-                    <div class="sel f block bt">Пока нет комментариев. Будьте первым.</div>            // добавляем одну заглушку
-                }
-                @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
-                {
-                    using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
-                              new { enctype = "multipart/form-data" }))
-                    {
-                    <textarea name="Comment" id="textcomment" class="f ht" placeholder="комментируем..." onchange="CanSend();"></textarea>
-                    <div class="ct">
-                        <input id="subm" type="submit" value="Отправить" disabled />
-                    </div>
-                    }
-                }
-            </div>
         </div>
+        @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
+        {
+            using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
+                      new { enctype = "multipart/form-data" }))
+            {
+            <textarea name="Comment" id="textcomment" class="f h100" placeholder="комментируем..." onchange="CanSend();"></textarea>
+            <div class="ct">
+                <input id="subm" type="submit" value="Отправить" disabled />
+            </div>
+                    }
+                }
     </div>
 </div>
 

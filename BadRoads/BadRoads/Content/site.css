@@ -56,6 +56,13 @@ label {
     display: block;
 }
 
+.in-block {
+    display: inline-block;
+}
+scrolly {
+    overflow-y: scroll;
+}
+
 /*=============STYLES AND COLORS=============*/
 
 input, select, textarea, button, #map_canvas, #map, .grid, .block {
@@ -115,7 +122,9 @@ button[value="google"] {
 .bt {
     background-color: transparent;
 }
-
+.bold {
+    font-weight: 600;
+}
 /*=============SIZE=============*/
 
 input, select, textarea, button, .t, #map, p, h3, .block, .pad {
@@ -123,16 +132,17 @@ input, select, textarea, button, .t, #map, p, h3, .block, .pad {
     padding: 1%;
 }
 
+.mtopnul {
+    margin: 0.5% 2.5% 0.5% 2.5%;
+    padding: 0 1%;
+}
+
+.mtop50 {
+    margin: 50px 2.5% 0.5% 2.5%;
+    padding: 0 1%;
+}
 .bordernull {
     border: 0;
-}
-
-.block {
-    padding: 0;
-}
-
-.ml {
-    margin-left: 2.5%;
 }
 
 input, select, textarea, button, .hd {
@@ -162,7 +172,18 @@ select, .hd2 {
 .hp {
     height: 157px;
 }
-
+.h100 {
+    height: 100px;
+}
+.fh {
+    height: 89vh;
+}
+.pimgh {
+    height: 60vh;
+}
+.comnt {
+    height: 57vh;
+}
 .h-2 {
     height: 50vh;
 }
@@ -391,6 +412,10 @@ nav {
     height: 89vh;
 }
 
+#mapinfo {    
+    height: 100px;
+        }
+
 .points {
     display: none;
 }
@@ -401,7 +426,7 @@ nav {
     #map {
         height: 50vh;
     }
-
+        
     #map_canvas {
         height: 75vh;
     }
