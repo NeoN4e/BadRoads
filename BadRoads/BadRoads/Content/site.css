@@ -59,7 +59,8 @@ label {
 .in-block {
     display: inline-block;
 }
-scrolly {
+
+.scrolly {
     overflow-y: scroll;
 }
 
@@ -175,14 +176,17 @@ select, .hd2 {
 .h100 {
     height: 100px;
 }
+.h80 {
+    height: 80px;
+}
 .fh {
     height: 89vh;
 }
 .pimgh {
-    height: 60vh;
+    height: 70vh;
 }
 .comnt {
-    height: 57vh;
+    max-height: 56vh;
 }
 .h-2 {
     height: 50vh;
@@ -422,6 +426,9 @@ nav {
 
 /*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
 @media only screen and (max-width: 768px) {
+    .h-3.index {
+        height: 0;
+    }
 
     #map {
         height: 50vh;
