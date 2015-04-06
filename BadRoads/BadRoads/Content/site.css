@@ -118,7 +118,7 @@ button[value="google"] {
 
 /*=============SIZE=============*/
 
-input, select, textarea, button, .t, #map, p, .block, .pad {
+input, select, textarea, button, .t, #map, p, h3, .block, .pad {
     margin: 1% 2.5% 1% 2.5%;
     padding: 1%;
 }
@@ -349,8 +349,9 @@ nav {
 
 .yellow {
     display: block;
-    padding: 10%;
     color: #f8d200;
+    font-size: 1.2em;
+    text-shadow: black 0 0 2px;
 }
 
 .grid {
