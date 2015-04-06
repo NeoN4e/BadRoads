@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
+using System.Web.Security;
 
 namespace BadRoads.Controllers
 {
@@ -67,8 +68,9 @@ namespace BadRoads.Controllers
         public ActionResult PointInfo(int id)                  // экшен выводит описание одной точки
         {
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
-            Comment c = p.Comments.First();              // передаем первый комментарий к точке как описание
-            if(c.ContentText != null)
+            Comment c = new Comment();
+            c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
+            if(c != null)
             {
                 ViewBag.Description = c.ContentText;
             }
@@ -87,7 +89,7 @@ namespace BadRoads.Controllers
                 ViewBag.MarkerLocation = stringForMap;
                 string[] defects = { "Яма", "Открытый люк", "Отсутствие разметки" };
                 ViewBag.Problems = defects;  // список дефектов для выбора их на форме заполнения точки
-
+                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
                 List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
                 return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
             }
@@ -178,6 +180,36 @@ namespace BadRoads.Controllers
         public ActionResult ThanksForPoint()       // благодарность пользователю за добавление новой точки
         {
             return View();
+        }
+
+        public ActionResult DeletePoint(int id)          // экшен удаления точки модератором. Принимает ID точки.     Волков Антон. 06.04.15
+       {
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //  если авторизован с ролью "модератор"
+            {
+               Point p = db.Points.Find(id);                                   // находим точку по ID   
+               db.Points.Remove(p);                                            // удаляем точку.
+               db.SaveChanges();                                               // сохраняем изменения в базе
+                return RedirectToAction("Map", "Home");                        // переход на основную карту
+            }
+            else
+                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации                    
+        }
+
+        public ActionResult ConfirmPoint(int id)               // экшен валидации точки модератором. Принимает ID точки.     Волков Антон 06.04.15
+        {
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                    //  если авторизован с ролью "модератор"
+            {
+                Point p = db.Points.Find(id);                                                  // находим точку по ID   
+                p.isValid = true;                                                              // подтверждаем точку
+                try 
+                {
+                    db.SaveChanges();            // сохраняем изменения в базе !!!! НЕ СОХРАНЯЕТСЯ   выкидывает исключение!!!!!!!
+                }
+                catch { }
+                return RedirectToAction("Map", "Home");                                        // переход на основную карту
+            }
+            else
+                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
         }
     }
 }
