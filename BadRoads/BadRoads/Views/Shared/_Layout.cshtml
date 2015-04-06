@@ -8,6 +8,17 @@
     <link href="~/Images/icon.png" rel="shortcut icon" type="image/x-icon" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/scripts")
+    <script type="text/ecmascript">
+        $(function () {
+            $("#search").autocomplete({
+                source: "../../Point/Autocomplete/" + $("#search").val(),
+                minChars: 2,
+                zIndex: 1200,
+                width: 300,
+                maxHeight: 400
+            });
+        });
+    </script>
 </head>
 <body>
     <header id="menu">
@@ -31,8 +42,8 @@
             <a href="/">
                 <img src="~/Images/logo_badroads.png" alt="badroads"></a>
         </div>
-        <form>
-            <input class="search" type="text" placeholder="Поиск">
+        <form name="search_form" action="@Url.Action("Search","Point")">
+            <input class="search" name="searchText" type="text" placeholder="Поиск" id="search">
             <input class="search" type="submit" value="GO">
         </form>
         <nav>

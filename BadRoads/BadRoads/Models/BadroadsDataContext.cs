@@ -18,10 +18,16 @@ namespace BadRoads.Models
             base.Seed(context);
 
             //Дефолтные виды проблем
+<<<<<<< HEAD
             context.Defects.Add(new Defect() { Name = "Яма"});
             context.Defects.Add(new Defect() { Name = "Открытый люк"});
             context.Defects.Add(new Defect() { Name = "Отсутствие разметки"});
             context.Defects.Add(new Defect() { Name = "Забитая ливневка" });
+=======
+            context.Defects.Add(new Defect() { Name="Яма"});
+            context.Defects.Add(new Defect() { Name="Открытый люк"});
+            context.Defects.Add(new Defect() { Name="Отсутствие разметки"});
+>>>>>>> Reznik
             context.SaveChanges();
             // заглушка. чтобы наполнить список с точками, которых пока нет в базе
             //Defect d = context.Defects.First();

@@ -52,7 +52,36 @@ namespace BadRoads.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
+            if(OAuthWebSecurity.IsAuthenticatedWithOAuth)
+            {
+                var userAccount = OAuthWebSecurity.GetAccountsFromUserName(WebSecurity.CurrentUserName);
+                if (userAccount.Count > 0) 
+                {
+                    string provider = userAccount.ElementAt(0).Provider;
 
+                    switch (provider) {
+                        case "google":
+                            {
+                                return Redirect("http://google.com/accounts/Logout");
+                            }
+                            break;
+                        case "facebook":
+                            {
+                                if (Session["facebooktoken"] != null)
+                                {
+                                    var fb = new Facebook.FacebookClient();
+                                    string accessToken = Session["facebooktoken"] as string;
+                                    var logoutUrl = fb.GetLogoutUrl(new { access_token = accessToken });
+
+                                    Session.RemoveAll();
+                                    return Redirect(logoutUrl.AbsoluteUri);
+                                }
+                            }
+                            break;
+                    }
+                }
+               
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -224,6 +253,10 @@ namespace BadRoads.Controllers
             if (!result.IsSuccessful)
             {
                 return RedirectToAction("ExternalLoginFailure");
+            }
+            if (result.ExtraData.Keys.Contains("accesstoken"))
+            {
+                Session["facebooktoken"] = result.ExtraData["accesstoken"];
             }
 
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))

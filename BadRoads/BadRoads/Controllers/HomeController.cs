@@ -5,6 +5,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BadRoads.Models;
+<<<<<<< HEAD
+=======
+
+namespace BadRoads.Controllers
+{
+    [Culture]
+    public class HomeController : Controller
+    {
+        BadroadsDataContext db = new BadroadsDataContext();      // объект модели
+        
+        public ActionResult Index()
+        {
+            //db.Database.Delete();
+            db.Database.Initialize(false);
+            
+            return View();
+        }
+>>>>>>> Reznik
 
 namespace BadRoads.Controllers
 {
@@ -46,9 +64,14 @@ namespace BadRoads.Controllers
             return Redirect(returnUrl);
         }
 
+<<<<<<< HEAD
         public ActionResult Map(string stringForMap = null)   // отображение основной карты со всеми сохраненными точками. Принимает координаты для центра карты, если переходили с экшена PointInfo
         {
             ViewBag.MarkerLocation = stringForMap;
+=======
+        public ActionResult Map()   // отображение основной карты со всеми сохраненными точками
+        {
+>>>>>>> Reznik
             List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
             return View(listPoints);
         }
