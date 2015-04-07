@@ -86,6 +86,26 @@ namespace BadRoads.Controllers
             return View(p);
         }
 
+        /// <summary>
+        /// Action for moderators and administrators
+        /// Shows a list of demands moderation
+        /// </summary>
+        /// <returns>List of points that require moderation</returns>
+        [Authorize(Roles = "Moderator, Administrator")]
+        public ActionResult ModerationList()
+        {
+            if (User.Identity.IsAuthenticated)    // Auth check
+            {
+                List<Point> NeedModeratePoints = db.Points.Where(p => p.isValid == false).ToList(); //Creating and filling a list of points that require moderation
+
+                return View(NeedModeratePoints);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
         public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
         {
             if (User.Identity.IsAuthenticated)                                 // если пользователь авторизован
