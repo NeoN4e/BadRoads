@@ -31,6 +31,7 @@ namespace BadRoads.Controllers
 
         /// <summary>
         /// Экшен, который принимает данные с формы, для создания новой точки
+        /// Last Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 07/04/2015 23:40
         /// </summary>
         /// <param name="collection">Данные с формы добавления точки</param>
         /// <param name="upload">Коллекция фото</param>
@@ -39,42 +40,54 @@ namespace BadRoads.Controllers
         [Authorize]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
-            UserProfile CurAutor = db.GetUSerProfile(User);
-            string lat = collection["latitude"];
-            if(lat.Count()>10) 
+            try
             {
-                lat = lat.Substring(0, 10); // уменьшаем размер символов после запятой
-            }
-            lat = lat.Replace(".", ",");
-            string lng = collection["longitude"];
-            if (lng.Count() > 10)
-            {
-                lng = lng.Substring(0, 10); // уменьшаем размер символов после запятой
-            }
-            lng = lng.Replace(".", ",");
-            double latdouble = Convert.ToDouble(lat);
-            double lngdouble = Convert.ToDouble(lng);
+                UserProfile CurAutor = db.GetUSerProfile(User);
+                string lat = collection["latitude"];
+                if (lat.Count() > 10)
+                {
+                    lat = lat.Substring(0, 10); // уменьшаем размер символов после запятой
+                }
+                lat = lat.Replace(".", ",");
+                string lng = collection["longitude"];
+                if (lng.Count() > 10)
+                {
+                    lng = lng.Substring(0, 10); // уменьшаем размер символов после запятой
+                }
+                lng = lng.Replace(".", ",");
+                double latdouble = Convert.ToDouble(lat);
+                double lngdouble = Convert.ToDouble(lng);
 
-            Point p = new Point()
-            {
-                GeoData = new GeoData(latdouble, lngdouble, collection["adresset"]),
-                Autor = CurAutor,
-                Defect = db.GetDefect(collection["DefName"])
-            };
-            p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
+                Point p = new Point()
+                {
+                    GeoData = new GeoData(latdouble, lngdouble, collection["adresset"]),
+                    Autor = CurAutor,
+                    Defect = db.GetDefect(collection["DefName"])
+                };
+                p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
+                
+                db.Points.Add(p);
+                
+                db.SaveChanges();
+                int id = p.ID;
+                List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фото
+                p.isValid = ImageHelper.CheckPointMetaDataAndDistance(fileList, p); // check
 
-            db.Points.Add(p);
-            db.SaveChanges();
-            int id = p.ID;
-            List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
-            
-            foreach (var item in fileList)
-            {
-                p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
+                foreach (var item in fileList)
+                {
+                    p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
+                }
+                p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
+                
+                db.SaveChanges();
+                return RedirectToAction("Map", "Home"); // переход на Карту
             }
-            p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
-            db.SaveChanges();
-            return RedirectToAction("Map", "Home"); // переход на Карту
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("MyError");
+            }
+
             //return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
         }
 
