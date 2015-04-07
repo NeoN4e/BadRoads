@@ -18,23 +18,27 @@ namespace BadRoads.Controllers
 
         static List<Point> PaginatorList;
 
-        // экшен, который принимает данные с формы для создания новой точки
-
+        /// <summary>
+        /// Экшен, который принимает данные с формы, для создания новой точки
+        /// </summary>
+        /// <param name="collection">Данные с формы добавления точки</param>
+        /// <param name="upload">Коллекция фото</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
             UserProfile CurAutor = db.GetUSerProfile(User);
             string lat = collection["latitude"];
-            if(lat.Count()>10)
-            { 
-                lat = lat.Substring(0, 10);
+            if(lat.Count()>10) 
+            {
+                lat = lat.Substring(0, 10); // уменьшаем размер символов после запятой
             }
             lat = lat.Replace(".", ",");
             string lng = collection["longitude"];
             if (lng.Count() > 10)
             {
-                lng = lng.Substring(0, 10);
+                lng = lng.Substring(0, 10); // уменьшаем размер символов после запятой
             }
             lng = lng.Replace(".", ",");
             double latdouble = Convert.ToDouble(lat);
@@ -52,14 +56,15 @@ namespace BadRoads.Controllers
             db.SaveChanges();
             int id = p.ID;
             List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
-            return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
+            
             foreach (var item in fileList)
             {
                 p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
             }
             p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Map", "Home"); // переход на Карту
+            //return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
         }
 
         /// <summary>Передача во "view" данных о выбранной "точке" </summary>
