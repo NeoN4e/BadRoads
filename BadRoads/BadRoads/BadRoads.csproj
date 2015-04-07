@@ -252,7 +252,7 @@
     <Content Include="Images\logo_badroads.png" />
     <Content Include="Images\logo_bg.png" />
     <Content Include="Images\marker.png" />
-	<Content Include="Images\newmarker.png" />
+    <Content Include="Images\newmarker.png" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
@@ -304,6 +304,8 @@
     <Content Include="Views\Point\ThanksForPoint.cshtml" />
     <Content Include="Views\Point\Test.cshtml" />
     <Content Include="Views\Point\Search.cshtml" />
+    <Content Include="Views\Home\MyError.cshtml" />
+    <Content Include="Views\Point\MyError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
