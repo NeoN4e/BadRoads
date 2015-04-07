@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BadRoads.Models.Point>
 
 @{
-    ViewBag.Title = "Карта";
+    ViewBag.Title = "Карта с дефектами дороги";
     <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 }
 
@@ -12,18 +12,16 @@
     <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" data-id="@item.ID" class="points"></p>
     }
 }
-<div class="section group">    
-    <div class="col second span_4_of_5">
+<div class="section group">
+    <div class="col second span_5_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        <div id="map_canvas"></div>
-        @*блок с картой*@
-    </div>
-    <div class="col first span_1_of_5">
-        <h2 class="center_text">Поиск</h2>
-        <label class="f t">Введите улицу:</label>
-        <input class="f" type="text" id="searchAdress" />
-        @*строка поиска по карте*@
+        <input class="searchmap" type="text" id="searchAdress" placeholder="Поиск"  />
         <div id="resultSearch f"></div>
+    </div>
+</div>
+<div class="section group">    
+    <div class="col second span_5_of_5">
+        <div id="map_canvas"></div>
     </div>
 </div>
 @section Scripts {    
