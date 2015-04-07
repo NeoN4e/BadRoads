@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
 using System.Web.Security;
+using System.Data.Entity.Validation;
 
 namespace BadRoads.Controllers
 {
@@ -29,6 +30,7 @@ namespace BadRoads.Controllers
         [ValidateInput(false)]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
+            string t = collection["FirstComment"];
             UserProfile CurAutor = db.GetUSerProfile(User);
             string lat = collection["latitude"];
             if (lat.Count() > 10)
@@ -98,7 +100,10 @@ namespace BadRoads.Controllers
         {
             UserProfile CurAutor = db.GetUSerProfile(User);                                     // получаем автора сообщения
             Point p = (from entry in db.Points where entry.ID == Id select entry).Single();     // получаем необходимую точку
-            p.AddComent(new Comment() { ContentText = collection["NewComment"], Autor = CurAutor }); // создаём комментарий и заполняем его текстом и автором
+            if (collection["NewComment"] == "")
+                p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor });             // создаём комментарий с указанием того, что он пуст
+            else
+                p.AddComent(new Comment() { ContentText = collection["NewComment"], Autor = CurAutor }); // создаём комментарий и заполняем его текстом и автором
             db.SaveChanges(); // сохраняем изменения
 
             return RedirectToAction("PointInfo", "Point", new { id = Id }); // перенапрявляем на другой экшен
@@ -167,17 +172,27 @@ namespace BadRoads.Controllers
         [ValidateInput(false)]
         public JsonResult EditComments(string content, int Id_Point, int Id_Comment)
         {
-            Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
-            Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
-
-            // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
-            if (Cmt.ContentText != content)
+            try
             {
-                Cmt.ContentText = content;
-                db.SaveChanges();
-            }
+                Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
+                Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
 
-            return Json("OK");
+                // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
+                if (Cmt.ContentText != content)
+                {
+                    Cmt.ContentText = content;
+                    db.SaveChanges();
+                }
+
+                db.SaveChanges();
+
+                return Json("OK");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+                return Json(new { ok = false, message = ex.Message });
+            }
         }
 
         public ActionResult ThanksForPoint()       // благодарность пользователю за добавление новой точки
