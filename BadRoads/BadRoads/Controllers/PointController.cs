@@ -19,6 +19,17 @@ namespace BadRoads.Controllers
         static List<Point> PaginatorList;
 
         /// <summary>
+        /// Sorting Point list by last comment date
+        /// </summary>
+        /// <param name="list">list of Points for sort</param>
+        /// <returns>sorted list</returns>
+        public List<Point> SortByLastComment(List<Point> list)
+        {
+            list.Sort((x, y) => x.Comments.Max(c => c.Date).CompareTo(y.Comments.Max(c => c.Date)));
+            return list;
+        }
+
+        /// <summary>
         /// Экшен, который принимает данные с формы, для создания новой точки
         /// </summary>
         /// <param name="collection">Данные с формы добавления точки</param>
@@ -86,6 +97,26 @@ namespace BadRoads.Controllers
             return View(p);
         }
 
+        /// <summary>
+        /// Action for moderators and administrators
+        /// Shows a list of demands moderation
+        /// </summary>
+        /// <returns>List of points that require moderation</returns>
+        [Authorize(Roles = "Moderator, Administrator")]
+        public ActionResult ModerationList()
+        {
+            if (User.Identity.IsAuthenticated)    // Auth check
+            {
+                List<Point> NeedModeratePoints = db.Points.Where(p => p.isValid == false).ToList(); //Creating and filling a list of points that require moderation
+
+                return View(NeedModeratePoints);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
         public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
         {
             if (User.Identity.IsAuthenticated)                                 // если пользователь авторизован
@@ -118,7 +149,8 @@ namespace BadRoads.Controllers
             {
                 PaginatorList = db.Points.ToList<Point>();
             }
-            return View(PaginatorList.ToPagedList<Point>(page??1,pointsOnPage));
+            //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
+            return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
         /// show points on pages using partial view
@@ -133,10 +165,12 @@ namespace BadRoads.Controllers
 
             if (page == -1)
             {
+                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(1, pointsOnPage)); uncomment after adding normal data in database
                 return PartialView(PaginatorList.ToPagedList<Point>(1, pointsOnPage));
             }
             else
             {
+                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(page, pointsOnPage));uncomment after adding normal data in database
                 return PartialView(PaginatorList.ToPagedList<Point>(page, pointsOnPage));
             }
         }
