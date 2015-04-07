@@ -231,7 +231,7 @@ namespace BadRoads.Models
     /// <summary>Фотография дефекта на дороге</summary>
     public class Photo : BadroadsDataItem
     {
-        [Required,Url]
+        [Required]
         public string Url { get; set; }
 
         public virtual ICollection<Point> Points { get; set; }

@@ -234,7 +234,8 @@ namespace BadRoads.Models
             {
                 if (upload != null)
                 {
-                    string basePath = HttpContext.Current.Server.MapPath("~/Images/Gallery/");
+                    string bPath = "/Images/Gallery/";
+                    string basePath = HttpContext.Current.Server.MapPath("~"+bPath);
                     string directory = "point_" + idPoint.ToString();
                     if (!System.IO.Directory.Exists(basePath + directory))
                     {
@@ -257,7 +258,7 @@ namespace BadRoads.Models
                                     if (!File.Exists(fileName))
                                     {
                                         file.SaveAs(fileName);
-                                        fileList.Add(fileName);
+                                        fileList.Add(bPath + directory + "/" + Path.GetFileName(fileName));
                                         stop = false;
                                     }
                                     else
@@ -273,20 +274,21 @@ namespace BadRoads.Models
                         }
                         else
                         {
-                            throw new ArgumentOutOfRangeException();
+                            throw new NullReferenceException();
                         }
                     }
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new NullReferenceException();
                 }
+                return fileList;
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message); 
+                //return View("Map", "Point"); 
             }
-                return fileList;
+            return fileList;
         }
         
 

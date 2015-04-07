@@ -68,10 +68,14 @@ namespace BadRoads.Controllers
         public ActionResult Map(string stringForMap = null)   // отображение основной карты со всеми сохраненными точками. Принимает координаты для центра карты, если переходили с экшена PointInfo
         {
             ViewBag.MarkerLocation = stringForMap;
+<<<<<<< HEAD
 =======
         public ActionResult Map()   // отображение основной карты со всеми сохраненными точками
         {
 >>>>>>> Reznik
+=======
+            //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
+>>>>>>> 0c316ded120c0494ef2314558cef1e019429efdd
             List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
             return View(listPoints);
         }
