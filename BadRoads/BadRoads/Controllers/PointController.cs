@@ -90,8 +90,8 @@ namespace BadRoads.Controllers
                 ViewBag.MarkerLocation = stringForMap;
                 string[] defects = { "Яма", "Открытый люк", "Отсутствие разметки" };
                 ViewBag.Problems = defects;  // список дефектов для выбора их на форме заполнения точки
-                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
-                List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
+                List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
+                //List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
                 return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
             }
             else
