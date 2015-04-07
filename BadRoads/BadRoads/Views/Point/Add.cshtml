@@ -1,0 +1,50 @@
+﻿@if (Model != null && Model.Count > 0)
+{
+    foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
+    {
+        <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" data-id="@item.ID" class="points"></p>
+    }
+}
+<p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
+<div class="section group">
+    <div class="col span_2_of_3">
+        <h1 class="ct">Укажите дефект на карте</h1>
+        <div id="map"></div>
+    </div>   
+    <div class="col span_1_of_3">
+       @using (Html.BeginForm("Add", "Point", FormMethod.Post,
+          new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <h1 class=" ct">Добавить информацию о дефекте на дороге</h1>
+            <label class="f t">Адрес:</label>
+            <input name="adresset" id="adresset" class="f" type="text" readonly />              @*адрес точки*@
+            <label class="f t">Координаты:</label>
+            <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
+            <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
+            <label class="f t">Выберите фото для загрузки:</label>
+            <input name="upload" class="f" type="file" multiple />
+            <label class="f t">Выберите проблему:</label>
+            <select name="DefName" class="sel f">
+
+                    @foreach (var item in ViewBag.Problems)
+                    {
+                        <option>@item</option>
+                    }
+
+            </select>
+            <label class="f t">Дополнительное описание:</label>
+            <textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>
+            <div class="ct">
+                <input id="subm" type="submit" value="Отправить" disabled />
+            </div>
+       }
+    </div>   
+</div>
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
+    @Scripts.Render("~/Scripts/addpoint.js")
+}  

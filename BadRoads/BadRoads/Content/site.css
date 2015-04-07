@@ -10,20 +10,32 @@ a,
 p,
 input,
 body,
-select {
+select, button {
     font-family: 'Ubuntu Condensed', sans-serif;
     font-weight: 400;
 }
 
 /*=============DEFAULT SETINGS=============*/
-body,
-div,
-header,
-nav,
-ul,
-li {
-    margin: 0;
-    padding: 0;
+.ui-menu-item {
+    cursor: pointer;
+}
+
+.ui-menu {
+    width: 200px;
+    overflow: hidden;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
+    visibility: hidden;
+}
+
+h1 {
+    font-size: 18px;
+}
+
+h2 {
+    font-size: 16px;
 }
 
 p {
@@ -35,78 +47,272 @@ a {
     text-decoration: none;
 }
 
+p a {
+    text-decoration: underline;
+    margin: 0 10px;
+}
+
+label {
+    display: block;
+}
+
+.in-block {
+    display: inline-block;
+}
+
+.scrolly {
+    overflow-y: scroll;
+}
+
+/*=============STYLES AND COLORS=============*/
+
+input, select, textarea, button, #map_canvas, #map, .grid, .block {
+    background-color: #D2D7D3;
+    border: 1px solid #95a5a6;
+    border-radius: 3px;
+}
+
+    input[type="file"]::-webkit-file-upload-button {
+        background-color: #D2D7D3;
+        border: 1px solid #95a5a6;
+        border-radius: 3px;
+    }
+
+::-webkit-input-placeholder {
+    color: #34495e;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #f1c40f;
+    cursor: pointer;
+}
+
+input[type="submit"],
+input[type="button"] {
+    background-color: #f1c40f;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover,
+    input[type="button"]:hover,
+    button:hover,
+    #lang:hover {
+        -moz-box-shadow: inset 0px 0px 5px #ecf0f1;
+        -webkit-box-shadow: inset 0px 0px 5px #ecf0f1;
+        box-shadow: inset 0px 0px 5px #ecf0f1;
+    }
+
+button[value="vkontakte"] {
+    background-color: #537599;
+}
+
+button[value="facebook"] {
+    background-color: #44619d;
+}
+
+button[value="google"] {
+    background-color: #dd4b39;
+}
+
+    button[value="vkontakte"]:hover,
+    button[value="facebook"]:hover,
+    button[value="google"]:hover {
+        color: black;
+    }
+
+.bt {
+    background-color: transparent;
+}
+.bold {
+    font-weight: 600;
+}
+/*=============SIZE=============*/
+
+input, select, textarea, button, .t, #map, p, h3, .block, .pad {
+    margin: 1% 2.5% 1% 2.5%;
+    padding: 1%;
+}
+
+.mtopnul {
+    margin: 0.5% 2.5% 0.5% 2.5%;
+    padding: 0 1%;
+}
+
+.mtop50 {
+    margin: 50px 2.5% 0.5% 2.5%;
+    padding: 0 1%;
+}
+.bordernull {
+    border: 0;
+}
+
+input, select, textarea, button, .hd {
+    height: 25px;
+}
+
+select, .hd2 {
+    height: 36px;
+}
+
+.f {
+    width: 92%;
+}
+
+.sel.f {
+    width: 94%;
+}
+
+.f-2 {
+    width: 42%;
+}
+
+.ht {
+    height: 180px;
+}
+
+.hp {
+    height: 157px;
+}
+.h100 {
+    height: 100px;
+}
+.h80 {
+    height: 80px;
+}
+.fh {
+    height: 89vh;
+}
+.pimgh {
+    height: 70vh;
+}
+.comnt {
+    max-height: 56vh;
+}
+.h-2 {
+    height: 50vh;
+}
+
+.h-3 {
+    height: 33vh;
+}
+
+.h-4 {
+    height: 25vh;
+}
+
+.ct {
+    margin: 0 auto;
+    padding: 10px 0;
+    font-weight: 600;
+    text-align: center;
+}
+
 body {
     width: 100%;
     height: 100%;
-    background-color: #a9aaaa;
+    background-color: #ecf0f1;
 }
 
-form input {
-    border: 3px solid #f8d200;
-    margin: 0 5px;
-    border-radius: 15px;
-    padding: 5px;
-    height: 15px;
-    width: 180px;
-    color: black;
-    background-color: gray;
-    font-weight: 600;
-    font-size: 12px;
+ol, ul {
+    list-style-type: none;
 }
 
-    form input[type="submit"],
-    form input[type="button"] {
-        height: 30px;
-        width: 35px;
-        margin: 0;
-        cursor: pointer;
+    ol li {
+        padding: 10px 0;
     }
 
-        form input[type="submit"]:hover,
-        form input[type="button"]:hover {
-            border: 3px solid black;
-            background-color: #f8d200;
+        ol li label {
+            margin-left: 2.5%;
+            display: inline-block;
+            width: 29%;
         }
+
+        ol li input {
+            display: inline-block;
+            width: 58.5%;
+            height: 20px;
+        }
+
+input {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+    input[type="checkbox"] {
+        width: auto;
+    }
+
+    input[type="submit"],
+    input[type="button"] {
+        height: 35px;
+        width: 150px;
+    }
+
+button {
+    width: 150px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+li form {
+    display: inline;
+}
+
 /*=============BODY STYLES=============*/
 
 #menu {
-    background-color: #556270;
+    background-color: #34495e;
     position: fixed;
     width: 250px;
     height: 100vh;
     min-height: 520px;
     margin-left: -250px;
     z-index: 1000;
-    opacity: 0.97;
 }
 
-#content {
-}
 /*=============MENU=============*/
 
 #btnmenu {
-    background-color: #f8d200;
+    background-color: #f1c40f;
     border-radius: 3px;
-    border: 2px solid black;
+    border: 2px solid #34495e;
+    color: #34495e;
     position: absolute;
     cursor: pointer;
-    left: 270px;
+    left: 260px;
     top: 20px;
     width: 34px;
     height: 31px;
     text-align: center;
 }
 
+#btnadd {
+    background-color: #f1c40f;
+    border-radius: 26px;
+    border: 2px solid #34495e;
+    color: #34495e;
+    position: absolute;
+    left: 310px;
+    top: 18px;
+    width: 36px;
+    height: 33px;
+    text-align: center;
+    padding-top: 3px;
+}
+
 #lang {
-    width: 45px;
+    width: 47px;
     height: 30px;
     position: absolute;
-    top: 0;
+    top: 5px;
     left: 198px;
-    background-color: gray;
-    border-radius: 15px;
-    border: 3px solid #f8d200;
+    background-color: #f8d200;
+    border-radius: 3px;
     font-size: 14px;
+    margin: 0;
 }
 
 #logo {
@@ -115,69 +321,146 @@ form input {
     margin: 20px auto;
 }
 
-#navmenu {
+.search {
+    margin: 0 0 0 8px;
+    padding-left: 5px;
+    width: 185px;
+}
+
+    .search[type="submit"] {
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+    }
+
+nav {
     margin: 20px 0;
 }
 
-    #navmenu ul li {
+    nav ul li {
         padding: 10px;
         font-size: 18px;
         font-weight: 600;
         list-style: none;
-        border-bottom: 1px solid transparent;
+        color: #ecf0f1;
     }
 
-        #navmenu ul li:hover,
-        #navmenu ul li.active {
-            border-bottom: 1px solid #f8d200;
-            background-color: gray;
+        nav ul li:hover,
+        nav ul li.active {
+            background-color: #6C7A89;
+            opacity: 0.5;
         }
 
-footer {
-    position: absolute;
-    bottom: 10px;
-    left: 70px;
-    text-align: center;
-}
-
-    footer a {
-        color: black;
-    }
-
-        footer a:hover {
-            color: #f8d200;
+        nav ul li a {
+            color: #ecf0f1;
         }
+
 /*=============OTHERS=============*/
 
 .fullscreen {
-    background: url(/Content/img/badroads_bg.jpg) no-repeat center center fixed;
+    background: url(/Images/badroads_bg.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
 }
 
-.areacontent {
-    width: 100%;
-    min-width: 360px;
+.logo {
+    display: block;
+    margin: 25px auto;
+    height: 360px;
+    width: 360px;
 }
 
-.row {
-    float: left;
-    width: 50%;
-    min-width: 360px;
+.yellow {
+    display: block;
+    color: #f8d200;
+    font-size: 1.2em;
+    text-shadow: black 0 0 2px;
+}
+
+.grid {
     display: inline-table;
+    width: 24%;
+    height: 42vh;
+    text-align: center;
+    margin: 0.5% 0 0 0.5%;
 }
 
-    .row img {
+    .grid:hover {
+        -moz-box-shadow: 0px 0px 5px #000000;
+        -webkit-box-shadow: 0px 0px 5px #000000;
+        box-shadow: 0px 0px 5px #000000;
+    }
+
+    .grid img {
+        background-color: gray;
+        display: block;
+        width: 100%;
+        height: 90%;
+    }
+
+.title {
+    height: 10%;
+    padding: 5px 0;
+}
+
+#map_canvas {
+    height: 90vh;
+    margin: 0.5%;
+    border-radius: 3px;
+}
+
+#map {
+    padding: 0;
+    height: 89vh;
+}
+
+#mapinfo {    
+    height: 100px;
+        }
+
+.points {
+    display: none;
+}
+
+/*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
+@media only screen and (max-width: 768px) {
+    .h-3.index {
+        height: 0;
+    }
+
+    #map {
+        height: 50vh;
+    }
+        
+    #map_canvas {
+        height: 75vh;
+    }
+
+    .logo {
         display: block;
         margin: 25px auto;
-        height: 360px;
-        width: 360px;
+        height: 260px;
+        width: 260px;
     }
 
-    .row .yellow {
-        display: block;
-        padding: 10%;
-        color: #f8d200;
+    .grid {
+        width: 98%;
+        height: 70vh;
     }
+
+    .col.first {
+        -webkit-box-ordinal-group: 2;
+        -webkit-order: 1;
+        -ms-flex-order: 1;
+        order: 1;
+    }
+
+    .col.second {
+        -webkit-box-ordinal-group: 3;
+        -webkit-order: 2;
+        -ms-flex-order: 2;
+        order: 2;
+    }
+}

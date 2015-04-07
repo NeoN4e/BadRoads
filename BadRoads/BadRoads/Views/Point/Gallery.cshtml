@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Галерея";
+}
+<div class="section group">   
+    <div class="col second span_4_of_5">
+        <h1 class="ct">@ViewBag.Title</h1>
+        @Html.Partial("Search")
+    </div>
+    <div class="col first span_1_of_5">
+        <div class="hd2"></div>
+        <h2 class="ct">Фильтр</h2>
+        <label class="f t">Введите улицу:</label>
+        @using (Ajax.BeginForm("Search", new AjaxOptions { UpdateTargetId = "resultSearch" }))
+        {            
+            <input class="f" type="text" />
+            <div class="ct">
+                <input type="submit" value="Фильтровать" name="searchtext" />
+            </div>
+        }
+    </div>
+</div>

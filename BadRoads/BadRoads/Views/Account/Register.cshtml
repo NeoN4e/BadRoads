@@ -1,37 +1,50 @@
 ﻿@model BadRoads.Models.RegisterModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Регистрация";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
-
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
-}
-
+<div class="section group hd"></div>
+<div class="section group">
+    <div class="col span_4_of_4">
+        <h1 class="ct">@ViewBag.Title</h1>
+    </div>
+</div>   
+<div class="section group">
+    <div class="col span_1_of_3 hd"></div>
+    <div class="col span_1_of_3">
+        <h2 class="ct">Заполните поля для регистрации</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                </li>
+            </ol>
+            <div class="ct">
+            <input type="submit" value="Зарегистрировать" />
+                </div>
+        }      
+        <div class="ct">
+             <h2 class="ct">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
+            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+        </div>
+    </div>
+    <div class="col span_1_of_3"></div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

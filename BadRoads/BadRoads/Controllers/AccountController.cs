@@ -42,7 +42,7 @@ namespace BadRoads.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Логин и/или пароль введены не верно");
             return View(model);
         }
 

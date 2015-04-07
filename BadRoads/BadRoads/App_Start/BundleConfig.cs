@@ -22,8 +22,9 @@ namespace BadRoads
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
+
             //CSS for Layout
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/font-awesome.min.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/col.css", "~/Content/html5reset.css", "~/Content/font-awesome.min.css", "~/Content/PagedList.css"));
             //SCRIPTS for Layout
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include("~/Scripts/jquery-2.1.3.min.js", "~/Scripts/jquery.unobtrusive-ajax.js", "~/Scripts/jquery-ui-1.11.4.js", "~/Scripts/site.js"));
 
