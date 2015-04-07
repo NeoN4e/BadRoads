@@ -12,18 +12,14 @@
     <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" data-id="@item.ID" class="points"></p>
     }
 }
-<div class="section group">
-    <div class="col span_4_of_4">
-        <h1 class="ct">@ViewBag.Title</h1>
-    </div>
-</div>
 <div class="section group">    
     <div class="col second span_4_of_5">
+        <h1 class="center_text">@ViewBag.Title</h1>
         <div id="map_canvas"></div>
         @*блок с картой*@
     </div>
     <div class="col first span_1_of_5">
-        <h2 class="ct">Поиск</h2>
+        <h2 class="center_text">Поиск</h2>
         <label class="f t">Введите улицу:</label>
         <input class="f" type="text" id="searchAdress" />
         @*строка поиска по карте*@
