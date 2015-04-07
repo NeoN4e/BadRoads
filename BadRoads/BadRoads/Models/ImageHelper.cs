@@ -234,8 +234,8 @@ namespace BadRoads.Models
             {
                 if (upload != null)
                 {
-                    string bPath = "~/Images/Gallery/";
-                    string basePath = HttpContext.Current.Server.MapPath(bPath);
+                    string bPath = "/Images/Gallery/";
+                    string basePath = HttpContext.Current.Server.MapPath("~"+bPath);
                     string directory = "point_" + idPoint.ToString();
                     if (!System.IO.Directory.Exists(basePath + directory))
                     {
