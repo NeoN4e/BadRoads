@@ -1,4 +1,4 @@
-﻿$(document).ready(function () { Initialize();});
+﻿$(document).ready(function () { Initialize(); $("#textcomment").change(CanSend);  });
 var latitude;                                // широта точки
 var longitude;                               // долгота точки
 var map;                                     // карта
@@ -35,6 +35,8 @@ function Initialize() {
 }
 function CanSend()   // функция, если добавили комментарий в форму
 {
-    if ($("#subm").val != "")
-        $("#subm").attr("disabled", false);    // разблокировать кнопку Отправить
+    if ($("#textcomment").val() == "")
+        $("#subm").attr("disabled", true);    // разблокировать кнопку Отправить
+    else
+        $("#subm").attr("disabled", false);
 }

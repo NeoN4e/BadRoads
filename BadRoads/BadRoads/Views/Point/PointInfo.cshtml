@@ -5,6 +5,12 @@
     <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    
 }
 
+@if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
+{                                                                                                   // главное оставить такую ссылку и проверку в if              - Волков Антон.  06.04.15
+    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a>               
+    <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
+}
+
 <div class="section group">
     <div class="col span_3_of_5">
         <h1 class="ct">@ViewBag.Title</h1>
@@ -38,7 +44,7 @@
         {
             foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
             {
-                <label class="f mtopnul bold">@item.Date - @item.Autor</label>
+                <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
                 <p class="in-block f mtopnul">@item.ContentText</p>
             }
         }
@@ -52,7 +58,7 @@
             using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
                       new { enctype = "multipart/form-data" }))
             {
-            <textarea name="Comment" id="textcomment" class="f h80" placeholder="комментируем..." onchange="CanSend();"></textarea>
+            <textarea name="Comment" id="textcomment" class="f h80" placeholder="комментируем..."></textarea>
             <div class="ct">
                 <input id="subm" type="submit" value="Отправить" disabled />
             </div>
@@ -63,7 +69,6 @@
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
-    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/pointinfo.js")
 }
 
