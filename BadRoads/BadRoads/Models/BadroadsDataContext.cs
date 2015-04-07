@@ -95,6 +95,26 @@ namespace BadRoads.Models
         {
             return this.Users.First(U => U.UserName == User.Identity.Name);
         }
+
+        /// <summary>
+        /// Получение ссылки на дефект
+        /// </summary>
+        /// <param name="DefectName">Имя Дефекта</param>
+        /// <returns></returns>
+        public Defect GetDefect(string DefectName)
+        {
+            return this.Defects.First(d => d.Name == DefectName);
+        }
+
+        /// <summary>
+        /// Получение ссылки на дефект
+        /// </summary>
+        /// <param name="DefectId">ИД Дефекта</param>
+        /// <returns></returns>
+        public Defect GetDefect(int DefectId)
+        {
+            return this.Defects.First(d => d.ID == DefectId);
+        }
     }
 
     /// <summary>Базовый клас для всех класов БД</summary>
@@ -205,7 +225,7 @@ namespace BadRoads.Models
     /// <summary>Фотография дефекта на дороге</summary>
     public class Photo : BadroadsDataItem
     {
-        [Required,Url]
+        [Required]
         public string Url { get; set; }
 
         public virtual ICollection<Point> Points { get; set; }

@@ -49,6 +49,7 @@ namespace BadRoads.Controllers
         public ActionResult Map(string stringForMap = null)   // отображение основной карты со всеми сохраненными точками. Принимает координаты для центра карты, если переходили с экшена PointInfo
         {
             ViewBag.MarkerLocation = stringForMap;
+            //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
             List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
             return View(listPoints);
         }

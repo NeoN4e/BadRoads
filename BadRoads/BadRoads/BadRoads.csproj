@@ -271,6 +271,7 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\addpoint.js" />
+    <Content Include="Scripts\pointinfo.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Карта";
+    <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 }
 
 @if (Model != null && Model.Count() > 0)
@@ -11,7 +12,6 @@
 
     <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" data-id="@item.ID" class="points"></p>
     }
-    <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 }
 <div class="section group">
     <div class="col span_4_of_4">

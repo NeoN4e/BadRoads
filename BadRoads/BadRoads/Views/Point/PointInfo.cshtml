@@ -2,19 +2,19 @@
 
 @{
     ViewBag.Title = String.Format(Model.Defect + " по адресу: " + Model.GeoData.FullAddress);
-    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>
-    
+    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    
+}
+
+@if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
+{                                                                                                   // главное оставить такую ссылку и проверку в if              - Волков Антон.  06.04.15
+    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a>               
+    <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
 }
 
 <div class="section group">
-    <div class="col span_5_of_5">
-        <h1 class="ct">@ViewBag.Title</h1>
-    </div>
-</div>
-<div class="section group">
-    <div class="col span_1_of_5 hd"></div>
     <div class="col span_3_of_5">
-        <div class="block sel f h-2">
+        <h1 class="ct">@ViewBag.Title</h1>
+        <div class="block f pimgh">
             @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
             {
                 foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
@@ -29,66 +29,50 @@
             }
             else                                             // если коллекция пуста
             {
+
                 <img src="../../Images/nophoto.png" style="height: 80%; border: 1px solid black; margin: 5%;" />             // добавляем одну фотографию-заглушку
             }
         </div>
-        <div class="block group sel f bt bordernull">
-            <div class="col span_1_of_2">
-                <div class="block sel f hp ">
-                    <div id="map" style="height: 98%; width: 98%;"></div>
-                    @*Юра Хилько, здесь нужно что-то сделать))
-                                                                                и желательно, как-то дать понять пользователю, что клик по карте отправляет на основную карту. Не придумал пока.*@
-                </div>
-            </div>
-            <div class="col span_1_of_2">
-                <label class="f t">Адрес:</label>
-                <input class="f" type="text" value="@Model.GeoData.FullAddress"/>
-                <label class="f t">Проблема:</label>
-                <input class="f" type="text"  value="@Model.Defect.Name"/>
-            </div>
-            <div class="col span_2_of_2">
-                <label class="f ml">Описание:</label>
-                <div class="sel f block">
-                        @Html.Raw(ViewBag.Description)
-                </div>
-                <label class="f ml">Комментарии:</label>
-                @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
-                {
-                    foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
-                    {
-                    <div class="sel f block bt">@item.Date - @item.Autor<br />
-                        @Html.Raw(item.ContentText)</div>
-                    }
-                }
-                else                                             // если коллекция пуста
-                {
-                    <div class="sel f block bt">Пока нет комментариев. Будьте первым.</div>            // добавляем одну заглушку
-                }
-                @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
-                {
-                    using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
-                              new { enctype = "multipart/form-data" }))
-                    {
-@*<textarea name="Comment" id="textcomment" class="f ht" placeholder="комментируем..." onchange="CanSend();"></textarea>*@
-                    <textarea class="ckeditor" name="edit" disabled="disabled">@ViewBag.Description</textarea>
-                    <div class="ct">
-                        <input id="subm" type="submit" value="Отправить" disabled />
-                    </div>
-                    }
-                }
-            </div>
+        <div id="mapinfo" class="block f mtopnul"></div>
+    </div>
+    <div class="col span_2_of_5">     
+        <label class="f mtop50 bold">Описание:</label>
+        <label class="f mtopnul">@Html.Raw(ViewBag.Description)</label> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
+        <label class="f mtopnul bold">Комментарии:</label>
+        <div class="scrolly comnt">
+        @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
+        {
+            foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
+            {
+                <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
+                <p class="in-block f mtopnul">@Html.Raw(item.ContentText)</p> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
+            }
+        }
+        else                                             // если коллекция пуста
+        {
+            <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
+        }
         </div>
+        @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
+        {
+            using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
+                      new { enctype = "multipart/form-data" }))
+            {
+            @Html.Hidden("Id", @Model.ID) @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
+            <textarea class="ckeditor" name="NewComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
+            <div class="ct">
+                <input id="subm" type="submit" value="Отправить"/> @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
+            </div>
+            }
+        }
     </div>
 </div>
 
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>
-    @*подключение Google Maps API*@
-    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
-    @*подключение скрипта для кластеризации маркеров*@
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     @Scripts.Render("~/Scripts/pointinfo.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")@* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@
 }
 
-
+  
 

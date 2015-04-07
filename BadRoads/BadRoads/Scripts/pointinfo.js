@@ -1,4 +1,4 @@
-﻿$(document).ready(function () { Initialize();});
+﻿$(document).ready(function () { Initialize(); $("#textcomment").change(CanSend);  });
 var latitude;                                // широта точки
 var longitude;                               // долгота точки
 var map;                                     // карта
@@ -16,7 +16,7 @@ function Initialize() {
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.ROADMAP      // тип карты. ROADMAP - дорожная
     };
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);           // создание карты
+    map = new google.maps.Map(document.getElementById("mapinfo"), mapOptions);           // создание карты
     var imageMarker = "../../Images/marker.png";              // картинка для маркерa
     marker = new google.maps.Marker({                    // создаем маркер
         position: myLatlng,
@@ -35,6 +35,8 @@ function Initialize() {
 }
 function CanSend()   // функция, если добавили комментарий в форму
 {
-    if ($("#subm").val != "")
-        $("#subm").attr("disabled", false);    // разблокировать кнопку Отправить
+    if ($("#textcomment").val() == "")
+        $("#subm").attr("disabled", true);    // разблокировать кнопку Отправить
+    else
+        $("#subm").attr("disabled", false);
 }
