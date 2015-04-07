@@ -1,7 +1,6 @@
 .pagination-container {
-    margin: 0 30%;
     display: block;
-    width: 40%;
+    width: 100%;
     text-align: center;
 }
 
@@ -14,14 +13,13 @@
 
 .pagination {
     display: block;
-    width: 100%;
     padding-left: 0;
     margin: 10px auto;
     border-radius: 3px;
 }
 
     .pagination > li {
-        display: inline;
+        display: inline-block;
     }
 
         .pagination > li > a,
