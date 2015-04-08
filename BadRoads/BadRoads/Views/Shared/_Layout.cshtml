@@ -13,12 +13,10 @@
 <body>
     <script type="text/javascript">
 
-        function SubM() {
-            var i = document.getElementById("lang");
-            alert(i);
+        function SubM() {             
             $('#sub').click();
-            $(".OptionValue [value=]").attr("selected", "selected");           
-        }
+            $("#lang :contains('#my_select option:selected').val()").attr("selected", "selected");
+        }       
 
     </script>
 
@@ -36,7 +34,7 @@
         }
         @using (Html.BeginForm("ChangeCulture", "Home"))
         { 
-            <select name="lang" id="lang" onchange="SubM()">
+            <select name="lang" id="lang" onchange="SubM()" onload="LD()">
                 @*<option>@Resources.Resource._Language</option>*@
                 <option class="OptionValue" value="ru">RU</option>
                 <option class="OptionValue" value="uk">UA</option>
