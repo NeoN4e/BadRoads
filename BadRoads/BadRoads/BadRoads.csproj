@@ -306,6 +306,8 @@
     <Content Include="Views\Point\Test.cshtml" />
     <Content Include="Views\Point\Search.cshtml" />
     <Content Include="Views\Point\ModerationList.cshtml" />
+    <Content Include="Views\Home\MyError.cshtml" />
+    <Content Include="Views\Point\MyError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
