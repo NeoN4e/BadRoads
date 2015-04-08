@@ -42,14 +42,7 @@ namespace BadRoads.Controllers
         [ValidateInput(false)]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
-
             try
-{
-            string t = collection["FirstComment"];
-            UserProfile CurAutor = db.GetUSerProfile(User);
-            string lat = collection["latitude"];
-            if (lat.Count() > 10)
-
             {
                 UserProfile CurAutor = db.GetUSerProfile(User);
                 string lat = collection["latitude"];
@@ -82,7 +75,6 @@ namespace BadRoads.Controllers
                 List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фото
                 p.isValid = ImageHelper.CheckPointMetaDataAndDistance(fileList, p); // check
 
-
                 foreach (var item in fileList)
                 {
                     p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
@@ -93,13 +85,6 @@ namespace BadRoads.Controllers
                 return RedirectToAction("Map", "Home"); // переход на Карту
             }
             catch (Exception ex)
-{
-            db.Points.Add(p);
-            db.SaveChanges();
-            int id = p.ID;
-            List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
-
-            foreach (var item in fileList)
             {
                 ViewBag.Message = ex.Message;
                 return View("MyError");
@@ -111,7 +96,7 @@ namespace BadRoads.Controllers
         /// <summary>Передача во "view" данных о выбранной "точке" </summary>
         /// <param name="id">ID Выбранной "точке"</param>
         /// <returns>Point</returns>
-        public ActionResult PointInfo(int id)                  // экшен выводит описание одной точки
+        public ActionResult PointInfo(int id)
         {
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
             Comment c = new Comment();
@@ -127,7 +112,6 @@ namespace BadRoads.Controllers
             return View(p);
         }
 
-<<<<<<< HEAD
         /// <summary>
         /// Action for moderators and administrators
         /// Shows a list of demands moderation
@@ -146,26 +130,6 @@ namespace BadRoads.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-=======
-        /// <summary>Добавляет комментарий к текущей точке</summary>
-        /// <param name="Id">ID текущей точки</param>
-        /// <param name="collection">Новый комментарий </param>
-        /// <returns>перенаправляет на PointInfo с текущей точкой</returns>
-        [HttpPost]
-        [Authorize]
-        [ValidateInput(false)]
-        public ActionResult AddComment(int Id, FormCollection collection)
-        {
-            UserProfile CurAutor = db.GetUSerProfile(User);                                     // получаем автора сообщения
-            Point p = (from entry in db.Points where entry.ID == Id select entry).Single();     // получаем необходимую точку
-            if (collection["NewComment"] == "")
-                p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor });             // создаём комментарий с указанием того, что он пуст
-            else
-                p.AddComent(new Comment() { ContentText = collection["NewComment"], Autor = CurAutor }); // создаём комментарий и заполняем его текстом и автором
-            db.SaveChanges(); // сохраняем изменения
-
-            return RedirectToAction("PointInfo", "Point", new { id = Id }); // перенапрявляем на другой экшен
->>>>>>> DmitriyMaly
         }
 
         public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
@@ -200,10 +164,7 @@ namespace BadRoads.Controllers
             {
                 PaginatorList = db.Points.ToList<Point>();
             }
-<<<<<<< HEAD
             //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
-=======
->>>>>>> DmitriyMaly
             return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
@@ -229,6 +190,26 @@ namespace BadRoads.Controllers
             }
         }
 
+        /// <summary>Добавляет комментарий к текущей точке</summary>
+        /// <param name="Id">ID текущей точки</param>
+        /// <param name="collection">Новый комментарий </param>
+        /// <returns>перенаправляет на PointInfo с текущей точкой</returns>
+        [HttpPost]
+        [Authorize]
+        [ValidateInput(false)]
+        public ActionResult AddComment(int Id, FormCollection collection)
+        {
+            UserProfile CurAutor = db.GetUSerProfile(User);                                     // получаем автора сообщения
+            Point p = (from entry in db.Points where entry.ID == Id select entry).Single();     // получаем необходимую точку
+            if (collection["NewComment"] == "")
+                p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor });             // создаём комментарий с указанием того, что он пуст (Заглушка)
+            else
+                p.AddComent(new Comment() { ContentText = collection["NewComment"], Autor = CurAutor }); // создаём комментарий и заполняем его текстом и автором
+            db.SaveChanges(); // сохраняем изменения
+
+            return RedirectToAction("PointInfo", "Point", new { id = Id }); // перенапрявляем на другой экшен
+        }
+
         /// <summary> Editor для изменения комментариев </summary>
         /// <param name="content">Новое содержимое комментария</param>
         /// <param name="Id_Point">ID точки в котором меняем комментарий</param>
@@ -243,13 +224,11 @@ namespace BadRoads.Controllers
                 Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
 
                 // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
-                if (Cmt.ContentText != content)
+                if (Cmt.ContentText != content && content != "")
                 {
                     Cmt.ContentText = content;
                     db.SaveChanges();
                 }
-
-                db.SaveChanges();
 
                 return Json("OK");
             }
