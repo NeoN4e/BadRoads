@@ -82,7 +82,7 @@ namespace BadRoads.Controllers
                 p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
                 
                 db.SaveChanges();
-                return RedirectToAction("Map", "Home"); // переход на Карту
+                return RedirectToAction("Map", "Home", new { flag = true });
             }
             catch (Exception ex)
             {
@@ -275,8 +275,12 @@ namespace BadRoads.Controllers
             if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //  если авторизован с ролью "модератор"
             {
                 Point p = db.Points.Find(id);                                   // находим точку по ID   
+                //p.Comments.Clear();
+                //p.Dispose();
+                //db.SaveChanges();
                 db.Points.Remove(p);                                            // удаляем точку.
                 db.SaveChanges();                                               // сохраняем изменения в базе
+                GC.SuppressFinalize(this);
                 return RedirectToAction("Map", "Home");                        // переход на основную карту
             }
             else
