@@ -9,7 +9,13 @@
             <div class="grid">
                 <h3 class="title">@item.Defect на @item.GeoData.FullAddress</h3>
                 <div>
-                    <img src="@item.Cover"/>
+                    @try{
+                        <img src="@item.Cover.Url"/>
+                    }
+                    catch(Exception)
+                    {
+                        <img src="../../Images/nophoto.png"/>
+                    }
                 </div>
             </div>
         </a>
