@@ -178,17 +178,12 @@ namespace BadRoads.Controllers
         {
             int pointsOnPage = 8;//maximum Point elements on page
             PaginatorList = db.Points.Where(p => p.GeoData.FullAddress.Contains(searchText)).ToList();
-
-            if (page == -1)
+            page = page == -1 ? 1 : page;
+            if (Request.IsAjaxRequest())
             {
-                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(1, pointsOnPage)); uncomment after adding normal data in database
-                return PartialView(PaginatorList.ToPagedList<Point>(1, pointsOnPage));
-            }
-            else
-            {
-                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(page, pointsOnPage));uncomment after adding normal data in database
                 return PartialView(PaginatorList.ToPagedList<Point>(page, pointsOnPage));
             }
+            return View("Gallery", PaginatorList.ToPagedList<Point>(page, pointsOnPage));
         }
 
         /// <summary>Добавляет комментарий к текущей точке</summary>
@@ -273,6 +268,13 @@ namespace BadRoads.Controllers
             }
             else
                 return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+        }
+        public JsonResult Autocomplete(string term)
+        {
+            var resultComplete = (from p in db.Points
+                                  where p.GeoData.FullAddress.Contains(term)
+                                  select p.GeoData.FullAddress).ToArray<string>();
+            return Json(resultComplete, JsonRequestBehavior.AllowGet);
         }
     }
 }
