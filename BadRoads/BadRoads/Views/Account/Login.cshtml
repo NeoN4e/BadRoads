@@ -5,13 +5,13 @@
 <div class="section group hd"></div>
 <div class="section group">
     <div class="col span_4_of_4">
-        <h1 class="ct">@ViewBag.Title</h1>
+        <h1 class="center_text">@ViewBag.Title</h1>
     </div>
 </div>
 <div class="section group">
     <div class="col span_1_of_3 hd"></div>
     <div class="col span_1_of_3">
-        <h2 class="ct">Введите логин и пароль</h2>
+        <h2 class="center_text">Введите логин и пароль</h2>
         @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
         {
             @Html.AntiForgeryToken()
@@ -32,15 +32,15 @@
                     @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
                 </li>
             </ol>
-            <div class="ct">
-                <input class="btnconfirm" type="submit" value="Войти" />
+            <div class="center_block">
+                <input type="submit" value="Войти" />
                 <p>
                     @Html.ActionLink("Регистрация", "Register")
                 </p>
             </div>     
         }
-        <h2 class="ct">Войти с помощью социальных сетей</h2>
-        <div class="ct">
+        <h2 class="center_text">Войти с помощью социальных сетей</h2>
+        <div class="center_block">
             @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
         </div>
     </div>

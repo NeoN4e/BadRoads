@@ -15,9 +15,11 @@
                 url: "/Point/EditComments", // отправка на Экшен изменения и сохранения данных в Editor
                 data: { content: CKEDITOR.instances["edit"].getData(), Id_Point: model_Id, Id_Comment: comment_Id }, // передаваемые значения в Экшен
                 success:  // В случаи успеха
-                    function () {
-                        window.location = "/Home/Index";
-                    },
+                    success: function (returndata) {
+                        if (returndata.ok)
+                            window.location = "/Home/Index";
+                        else
+                            window.alert(returndata.message);                
                 dataType: "json"
             });
         }

@@ -13,10 +13,9 @@ using System.Drawing.Imaging;
 namespace BadRoads.Models
 {
     /// <summary>
-    /// This class provides info about GPS Metadata in images
-    /// Author: Yuriy Kovalenko (anekosheik@gmail.com)
+    /// This class provides info about GPS Metadata in images and other
+    /// Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 07/04/2015 23:40
     /// </summary>
-    //public class GPSMetadataReader
     public class ImageHelper
     {
 
@@ -42,20 +41,40 @@ namespace BadRoads.Models
         {
             try
             {
-                FileInfo f = new FileInfo(filename);
-                if (f.Extension == ".jpg" || f.Extension == ".jpeg") // only file extensions ".jpg", ".jpeg"
+                if (filename != null)
                 {
-                    this.fileName = filename;
-                    ReadGPSMetadata();
+                    if (!File.Exists(Path.GetFullPath(filename)))
+                    {
+                        filename = HttpContext.Current.Server.MapPath("~" + filename); // find file in server path
+                    }
+                    FileInfo f = new FileInfo(filename);
+                    if (f.Extension == ".jpg" || f.Extension == ".jpeg") // only file extensions ".jpg", ".jpeg"
+                    {
+                        this.fileName = filename;
+                        ReadGPSMetadata(); // call method for take metadata
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException("Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены");
+                    }
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new NullReferenceException();
                 }
+                
+            }
+            catch (ArgumentOutOfRangeException aorex)
+            {
+                throw aorex;
+            }
+            catch (NullReferenceException nrex)
+            {
+                throw nrex;
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message); 
+                throw ex;
             }
         }
 #endregion
@@ -222,10 +241,10 @@ namespace BadRoads.Models
         }
 
         /// <summary>
-        /// Method for save files in Extension ".jpg" or ".jpeg"
+        /// Method for save uploads files whith Extension ".jpg" or ".jpeg"
         /// </summary>
         /// <param name="idPoint">id point</param>
-        /// <param name="upload">uploading files</param>
+        /// <param name="upload">files, where be upload from html-form</param>
         /// <returns></returns>
         public static List<string> SaveUploadFiles(int idPoint, IEnumerable<HttpPostedFileBase> upload)
         {
@@ -234,11 +253,12 @@ namespace BadRoads.Models
             {
                 if (upload != null)
                 {
-                    string basePath = HttpContext.Current.Server.MapPath("~/Images/Gallery/");
-                    string directory = "point_" + idPoint.ToString();
+                    string bPath = "/Images/Gallery/"; // path for save references from "src"-attribute view image
+                    string basePath = HttpContext.Current.Server.MapPath("~" + bPath); // physical path
+                    string directory = "point_" + idPoint.ToString(); // name for directory
                     if (!System.IO.Directory.Exists(basePath + directory))
                     {
-                        Directory.CreateDirectory(basePath + directory);
+                        Directory.CreateDirectory(basePath + directory); // create new directory
                     }
 
                     int countFile = 1;
@@ -253,11 +273,11 @@ namespace BadRoads.Models
                                 bool stop = true;
                                 do
                                 {
-                                    fileName = Path.Combine(basePath + directory, "img_" + idPoint.ToString() + "_" + countFile + f.Extension);
+                                    fileName = Path.Combine(basePath + directory, "img_" + idPoint.ToString() + "_" + countFile + f.Extension); // create file name
                                     if (!File.Exists(fileName))
                                     {
-                                        file.SaveAs(fileName);
-                                        fileList.Add(fileName);
+                                        file.SaveAs(fileName); // save image on the server
+                                        fileList.Add(bPath + directory + "/" + Path.GetFileName(fileName)); // add in collection, path for save references from "src"-attribute view image
                                         stop = false;
                                     }
                                     else
@@ -268,28 +288,107 @@ namespace BadRoads.Models
                             }
                             else
                             {
-                                throw new ArgumentOutOfRangeException();
+                                throw new ArgumentOutOfRangeException("Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены");
                             }
                         }
                         else
                         {
-                            throw new ArgumentOutOfRangeException();
+                            throw new NullReferenceException();
                         }
                     }
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new NullReferenceException();
                 }
+                return fileList;
+            }
+            catch (ArgumentOutOfRangeException aorex)
+            {
+                throw aorex;
+            }
+            catch (NullReferenceException nrex)
+            {
+                throw nrex;
             }
             catch (Exception ex)
             {
-                //Console.WriteLine(ex.Message); 
+                throw ex;
             }
-                return fileList;
+
         }
         
+        /// <summary>
+        /// a method which calculates the distance between points
+        /// </summary>
+        /// <param name="lat1">GPS Latitude point 1</param>
+        /// <param name="long1">GPS Longitude 1</param>
+        /// <param name="lat2">GPS Latitude point 2</param>
+        /// <param name="long2">GPS Longitude 2</param>
+        /// <returns></returns>
+        public static double LatLngToDistance(double lat1, double long1, double lat2, double long2)
+        {
+            double R = 6372795.0; // Earth's radius in meters
 
+            // conversion degrees to radians
+            lat1 *= Math.PI / 180;
+            lat2 *= Math.PI / 180;
+            long1 *= Math.PI / 180;
+            long2 *= Math.PI / 180;
+
+            // calculation of cosine and sine latitude and longitude difference
+            double cl1 = Math.Cos(lat1);
+            double cl2 = Math.Cos(lat2);
+            double sl1 = Math.Sin(lat1);
+            double sl2 = Math.Sin(lat2);
+            double delta = long2 - long1;
+            double cdelta = Math.Cos(delta);
+            double sdelta = Math.Sin(delta);
+
+            //calculating the length of the great circle
+            double y = Math.Sqrt(Math.Pow(cl2 * sdelta, 2) + Math.Pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
+            double x = sl1 * sl2 + cl1 * cl2 * cdelta;
+            double ad = Math.Atan2(y, x);
+            double dist = ad * R; //the distance between the two coordinates in meters
+
+            return Math.Round(dist, 2); // Returns the distance in meters, rounded to 0.01 m
+        }
+
+        /// <summary>
+        /// Provides check Metadata and distance beetween GPS tag in Point adn GPS tag in image
+        /// </summary>
+        /// <param name="fileList">List whith path to image</param>
+        /// <param name="p">Point for check</param>
+        /// <param name="radius">for chek distance</param>
+        /// <returns></returns>
+        public static bool CheckPointMetaDataAndDistance(List<string> fileList, Point p, double radius=100.00)
+        {
+            bool check = false;
+            foreach (var item in fileList)
+            {
+                ImageHelper m = new ImageHelper(item); // item fof read GPS Metadata
+                if (m.GPSLatitude != null || m.GPSLongitude != null)
+                {
+                    double distance = ImageHelper.LatLngToDistance(Convert.ToDouble(p.GeoData.Latitude), Convert.ToDouble(p.GeoData.Longitude),
+                                                Convert.ToDouble(m.GPSLatitude), Convert.ToDouble(m.GPSLongitude)); // calculation the distance beetween GPS tag in Point adn GPS tag in image
+                    if (distance <= radius) // check distance from radius
+                    {
+                        check = true;
+                    }
+                    else
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    check = false;
+                    break;
+                }
+            }
+            return check;
+        }
 
 #endregion
 

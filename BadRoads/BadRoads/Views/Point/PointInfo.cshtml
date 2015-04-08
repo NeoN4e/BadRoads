@@ -18,8 +18,8 @@
 
 <div class="section group">
     <div class="col span_3_of_5">
-        <h1 class="ct">@ViewBag.Title</h1>
-        <div class="block f pimgh">
+        <h1 class="center_text">@ViewBag.Title</h1>
+        <div class="blockpointimg">           
             @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
             {
                 foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
@@ -29,52 +29,59 @@
                     {
                         path = item.Url;
                     } 
-                <img src="@path" />
+                <img class="imgpoint" src="@path" />
                 }
             }
             else                                             // если коллекция пуста
             {
 
-                <img src="../../Images/nophoto.png" style="height: 80%; border: 1px solid black; margin: 5%;" />             // добавляем одну фотографию-заглушку
+                <img src="../../Images/nophoto.png" />             // добавляем одну фотографию-заглушку
             }
+            <div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
+            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>
         </div>
-        <div id="mapinfo" class="block f mtopnul"></div>
+        <div id="mapinfo"></div>
     </div>
     <div class="col span_2_of_5">     
         <label class="f mtop50 bold">Описание:</label>
-        <label class="f mtopnul">@ViewBag.Description</label>
+        <label class="f mtopnul">@Html.Raw(ViewBag.Description)</label> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
         <label class="f mtopnul bold">Комментарии:</label>
         <div class="scrolly comnt">
         @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
         {
             foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
             {
+                if(@ViewBag.Description != @item.ContentText)
+                {
                 <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
-                <p class="in-block f mtopnul">@item.ContentText</p>
+                <p class="in-block f mtopnul">@Html.Raw(item.ContentText)</p> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
+                }
             }
         }
         else                                             // если коллекция пуста
         {
             <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
-                }
+        }
         </div>
         @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
         {
             using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
                       new { enctype = "multipart/form-data" }))
             {
-            <textarea name="Comment" id="textcomment" class="f h80" placeholder="комментируем..."></textarea>
-            <div class="ct">
-                <input id="subm" type="submit" value="Отправить" disabled />
+            @Html.Hidden("Id", @Model.ID) @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
+            <textarea class="ckeditor" name="NewComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
+            <div class="center_block">
+                <input id="subm" type="submit" value="Отправить"/> @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
             </div>
-                    }
-                }
+            }
+        }
     </div>
 </div>
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     @Scripts.Render("~/Scripts/pointinfo.js")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")@* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@
 }
 
   

@@ -19,59 +19,89 @@ namespace BadRoads.Controllers
 
         static List<Point> PaginatorList;
 
-        // экшен, который принимает данные с формы для создания новой точки
+        /// <summary>
+        /// Sorting Point list by last comment date
+        /// </summary>
+        /// <param name="list">list of Points for sort</param>
+        /// <returns>sorted list</returns>
+        public List<Point> SortByLastComment(List<Point> list)
+        {
+            list.Sort((x, y) => x.Comments.Max(c => c.Date).CompareTo(y.Comments.Max(c => c.Date)));
+            return list;
+        }
 
+        /// <summary>
+        /// Экшен, который принимает данные с формы, для создания новой точки
+        /// Last Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 07/04/2015 23:40
+        /// </summary>
+        /// <param name="collection">Данные с формы добавления точки</param>
+        /// <param name="upload">Коллекция фото</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize]
+        [ValidateInput(false)]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
-            UserProfile CurAutor = db.GetUSerProfile(User);
-            string lat = collection["latitude"];
-            if(lat.Count()>10)
-            { 
-                lat = lat.Substring(0, 10);
-            }
-            lat = lat.Replace(".", ",");
-            string lng = collection["longitude"];
-            if (lng.Count() > 10)
+            try
             {
-                lng = lng.Substring(0, 10);
-            }
-            lng = lng.Replace(".", ",");
-            double latdouble = Convert.ToDouble(lat);
-            double lngdouble = Convert.ToDouble(lng);
+                UserProfile CurAutor = db.GetUSerProfile(User);
+                string lat = collection["latitude"];
+                if (lat.Count() > 10)
+                {
+                    lat = lat.Substring(0, 10); // уменьшаем размер символов после запятой
+                }
+                lat = lat.Replace(".", ",");
+                string lng = collection["longitude"];
+                if (lng.Count() > 10)
+                {
+                    lng = lng.Substring(0, 10); // уменьшаем размер символов после запятой
+                }
+                lng = lng.Replace(".", ",");
+                double latdouble = Convert.ToDouble(lat);
+                double lngdouble = Convert.ToDouble(lng);
 
-            Point p = new Point()
-            {
-                GeoData = new GeoData(latdouble, lngdouble, collection["adresset"]),
-                Autor = CurAutor,
-                Defect = db.GetDefect(collection["DefName"])
-            };
-            p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
+                Point p = new Point()
+                {
+                    GeoData = new GeoData(latdouble, lngdouble, collection["adresset"]),
+                    Autor = CurAutor,
+                    Defect = db.GetDefect(collection["DefName"])
+                };
+                p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
+                
+                db.Points.Add(p);
+                
+                db.SaveChanges();
+                int id = p.ID;
+                List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фото
+                p.isValid = ImageHelper.CheckPointMetaDataAndDistance(fileList, p); // check
 
-            db.Points.Add(p);
-            db.SaveChanges();
-            int id = p.ID;
-            List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фотки
-            return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
-            foreach (var item in fileList)
-            {
-                p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
+                foreach (var item in fileList)
+                {
+                    p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
+                }
+                p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
+                
+                db.SaveChanges();
+                return RedirectToAction("Map", "Home"); // переход на Карту
             }
-            p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
-            db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+                return View("MyError");
+            }
+
+            //return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
         }
 
         /// <summary>Передача во "view" данных о выбранной "точке" </summary>
         /// <param name="id">ID Выбранной "точке"</param>
         /// <returns>Point</returns>
-        public ActionResult PointInfo(int id)                  // экшен выводит описание одной точки
+        public ActionResult PointInfo(int id)
         {
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
             Comment c = new Comment();
             c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
-            if(c != null)
+            if (c != null)
             {
                 ViewBag.Description = c.ContentText;
             }
@@ -80,6 +110,26 @@ namespace BadRoads.Controllers
                 ViewBag.Description = "Нет описания к проблеме.";
             }
             return View(p);
+        }
+
+        /// <summary>
+        /// Action for moderators and administrators
+        /// Shows a list of demands moderation
+        /// </summary>
+        /// <returns>List of points that require moderation</returns>
+        [Authorize(Roles = "Moderator, Administrator")]
+        public ActionResult ModerationList()
+        {
+            if (User.Identity.IsAuthenticated)    // Auth check
+            {
+                List<Point> NeedModeratePoints = db.Points.Where(p => p.isValid == false).ToList(); //Creating and filling a list of points that require moderation
+
+                return View(NeedModeratePoints);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
@@ -107,14 +157,15 @@ namespace BadRoads.Controllers
         /// <param name="page"> current page </param>
         /// <param name="flag"> is filtred data? </param>
         /// <returns> PartialView LIST (All pages) </returns>
-        public ActionResult Gallery(int? page,bool? flag)
+        public ActionResult Gallery(int? page, bool? flag)
         {
             int pointsOnPage = 8;//maximum Point elements on page
             if (flag != true)
             {
                 PaginatorList = db.Points.ToList<Point>();
             }
-            return View(PaginatorList.ToPagedList<Point>(page??1,pointsOnPage));
+            //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
+            return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
         /// show points on pages using partial view
@@ -129,32 +180,34 @@ namespace BadRoads.Controllers
 
             if (page == -1)
             {
+                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(1, pointsOnPage)); uncomment after adding normal data in database
                 return PartialView(PaginatorList.ToPagedList<Point>(1, pointsOnPage));
             }
             else
             {
+                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(page, pointsOnPage));uncomment after adding normal data in database
                 return PartialView(PaginatorList.ToPagedList<Point>(page, pointsOnPage));
             }
         }
-        /// <summary>Тестовый Экшен-заглушка для корректной работы "EditComments"</summary>
-        /// <returns>Объект типа Point</returns>
-        public ActionResult Test()
+
+        /// <summary>Добавляет комментарий к текущей точке</summary>
+        /// <param name="Id">ID текущей точки</param>
+        /// <param name="collection">Новый комментарий </param>
+        /// <returns>перенаправляет на PointInfo с текущей точкой</returns>
+        [HttpPost]
+        [Authorize]
+        [ValidateInput(false)]
+        public ActionResult AddComment(int Id, FormCollection collection)
         {
-            List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
-            Point p = listPoints[0]; // получаем точку под индексом "0"
+            UserProfile CurAutor = db.GetUSerProfile(User);                                     // получаем автора сообщения
+            Point p = (from entry in db.Points where entry.ID == Id select entry).Single();     // получаем необходимую точку
+            if (collection["NewComment"] == "")
+                p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor });             // создаём комментарий с указанием того, что он пуст (Заглушка)
+            else
+                p.AddComent(new Comment() { ContentText = collection["NewComment"], Autor = CurAutor }); // создаём комментарий и заполняем его текстом и автором
+            db.SaveChanges(); // сохраняем изменения
 
-            // создаём и заполняем объект типа "Comment"
-            Comment c = new Comment();
-            c.ContentText = "Start";
-
-            // добавляем новый коммент в БД и сохраняем изменения
-            p.Comments.Add(c);
-            db.SaveChanges();
-
-            ViewBag.Content = p.Comments.ElementAt(0).ContentText; // для вывода во View содержимого "Comments"
-            ViewBag.Comment_Id = p.Comments.ElementAt(0).ID;       // для получения ID выводимого комментария
-
-            return View(p);
+            return RedirectToAction("PointInfo", "Point", new { id = Id }); // перенапрявляем на другой экшен
         }
 
         /// <summary> Editor для изменения комментариев </summary>
@@ -165,17 +218,25 @@ namespace BadRoads.Controllers
         [ValidateInput(false)]
         public JsonResult EditComments(string content, int Id_Point, int Id_Comment)
         {
-            Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
-            Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
-
-            // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
-            if (Cmt.ContentText != content)
+            try
             {
-                Cmt.ContentText = content;
-                db.SaveChanges();
-            }
+                Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
+                Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
 
-            return Json("OK");
+                // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
+                if (Cmt.ContentText != content && content != "")
+                {
+                    Cmt.ContentText = content;
+                    db.SaveChanges();
+                }
+
+                return Json("OK");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+                return Json(new { ok = false, message = ex.Message });
+            }
         }
 
         public ActionResult ThanksForPoint()       // благодарность пользователю за добавление новой точки
@@ -184,12 +245,12 @@ namespace BadRoads.Controllers
         }
 
         public ActionResult DeletePoint(int id)          // экшен удаления точки модератором. Принимает ID точки.     Волков Антон. 06.04.15
-       {
+        {
             if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //  если авторизован с ролью "модератор"
             {
-               Point p = db.Points.Find(id);                                   // находим точку по ID   
-               db.Points.Remove(p);                                            // удаляем точку.
-               db.SaveChanges();                                               // сохраняем изменения в базе
+                Point p = db.Points.Find(id);                                   // находим точку по ID   
+                db.Points.Remove(p);                                            // удаляем точку.
+                db.SaveChanges();                                               // сохраняем изменения в базе
                 return RedirectToAction("Map", "Home");                        // переход на основную карту
             }
             else
@@ -202,7 +263,9 @@ namespace BadRoads.Controllers
             {
                 Point p = db.Points.Find(id);                                                  // находим точку по ID   
                 p.isValid = true;                                                              // подтверждаем точку
+
                 var def = p.Defect;     //дополнительное обращение к полю Defect позволяет избежать DbEntityValidationException, связанную со странной потерей данных в поле Defect 07.04.15 Дон
+
                 try
                 {
                     db.SaveChanges();            // сохраняем изменения в базе !!!! НЕ СОХРАНЯЕТСЯ   выкидывает исключение!!!!!!!

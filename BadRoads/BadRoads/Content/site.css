@@ -67,19 +67,17 @@ label {
 /*=============STYLES AND COLORS=============*/
 
 input, select, textarea, button, #map_canvas, #map, .grid, .block {
-    background-color: #D2D7D3;
-    border: 1px solid #95a5a6;
-    border-radius: 3px;
+    background-color: #999999;
+    border: 0;
 }
 
     input[type="file"]::-webkit-file-upload-button {
         background-color: #D2D7D3;
-        border: 1px solid #95a5a6;
-        border-radius: 3px;
+        border: 0;
     }
 
 ::-webkit-input-placeholder {
-    color: #34495e;
+    color: black;
 }
 
 input[type="file"]::-webkit-file-upload-button {
@@ -90,39 +88,43 @@ input[type="file"]::-webkit-file-upload-button {
 input[type="submit"],
 input[type="button"] {
     background-color: #f1c40f;
+    color: black;
     cursor: pointer;
+    border: 2px solid transparent;
 }
 
     input[type="submit"]:hover,
     input[type="button"]:hover,
-    button:hover,
-    #lang:hover {
-        -moz-box-shadow: inset 0px 0px 5px #ecf0f1;
-        -webkit-box-shadow: inset 0px 0px 5px #ecf0f1;
-        box-shadow: inset 0px 0px 5px #ecf0f1;
+    button:hover {
+        border: 2px solid #666666;
     }
 
 button[value="vkontakte"] {
     background-color: #537599;
+    border: 2px solid transparent;
 }
 
 button[value="facebook"] {
     background-color: #44619d;
+    border: 2px solid transparent;
 }
 
 button[value="google"] {
     background-color: #dd4b39;
+    border: 2px solid transparent;
 }
 
     button[value="vkontakte"]:hover,
     button[value="facebook"]:hover,
     button[value="google"]:hover {
+        border: 2px solid #666666;
         color: black;
     }
 
 .bt {
     background-color: transparent;
 }
+
 .bold {
     font-weight: 600;
 }
@@ -139,11 +141,16 @@ input, select, textarea, button, .t, #map, p, h3, .block, .pad {
 }
 
 .mtop50 {
-    margin: 50px 2.5% 0.5% 2.5%;
+    margin: 20px 2.5% 0.5% 2.5%;
     padding: 0 1%;
 }
+
 .bordernull {
     border: 0;
+}
+
+.padnul {
+    padding: 0;
 }
 
 input, select, textarea, button, .hd {
@@ -155,15 +162,15 @@ select, .hd2 {
 }
 
 .f {
-    width: 92%;
+    width: 93%;
 }
 
 .sel.f {
-    width: 94%;
+    width: 95%;
 }
 
 .f-2 {
-    width: 42%;
+    width: 42.5%;
 }
 
 .ht {
@@ -173,21 +180,27 @@ select, .hd2 {
 .hp {
     height: 157px;
 }
+
 .h100 {
     height: 100px;
 }
+
 .h80 {
     height: 80px;
 }
+
 .fh {
     height: 89vh;
 }
+
 .pimgh {
     height: 70vh;
 }
+
 .comnt {
-    max-height: 56vh;
+    max-height: 58vh;
 }
+
 .h-2 {
     height: 50vh;
 }
@@ -200,9 +213,16 @@ select, .hd2 {
     height: 25vh;
 }
 
-.ct {
+.center_text {
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 15px 0;
+    font-weight: 600;
+    text-align: center;
+}
+
+.center_block {
+    margin: 0 auto;
+    padding: 0;
     font-weight: 600;
     text-align: center;
 }
@@ -210,7 +230,7 @@ select, .hd2 {
 body {
     width: 100%;
     height: 100%;
-    background-color: #ecf0f1;
+    background-color: whitesmoke;
 }
 
 ol, ul {
@@ -264,7 +284,7 @@ li form {
 /*=============BODY STYLES=============*/
 
 #menu {
-    background-color: #34495e;
+    background-color: #333333;
     position: fixed;
     width: 250px;
     height: 100vh;
@@ -277,13 +297,12 @@ li form {
 
 #btnmenu {
     background-color: #f1c40f;
-    border-radius: 3px;
-    border: 2px solid #34495e;
-    color: #34495e;
+    border: 2px solid #333333;
+    color: #333333;
     position: absolute;
     cursor: pointer;
     left: 260px;
-    top: 20px;
+    top: 10px;
     width: 34px;
     height: 31px;
     text-align: center;
@@ -292,11 +311,11 @@ li form {
 #btnadd {
     background-color: #f1c40f;
     border-radius: 26px;
-    border: 2px solid #34495e;
-    color: #34495e;
+    border: 2px solid #333333;
+    color: #333333;
     position: absolute;
     left: 310px;
-    top: 18px;
+    top: 8px;
     width: 36px;
     height: 33px;
     text-align: center;
@@ -310,7 +329,6 @@ li form {
     top: 5px;
     left: 198px;
     background-color: #f8d200;
-    border-radius: 3px;
     font-size: 14px;
     margin: 0;
 }
@@ -325,6 +343,7 @@ li form {
     margin: 0 0 0 8px;
     padding-left: 5px;
     width: 185px;
+    background-color: whitesmoke;
 }
 
     .search[type="submit"] {
@@ -342,17 +361,17 @@ nav {
         font-size: 18px;
         font-weight: 600;
         list-style: none;
-        color: #ecf0f1;
+        color: whitesmoke;
     }
 
         nav ul li:hover,
         nav ul li.active {
-            background-color: #6C7A89;
+            background-color: #666666;
             opacity: 0.5;
         }
 
         nav ul li a {
-            color: #ecf0f1;
+            color: whitesmoke;
         }
 
 /*=============OTHERS=============*/
@@ -379,49 +398,111 @@ nav {
     text-shadow: black 0 0 2px;
 }
 
+.points {
+    display: none;
+}
+
+/*============GALLERY============*/
+
 .grid {
     display: inline-table;
     width: 24%;
-    height: 42vh;
     text-align: center;
     margin: 0.5% 0 0 0.5%;
+    background-color: #f1c40f;
+    border: 2px solid transparent;
 }
 
     .grid:hover {
-        -moz-box-shadow: 0px 0px 5px #000000;
-        -webkit-box-shadow: 0px 0px 5px #000000;
-        box-shadow: 0px 0px 5px #000000;
+        border: 2px solid #666666;
     }
 
-    .grid img {
-        background-color: gray;
-        display: block;
+    .grid div {
         width: 100%;
-        height: 90%;
+        height: 34.9vh;
+        background-color: gray;
+        overflow: hidden;
     }
+
+        .grid div img {
+            display: block;
+            height: 100%;
+            margin: 0 auto;
+        }
 
 .title {
-    height: 10%;
-    padding: 5px 0;
+    font-size: 1.02em;
+    height: 5.2vh;
+    overflow: hidden;
+    padding: 0.5% 0;
+}
+
+/*============MAP============*/
+.searchmap {
+    position: absolute;
+    top: 15px;
+    margin: 0.5% 0.5% 0 0;
+    padding: 0.2% 0.3%;
+    right: 0;
+    width: 20%;
+}
+
+#map_canvas, #map, #mapinfo {
+    border: 1px solid #999999;
 }
 
 #map_canvas {
-    height: 90vh;
+    width: 98.8%;
+    height: 87.8vh;
     margin: 0.5%;
-    border-radius: 3px;
+    padding: 2px;
 }
 
 #map {
     padding: 0;
-    height: 89vh;
+    height: 86.9vh;
 }
 
-#mapinfo {    
-    height: 100px;
-        }
+#mapinfo {
+    width: 94.9%;
+    height: 15.9vh;
+    margin: 0.5% 2.5% 0.5% 2.5%;
+    padding: 0;
+}
 
-.points {
-    display: none;
+/*============BLOCK POINTINFO IMG===========*/
+.blockpointimg {
+    width: 95%;
+    height: 70vh;
+    margin: 0.5% 2.5% 1% 2.5%;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.next, .prev {
+    position: absolute;
+    color: #333333;
+    top: 48%;
+}
+
+    .next:hover, .prev:hover {
+        color: #666666;
+        cursor: pointer;
+    }
+
+.next {
+    right: 1%;
+}
+
+.prev {
+    left: 1%;
+}
+
+.blockpointimg img {
+    height: 100%;
+    display: block;
+    margin: 0 auto;
 }
 
 /*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
@@ -430,12 +511,24 @@ nav {
         height: 0;
     }
 
+    .mtop50 {
+        margin: 0.5% 2.5% 0.5% 2.5%;
+    }
+
+    .searchmap {
+        position: relative;
+        top: 0;
+        width: 98%;
+        margin: 0 0.5%;
+        padding: 1% 0 1% 1%;
+    }
+
     #map {
         height: 50vh;
     }
-        
+
     #map_canvas {
-        height: 75vh;
+        height: 80vh;
     }
 
     .logo {
