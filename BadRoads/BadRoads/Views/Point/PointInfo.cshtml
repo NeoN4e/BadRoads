@@ -49,7 +49,6 @@
                 if(@ViewBag.Description != @item.ContentText)
                 {
                 <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
-
                 <p class="in-block f mtopnul">@Html.Raw(item.ContentText)</p> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
                 }
             }
