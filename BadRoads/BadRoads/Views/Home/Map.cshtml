@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<BadRoads.Models.Point>
 
 @{
-    ViewBag.Title = "Карта с дефектами дороги";
+    ViewBag.Title = "Карта с дефектами дороги"; <!-- NEED LOCALIZATION -->
     <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 }
 
+<!-- PopUp-message structure/ Show, only after adding new point-->
 @if (ViewBag.NeedShowPopup == true)
 {
     <div id="ThanksPopUp">
@@ -30,7 +31,7 @@
 <div class="section group">
     <div class="col second span_5_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        <input class="searchmap" type="text" id="searchAdress" placeholder="Поиск"  />
+        <input class="searchmap" type="text" id="searchAdress" placeholder="Поиск"  /><!-- NEED LOCALIZATION -->
         <div id="resultSearch f"></div>
     </div>
 </div>

@@ -236,7 +236,7 @@ namespace BadRoads.Controllers
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
             Comment c = new Comment();
             c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
-            ViewBag.Description = c.ContentText
+            ViewBag.Description = c.ContentText;
 
             return View(p);
         }
