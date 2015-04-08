@@ -93,6 +93,23 @@ namespace BadRoads.Controllers
             //return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
         }
 
+        public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
+        {
+            if (User.Identity.IsAuthenticated)                                 // если пользователь авторизован
+            {
+
+                ViewBag.MarkerLocation = stringForMap;
+                ViewBag.Problems = db.Defects.ToList();  // список дефектов для выбора их на форме заполнения точки
+                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
+                List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
+                return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+            }
+        }
+
         /// <summary>Передача во "view" данных о выбранной "точке" </summary>
         /// <param name="id">ID Выбранной "точке"</param>
         /// <returns>Point</returns>
@@ -132,23 +149,7 @@ namespace BadRoads.Controllers
             }
         }
 
-        public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
-        {
-            if (User.Identity.IsAuthenticated)                                 // если пользователь авторизован
-            {
 
-                ViewBag.MarkerLocation = stringForMap;
-                string[] defects = { "Яма", "Открытый люк", "Отсутствие разметки" };
-                ViewBag.Problems = defects;  // список дефектов для выбора их на форме заполнения точки
-                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
-                List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
-                return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
-            }
-        }
 
         /// <summary>
         /// show points on Gallery View
@@ -177,17 +178,12 @@ namespace BadRoads.Controllers
         {
             int pointsOnPage = 8;//maximum Point elements on page
             PaginatorList = db.Points.Where(p => p.GeoData.FullAddress.Contains(searchText)).ToList();
-
-            if (page == -1)
+            page = page == -1 ? 1 : page;
+            if (Request.IsAjaxRequest())
             {
-                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(1, pointsOnPage)); uncomment after adding normal data in database
-                return PartialView(PaginatorList.ToPagedList<Point>(1, pointsOnPage));
-            }
-            else
-            {
-                //return PartialView(SortByLastComment(PaginatorList).ToPagedList<Point>(page, pointsOnPage));uncomment after adding normal data in database
                 return PartialView(PaginatorList.ToPagedList<Point>(page, pointsOnPage));
             }
+            return View("Gallery", PaginatorList.ToPagedList<Point>(page, pointsOnPage));
         }
 
         /// <summary>Добавляет комментарий к текущей точке</summary>
@@ -272,6 +268,13 @@ namespace BadRoads.Controllers
             }
             else
                 return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+        }
+        public JsonResult Autocomplete(string term)
+        {
+            var resultComplete = (from p in db.Points
+                                  where p.GeoData.FullAddress.Contains(term)
+                                  select p.GeoData.FullAddress).ToArray<string>();
+            return Json(resultComplete, JsonRequestBehavior.AllowGet);
         }
     }
 }

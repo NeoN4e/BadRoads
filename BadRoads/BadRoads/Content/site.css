@@ -638,6 +638,33 @@ body {
 	        animation-fill-mode: both;
 }
 
+/*======== для поиска =======*/
+#srch_wrapper {
+    position: relative;
+    width: auto;
+    
+}
+#srch_clear {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    text-align: center;
+    background-color: silver;
+    color: white;
+    font-size: 12px;
+    font-family: monospace;
+    border-radius: 10px;
+    -o-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
 @-webkit-keyframes flipInX {
     0% {
         -webkit-transform: perspective(400px) rotateX(90deg);

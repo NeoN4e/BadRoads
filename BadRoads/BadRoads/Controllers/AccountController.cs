@@ -52,7 +52,41 @@ namespace BadRoads.Controllers
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
+            if (OAuthWebSecurity.IsAuthenticatedWithOAuth)
+            {
+                ICollection<OAuthAccount> accountData = OAuthWebSecurity.GetAccountsFromUserName(WebSecurity.CurrentUserName);
+                if (accountData.Count > 0)
+                {
+                    string providerName = accountData.ElementAt(0).Provider;
+                    switch (providerName)
+                    {
+                        case "google":
+                            {
+                                return Redirect("https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost:1923");                              //("http://google.com/accounts/Logout");
+                            }
+                            break;
+                        case "facebook":
+                            {
+                                if (Session["facebooktoken"] != null)
+                                {
+                                    var fb = new Facebook.FacebookClient();
+                                    string accessToken = Session["facebooktoken"] as string;
+                                    var logoutUrl = fb.GetLogoutUrl(new { access_token = accessToken, next = "http://localhost:1923/" });
 
+                                    Session.RemoveAll();
+                                    return Redirect(logoutUrl.AbsoluteUri);
+                                }
+                            }
+                            break;
+                        case "vkontakte":
+                            {
+
+                            }
+                            break;
+                    }
+                }
+
+            }
             return RedirectToAction("Index", "Home");
         }
 
@@ -225,7 +259,10 @@ namespace BadRoads.Controllers
             {
                 return RedirectToAction("ExternalLoginFailure");
             }
-
+            if (result.ExtraData.Keys.Contains("accesstoken"))
+            {
+                Session["facebooktoken"] = result.ExtraData["accesstoken"];
+            }
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
             {
                 return RedirectToLocal(returnUrl);
