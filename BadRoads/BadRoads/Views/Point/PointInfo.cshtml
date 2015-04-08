@@ -39,7 +39,7 @@
     </div>
     <div class="col span_2_of_5">     
         <label class="f mtop50 bold">Описание:</label>
-        <label class="f mtopnul">@ViewBag.Description</label>
+        <label class="f mtopnul">@Html.Raw(ViewBag.Description)</label> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
         <label class="f mtopnul bold">Комментарии:</label>
         <div class="scrolly comnt">
         @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
@@ -49,32 +49,35 @@
                 if(@ViewBag.Description != @item.ContentText)
                 {
                 <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
-                <p class="in-block f mtopnul">@item.ContentText</p>
+
+                <p class="in-block f mtopnul">@Html.Raw(item.ContentText)</p> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
                 }
             }
         }
         else                                             // если коллекция пуста
         {
             <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
-                }
+        }
         </div>
         @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
         {
             using (Html.BeginForm("AddComment", "Point", FormMethod.Post,
                       new { enctype = "multipart/form-data" }))
             {
-            <textarea name="Comment" id="textcomment" class="f h80" placeholder="Комментарий..."></textarea>
+            @Html.Hidden("Id", @Model.ID) @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
+            <textarea class="ckeditor" name="NewComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
             <div class="center_block">
-                <input id="subm" type="submit" value="Отправить" disabled />
+                <input id="subm" type="submit" value="Отправить"/> @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
             </div>
-                    }
-                }
+            }
+        }
     </div>
 </div>
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     @Scripts.Render("~/Scripts/pointinfo.js")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")@* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@
 }
 
   
