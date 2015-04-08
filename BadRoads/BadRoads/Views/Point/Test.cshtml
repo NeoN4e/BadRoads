@@ -4,6 +4,42 @@
     ViewBag.Title = "Test";
 }
 
+@*<script>
+    $(document).ready(function(){   
+        $("#addlist").validate();
+        var editor = CKEDITOR.replace('editor1');
+        var div = document.getElementById('editor');
+        editor.resize($(div).width(),'900');
+    }); 
+</script>*@
+
+@*CKEDITOR.editorConfig = function( config )
+{
+   // misc options
+   config.height = '350px';
+};*@
+
+@* var editor = CKEDITOR.replace('editorToday',
+      {
+        toolbar :
+            [
+                { name: 'document', items : [ 'Preview' ] },
+                { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+                { name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'] },
+                        '/',
+                { name: 'styles', items : [ 'Styles','Format' ] },
+                { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+                { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+                { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                { name: 'tools', items : [ 'Maximize','-','About' ] }
+
+            ],
+        width: "400px",
+        height: "500px"
+
+        });*@
+
 @section scripts {
     @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
 
@@ -20,8 +56,8 @@
                             window.location = "/Home/Index";
                         else
                             window.alert(returndata.message);                
-                dataType: "json"
-            });
+                        dataType: "json"
+                    });
         }
     </script>
 }

@@ -111,21 +111,15 @@ namespace BadRoads.Controllers
         }
 
         /// <summary>Передача во "view" данных о выбранной "точке" </summary>
-        /// <param name="id">ID Выбранной "точке"</param>
+        /// <param name="id">ID Выбранной "точки"</param>
         /// <returns>Point</returns>
         public ActionResult PointInfo(int id)
         {
             Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
             Comment c = new Comment();
             c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
-            if (c != null)
-            {
-                ViewBag.Description = c.ContentText;
-            }
-            else
-            {
-                ViewBag.Description = "Нет описания к проблеме.";
-            }
+            ViewBag.Description = c.ContentText;
+
             return View(p);
         }
 
@@ -148,8 +142,6 @@ namespace BadRoads.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-
-
 
         /// <summary>
         /// show points on Gallery View
@@ -206,32 +198,70 @@ namespace BadRoads.Controllers
             return RedirectToAction("PointInfo", "Point", new { id = Id }); // перенапрявляем на другой экшен
         }
 
-        /// <summary> Editor для изменения комментариев </summary>
-        /// <param name="content">Новое содержимое комментария</param>
-        /// <param name="Id_Point">ID точки в котором меняем комментарий</param>
-        /// <param name="Id_Comment">ID необходимого комментария</param>
+        // Необходимость этого куска кода под вопросом
+        ///// <summary> Editor для изменения комментариев </summary>
+        ///// <param name="content">Новое содержимое комментария</param>
+        ///// <param name="Id_Point">ID точки в котором меняем комментарий</param>
+        ///// <param name="Id_Comment">ID необходимого комментария</param>
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public JsonResult EditComments(string content, int Id_Point, int Id_Comment)
+        //{
+        //    try
+        //    {
+        //        Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
+        //        Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
+
+        //        // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
+        //        if (Cmt.ContentText != content && content != "")
+        //        {
+        //            Cmt.ContentText = content;
+        //            db.SaveChanges();
+        //        }
+
+        //        return Json("OK");
+        //    }
+        //    catch (DbEntityValidationException ex)
+        //    {
+        //        var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+        //        return Json(new { ok = false, message = ex.Message });
+        //    }
+        //}
+
+        /// <summary>Передача во view данных о выбранной "точке" для редактирования</summary>
+        /// <param name="id">ID Выбранной "точки"</param>
+        /// <returns>Point</returns>
+        public ActionResult EditPoint(int id)
+        {
+            Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
+            Comment c = new Comment();
+            c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
+            ViewBag.Description = c.ContentText
+
+            return View(p);
+        }
+
         [HttpPost]
+        [Authorize]
         [ValidateInput(false)]
-        public JsonResult EditComments(string content, int Id_Point, int Id_Comment)
+        public ActionResult EditPoint(int id, FormCollection collection) // Редактор "точки"
         {
             try
             {
-                Point Pnt = db.Points.Where(p => p.ID.Equals(Id_Point)).Single();        // находим нужный нам Point 
-                Comment Cmt = Pnt.Comments.Where(c => c.ID.Equals(Id_Comment)).Single(); // Берём необходимый нам комментарий
+                UserProfile CurAutor = db.GetUSerProfile(User);                                     // получаем автора сообщения
+                Point p = (from entry in db.Points where entry.ID == id select entry).Single();     // получаем необходимую точку
 
-                // если изменения в комментарии были - заменяем на новые и сохраняем в базе.
-                if (Cmt.ContentText != content && content != "")
-                {
-                    Cmt.ContentText = content;
-                    db.SaveChanges();
-                }
+                p.Comments.FirstOrDefault().ContentText = collection["FirstComment"];               // изменение "описания"
+                p.Defect = db.GetDefect(collection["Defect"]);                                      // изменение "дефекта"
 
-                return Json("OK");
+                db.SaveChanges();     
+
+                return RedirectToAction("PointInfo", "Point", new { id = id });                     // перенапрявляем на другой экшен
             }
-            catch (DbEntityValidationException ex)
+            catch (Exception ex)
             {
-                var error = ex.EntityValidationErrors.First().ValidationErrors.First();
-                return Json(new { ok = false, message = ex.Message });
+                ViewBag.Message = ex.Message;
+                return View("MyError");
             }
         }
 
