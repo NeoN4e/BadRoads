@@ -37,7 +37,7 @@
            
            @* Коноваленко А.В. 08 04 2015 проверка на заполнение комментария *@
             <script type="text/javascript">
-                function FirstCommentIsNull() {
+                function pointValidate() {
                     if (CKEDITOR.instances.FirstComment.getData() == "") {
                         alert("Необходимо ввести описание!");
                         event.returnValue = false;
@@ -50,12 +50,11 @@
                         event.returnValue = false;
                         return;
                     }
-                    
                 }
             </script>
            
             <div class="center_block">
-                <input id="subm" type="submit" value="Отправить" disabled  onclick="FirstCommentIsNull();"/>
+                <input id="subm" type="submit" value="Отправить" disabled  onclick="pointValidate();"/>
             </div>
        }
     </div>   
