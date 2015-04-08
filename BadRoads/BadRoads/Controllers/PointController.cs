@@ -82,7 +82,7 @@ namespace BadRoads.Controllers
                 p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
                 
                 db.SaveChanges();
-                return RedirectToAction("Map", "Home"); // переход на Карту
+                return RedirectToAction("Map", "Home", new { flag = true });
             }
             catch (Exception ex)
             {
