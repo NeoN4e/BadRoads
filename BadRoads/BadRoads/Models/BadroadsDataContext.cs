@@ -81,6 +81,7 @@ namespace BadRoads.Models
                     //mc.MapLeftKey("id_Point");
                     //mc.MapRightKey("id_Photo");
                 });
+
         }
 
         public DbSet<Point> Points { get; set; }
@@ -115,6 +116,8 @@ namespace BadRoads.Models
         {
             return this.Defects.First(d => d.ID == DefectId);
         }
+
+        
     }
 
     /// <summary>Базовый клас для всех класов БД</summary>
@@ -125,7 +128,7 @@ namespace BadRoads.Models
     }
 
     /// <summary>Точка дефекта на дороге</summary>
-    public class Point : BadroadsDataItem
+    public class Point : BadroadsDataItem, IDisposable
     {
         public Point()
         {
@@ -186,6 +189,19 @@ namespace BadRoads.Models
             }
             return lastCommentDate;
         }
+
+        public void Dispose()
+        {
+            this.Comments.Clear();
+            this.Photos.Clear();
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Finalize()
+        { 
+        }
+
+         
     }
 
     /// <summary>Гео данные  ГуглМапс</summary>
