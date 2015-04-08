@@ -9,16 +9,19 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/scripts")
 
+</head>
+<body>
     <script type="text/javascript">
 
         function SubM() {
-            document.getElementById('sub').click();
+            var i = document.getElementById("lang");
+            alert(i);
+            $('#sub').click();
+            $(".OptionValue [value=]").attr("selected", "selected");           
         }
 
     </script>
 
-</head>
-<body>
     <header id="menu">
         <div id="btnmenu" title="Меню">
             <i class="fa fa-bars fa-2x"></i>
@@ -34,9 +37,10 @@
         @using (Html.BeginForm("ChangeCulture", "Home"))
         { 
             <select name="lang" id="lang" onchange="SubM()">
-                <option value="ru">RU</option>
-                <option value="uk">UA</option>
-                <option value="en">EN</option>
+                @*<option>@Resources.Resource._Language</option>*@
+                <option class="OptionValue" value="ru">RU</option>
+                <option class="OptionValue" value="uk">UA</option>
+                <option class="OptionValue" value="en">EN</option>
             </select>
             <input id="sub" type="submit" hidden>    
         }

@@ -120,13 +120,29 @@
   <data name="_Galery" xml:space="preserve">
     <value>Галерея</value>
   </data>
+  <data name="_ImageHelperExeptionConstructor" xml:space="preserve">
+    <value>Тільки файли з розширенням \ ". Jpg \" або \ ". Jpeg \" можуть бути додані</value>
+  </data>
+  <data name="_IndexTitle1" xml:space="preserve">
+    <value>Мета проекту: збір даних про стан доріг України і виведення отриманих результатів на загальну карту країни.
+                 Наш сайт об'єднує тих, хто зіткнувся з некомпетентністю дорожніх та інших служб України, які не виконують свої зобов'язання.</value>
+  </data>
+  <data name="_Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
   <data name="_Main" xml:space="preserve">
     <value>Головна</value>
   </data>
   <data name="_Map" xml:space="preserve">
     <value>Мапа</value>
   </data>
+  <data name="_Register" xml:space="preserve">
+    <value>Реєстрація</value>
+  </data>
   <data name="_Search" xml:space="preserve">
     <value>Пошук</value>
+  </data>
+  <data name="_SignIn" xml:space="preserve">
+    <value>Увійти</value>
   </data>
 </root>

@@ -120,13 +120,28 @@
   <data name="_Galery" xml:space="preserve">
     <value>Galery</value>
   </data>
+  <data name="_ImageHelperExeptionConstructor" xml:space="preserve">
+    <value>Only files with the extension \ ". Jpg \" or \ ". Jpeg \" may be added</value>
+  </data>
+  <data name="_IndexTitle1" xml:space="preserve">
+    <value>The purpose of the project: collection of data on the state of roads in Ukraine and the conclusion of the results on the general map of the country. Our site brings together those who have encountered the incompetence of road and other services of Ukraine who do not fulfill their obligations.</value>
+  </data>
+  <data name="_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="_Main" xml:space="preserve">
     <value>Main page</value>
   </data>
   <data name="_Map" xml:space="preserve">
     <value>Map</value>
   </data>
+  <data name="_Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
   <data name="_Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="_SignIn" xml:space="preserve">
+    <value>Sing In</value>
   </data>
 </root>

@@ -120,13 +120,29 @@
   <data name="_Galery" xml:space="preserve">
     <value>Галерея</value>
   </data>
+  <data name="_ImageHelperExeptionConstructor" xml:space="preserve">
+    <value>Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены</value>
+  </data>
+  <data name="_IndexTitle1" xml:space="preserve">
+    <value>Цель проекта: сбор данных о состоянии дорог Украины и вывод полученных результатов на общую карту страны. 
+                Наш сайт объединяет тех, кто столкнулся с некомпетентностью дорожных и иных служб Украины, которые не выполняют свои обязательства.</value>
+  </data>
+  <data name="_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
   <data name="_Main" xml:space="preserve">
     <value>Главная</value>
   </data>
   <data name="_Map" xml:space="preserve">
     <value>Карта</value>
   </data>
+  <data name="_Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
   <data name="_Search" xml:space="preserve">
     <value>Поиск</value>
+  </data>
+  <data name="_SignIn" xml:space="preserve">
+    <value>Войти</value>
   </data>
 </root>
