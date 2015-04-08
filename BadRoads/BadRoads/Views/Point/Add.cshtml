@@ -34,12 +34,34 @@
             </select>
             <label class="f t">Дополнительное описание:</label>
            <textarea class="ckeditor" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
+           
+           @* Коноваленко А.В. 08 04 2015 проверка на заполнение комментария *@
+            <script type="text/javascript">
+                function FirstCommentIsNull() {
+                    if (CKEDITOR.instances.FirstComment.getData() == "") {
+                        alert("Необходимо ввести описание!");
+                        event.returnValue = false;
+                        return;
+                    }
+
+                    if ($("input:file")[0].files.length == 0)
+                    {
+                        alert("Необходимо загрузить фото!");
+                        event.returnValue = false;
+                        return;
+                    }
+                    
+                }
+            </script>
+           
             <div class="center_block">
-                <input id="subm" type="submit" value="Отправить" disabled />
+                <input id="subm" type="submit" value="Отправить" disabled  onclick="FirstCommentIsNull();"/>
             </div>
        }
     </div>   
 </div>
+
+
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
