@@ -359,7 +359,6 @@ nav {
     nav ul li {
         padding: 10px;
         font-size: 18px;
-        font-weight: 600;
         list-style: none;
         color: whitesmoke;
     }
@@ -498,7 +497,9 @@ nav {
 .prev {
     left: 1%;
 }
-
+.blockpointimg {
+    background-color: gray;
+}
 .blockpointimg img {
     height: 100%;
     display: block;
@@ -715,13 +716,13 @@ body {
 }
 
 .animated.flipInX {
-	-webkit-backface-visibility: visible !important;
-	-webkit-animation-name: flipInX;
-	-moz-backface-visibility: visible !important;
-	-moz-animation-name: flipInX;
-	-o-backface-visibility: visible !important;
-	-o-animation-name: flipInX;
-	backface-visibility: visible !important;
-	an
+    -webkit-backface-visibility: visible !important;
+    -webkit-animation-name: flipInX;
+    -moz-backface-visibility: visible !important;
+    -moz-animation-name: flipInX;
+    -o-backface-visibility: visible !important;
+    -o-animation-name: flipInX;
+    backface-visibility: visible !important;
+}
 
 

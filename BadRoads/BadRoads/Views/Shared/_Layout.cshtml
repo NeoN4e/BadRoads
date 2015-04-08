@@ -40,15 +40,21 @@
                 <li>
                     @Html.Partial("_LoginPartial")
                 </li>
-                <li>
-                    @Html.ActionLink("Главная", "Index", "Home")
-                </li>
-                <li>
-                    @Html.ActionLink("Карта", "Map", "Home")
-                </li>
-                <li>
-                    @Html.ActionLink("Галерея", "Gallery", "Point")
-                </li>
+                <a href="/">
+                    <li>Главная</li>
+                </a>
+                <a href="/Home/Map">
+                    <li>Карта</li>
+                </a>
+                <a href="/Point/Gallery">
+                    <li>Галерея</li>
+                </a>
+                @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                {
+                 <a href="/Point/ModerationList">
+                    <li>Модерация</li>
+                 </a>
+                }
             </ul>
         </nav>
     </header>

@@ -14,8 +14,8 @@
 <div class="section group">
     <div class="col span_3_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        @*<div class="blockpointimg">*@           
-        <div class="slider">
+        <div class="blockpointimg">           
+  @*      <div class="slider">*@
             @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
             {
                 foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
@@ -34,15 +34,15 @@
                 <img src="../../Images/nophoto.png" />             // добавляем одну фотографию-заглушку
             }
 
-            @*<div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
-            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>*@
-            @*</div>*@
-            <div class="buttons">
+            <div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
+            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>
+            </div>
+          @*  <div class="buttons">
                 <a href="#" class="prev"></a>
                 <a href="#" class="next"></a>
-            </div>
-            <span class="nav"></span>
-        </div>
+            </div>*@
+       @*     <span class="nav"></span>
+        </div>*@
             <div id="mapinfo"></div>
         </div>
     <div class="col span_2_of_5">     
