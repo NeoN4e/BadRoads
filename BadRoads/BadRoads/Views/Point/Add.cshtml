@@ -23,16 +23,14 @@
             <label class="f t">Координаты:</label>
             <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
             <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
-            <label class="f t">Выберите фото для загрузки:</label>
+            <label class="f t">Выберите фото для загрузки (файл не более 3мб):</label>
             <input name="upload" class="f" type="file" multiple />
             <label class="f t">Выберите проблему:</label>
             <select name="DefName" class="sel f">
-
                     @foreach (var item in ViewBag.Problems)
                     {
                         <option>@item</option>
                     }
-
             </select>
             <label class="f t">Дополнительное описание:</label>
             <textarea name="FirstComment" class="f ht" placeholder="или коментарий к фото"></textarea>
