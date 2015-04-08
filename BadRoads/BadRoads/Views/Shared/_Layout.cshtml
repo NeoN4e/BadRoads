@@ -10,13 +10,26 @@
     @Scripts.Render("~/bundles/scripts")
 
 </head>
-<body>
+<body onload="LD()">
     <script type="text/javascript">
 
-        function SubM() {             
+        function SubM() {
+            alert(ViewBag.lng);
             $('#sub').click();
-            $("#lang :contains('#my_select option:selected').val()").attr("selected", "selected");
-        }       
+            
+            //$("#lang :contains('#my_select option:selected').val()").attr("selected", "selected");
+        }
+
+        function LD() {
+            var val = text = ViewBag.lng;
+            $("select option[value=" + val + "]").attr('selected', 'true').text(text);
+            var objSel = document.getElementById("lang");
+            alert(objSel.options[objSel.selectedIndex].value);
+            //alert(123);
+            //$("#lang :last").attr("selected", "selected");
+            //$("#lang option[value='EN']").attr("selected", "selected");
+            //$("#lang option:selected").value;
+        }
 
     </script>
 
@@ -34,13 +47,13 @@
         }
         @using (Html.BeginForm("ChangeCulture", "Home"))
         { 
-            <select name="lang" id="lang" onchange="SubM()" onload="LD()">
+            <select name="lang" id="lang" onchange="SubM()">
                 @*<option>@Resources.Resource._Language</option>*@
-                <option class="OptionValue" value="ru">RU</option>
-                <option class="OptionValue" value="uk">UA</option>
-                <option class="OptionValue" value="en">EN</option>
+                <option value="ru">RU</option>
+                <option value="uk">UA</option>
+                <option value="en">EN</option>
             </select>
-            <input id="sub" type="submit" hidden>    
+            <input id="sub" type="submit" hidden>
         }
         <div id="logo">
             <a href="/">

@@ -23,6 +23,7 @@ namespace BadRoads.Controllers
 
         public ActionResult ChangeCulture(string lang)
         {
+            ViewBag.lng = lang;
             string returnUrl = Request.UrlReferrer.AbsolutePath;
             // Список культур
             List<string> cultures = new List<string>() { "ru", "en", "uk" };
