@@ -67,9 +67,9 @@ namespace BadRoads.Controllers
                     Defect = db.GetDefect(collection["DefName"])
                 };
                 p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
-
+                
                 db.Points.Add(p);
-
+                
                 db.SaveChanges();
                 int id = p.ID;
                 List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фото
@@ -80,7 +80,7 @@ namespace BadRoads.Controllers
                     p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
                 }
                 p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
-
+                
                 db.SaveChanges();
                 return RedirectToAction("Map", "Home"); // переход на Карту
             }
@@ -164,9 +164,7 @@ namespace BadRoads.Controllers
             {
                 PaginatorList = db.Points.ToList<Point>();
             }
-
             //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
-
             return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>

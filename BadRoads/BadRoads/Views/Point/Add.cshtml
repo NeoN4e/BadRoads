@@ -8,7 +8,7 @@
 <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 <div class="section group">
     <div class="col span_2_of_3">
-        <h1 class="ct">Укажите дефект на карте</h1>
+        <h1 class="center_text">Укажите дефект на карте</h1>
         <div id="map"></div>
     </div>   
     <div class="col span_1_of_3">
@@ -17,7 +17,7 @@
        {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <h1 class=" ct">Добавить информацию о дефекте на дороге</h1>
+            <h1 class=" center_text">Добавить информацию о дефекте на дороге</h1>
             <label class="f t">Адрес:</label>
             <input name="adresset" id="adresset" class="f" type="text" readonly />              @*адрес точки*@
             <label class="f t">Координаты:</label>
@@ -33,8 +33,8 @@
                     }
             </select>
             <label class="f t">Дополнительное описание:</label>
-           <textarea class="ckeditor" name="FirstComment"></textarea>
-            <div class="ct">
+           <textarea class="ckeditor" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
+            <div class="center_block">
                 <input id="subm" type="submit" value="Отправить" disabled />
             </div>
        }
@@ -45,5 +45,5 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/addpoint.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js") @* 7,04,15 - Малый Дмитрий, Добавлен для корректной роботы "CKEitor"*@
 }  

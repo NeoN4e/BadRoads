@@ -5,13 +5,13 @@
 <div class="section group hd"></div>
 <div class="section group">
     <div class="col span_4_of_4">
-        <h1 class="ct">@ViewBag.Title</h1>
+        <h1 class="center_text">@ViewBag.Title</h1>
     </div>
 </div>   
 <div class="section group">
     <div class="col span_1_of_3 hd"></div>
     <div class="col span_1_of_3">
-        <h2 class="ct">Заполните поля для регистрации</h2>
+        <h2 class="center_text">Заполните поля для регистрации</h2>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -34,12 +34,12 @@
                     @Html.PasswordFor(m => m.ConfirmPassword)
                 </li>
             </ol>
-            <div class="ct">
+            <div class="center_block">
             <input type="submit" value="Зарегистрировать" />
                 </div>
         }      
-        <div class="ct">
-             <h2 class="ct">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
+        <div class="center_text">
+             <h2 class="center_text">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
             @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
         </div>
     </div>
