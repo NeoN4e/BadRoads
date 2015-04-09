@@ -12,12 +12,22 @@ namespace BadRoads.Controllers
     public class HomeController : Controller
     {
         BadroadsDataContext db = new BadroadsDataContext();      // объект модели
-        
+
+        /// <summary>
+        /// Переопределение Диспоуз Для очистки БД
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected override void Dispose(bool disposing)
+        {
+            //Коноваленко А.В. 09.04.2015 
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
         public ActionResult Index()
         {
             //db.Database.Delete();
             db.Database.Initialize(false);
-            
             return View();
         }
 
