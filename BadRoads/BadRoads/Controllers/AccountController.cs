@@ -13,6 +13,7 @@ using BadRoads.Models;
 
 namespace BadRoads.Controllers
 {
+    [Culture]
     [Authorize]
     [InitializeSimpleMembership]
     public class AccountController : Controller

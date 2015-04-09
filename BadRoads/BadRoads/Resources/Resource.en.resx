@@ -120,6 +120,18 @@
   <data name="_Added" xml:space="preserve">
     <value>Added:</value>
   </data>
+  <data name="_EndRegister" xml:space="preserve">
+    <value>Check in</value>
+  </data>
+  <data name="_EnterLoginPassword" xml:space="preserve">
+    <value>Enter your login and password</value>
+  </data>
+  <data name="_EnterSocialAccount" xml:space="preserve">
+    <value>Sign in via social networks</value>
+  </data>
+  <data name="_FillFieldsRegistration" xml:space="preserve">
+    <value>Fill in the fields for registration</value>
+  </data>
   <data name="_Galery" xml:space="preserve">
     <value>Galery</value>
   </data>
@@ -158,6 +170,9 @@
   </data>
   <data name="_Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="_RegisterSocialNetwork" xml:space="preserve">
+    <value>You can Register of Accounts through Social Networks</value>
   </data>
   <data name="_Search" xml:space="preserve">
     <value>Search</value>

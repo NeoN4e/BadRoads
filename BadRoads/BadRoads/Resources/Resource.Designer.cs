@@ -70,6 +70,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Зарегистрировать.
+        /// </summary>
+        public static string _EndRegister {
+            get {
+                return ResourceManager.GetString("_EndRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите логин и пароль.
+        /// </summary>
+        public static string _EnterLoginPassword {
+            get {
+                return ResourceManager.GetString("_EnterLoginPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Войти с помощью социальных сетей.
+        /// </summary>
+        public static string _EnterSocialAccount {
+            get {
+                return ResourceManager.GetString("_EnterSocialAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заполните поля для регистрации.
+        /// </summary>
+        public static string _FillFieldsRegistration {
+            get {
+                return ResourceManager.GetString("_FillFieldsRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Галерея.
         /// </summary>
         public static string _Galery {
@@ -184,6 +220,15 @@ namespace Resources {
         public static string _Register {
             get {
                 return ResourceManager.GetString("_Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы можете зарегистрироваться с помощью учетных записей социальных сетей.
+        /// </summary>
+        public static string _RegisterSocialNetwork {
+            get {
+                return ResourceManager.GetString("_RegisterSocialNetwork", resourceCulture);
             }
         }
         

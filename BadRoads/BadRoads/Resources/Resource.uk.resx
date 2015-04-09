@@ -120,6 +120,18 @@
   <data name="_Added" xml:space="preserve">
     <value>Додано:</value>
   </data>
+  <data name="_EndRegister" xml:space="preserve">
+    <value>Зареєструвати</value>
+  </data>
+  <data name="_EnterLoginPassword" xml:space="preserve">
+    <value>Введіть логін і пароль</value>
+  </data>
+  <data name="_EnterSocialAccount" xml:space="preserve">
+    <value>Увійти за допомогою соціальних мереж</value>
+  </data>
+  <data name="_FillFieldsRegistration" xml:space="preserve">
+    <value>Заповніть поля для реєстрації</value>
+  </data>
   <data name="_Galery" xml:space="preserve">
     <value>Галерея</value>
   </data>
@@ -159,6 +171,9 @@
   </data>
   <data name="_Register" xml:space="preserve">
     <value>Реєстрація</value>
+  </data>
+  <data name="_RegisterSocialNetwork" xml:space="preserve">
+    <value>Ви можете зареєструватися за допомогою облікових записів соціальних мереж</value>
   </data>
   <data name="_Search" xml:space="preserve">
     <value>Пошук</value>

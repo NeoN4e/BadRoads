@@ -1,6 +1,6 @@
 ﻿@model BadRoads.Models.LoginModel
 @{
-    ViewBag.Title = "Войти";
+    ViewBag.Title = @Resources.Resource._SignIn;
 }
 <div class="section group hd"></div>
 <div class="section group">
@@ -11,7 +11,7 @@
 <div class="section group">
     <div class="col span_1_of_3 hd"></div>
     <div class="col span_1_of_3">
-        <h2 class="center_text">Введите логин и пароль</h2>
+        <h2 class="center_text">@Resources.Resource._EnterLoginPassword</h2>
         @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
         {
             @Html.AntiForgeryToken()
@@ -33,13 +33,13 @@
                 </li>
             </ol>
             <div class="center_block">
-                <input type="submit" value="Войти" />
+                <input type="submit" value=@Resources.Resource._SignIn />
                 <p>
-                    @Html.ActionLink("Регистрация", "Register")
+                    @Html.ActionLink(@Resources.Resource._Register, "Register")
                 </p>
             </div>     
         }
-        <h2 class="center_text">Войти с помощью социальных сетей</h2>
+        <h2 class="center_text">@Resources.Resource._EnterSocialAccount</h2>
         <div class="center_block">
             @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
         </div>
