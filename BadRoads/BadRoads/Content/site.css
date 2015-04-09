@@ -173,7 +173,7 @@ select, .hd2 {
 }
 
 .f {
-    width: 93%;
+    width: 85%;
 }
 
 .sel.f {
@@ -673,7 +673,7 @@ nav {
     }
 }
 
-/*======== для поиска =======*/
+/*======== for search =======*/
 #srch_wrapper {
     position: relative;
     width: auto;
@@ -696,4 +696,8 @@ nav {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     cursor: pointer;
+}
+/*============== for clear files =============*/
+#clear_files {
+    cursor:pointer;
 }

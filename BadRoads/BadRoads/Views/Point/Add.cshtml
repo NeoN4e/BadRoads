@@ -24,7 +24,7 @@
             <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
             <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
             <label class="f t">Выберите фото для загрузки (файл не более 3мб):</label>
-            <input name="upload" class="f" type="file" multiple />
+            <input name="upload" class="f" type="file" multiple /><span id="clear_files">X</span>
             <label class="f t">Выберите проблему:</label>
             <select name="DefName" class="sel f">
                     @foreach (var item in ViewBag.Problems)
@@ -35,30 +35,72 @@
             <label class="f t">Дополнительное описание:</label>
             <textarea class="f ht" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
            
-           @* Коноваленко А.В. 08 04 2015 проверка на заполнение комментария *@
+           
             <script type="text/javascript">
-                function pointValidate(e) {
-                    
-
-                    if (CKEDITOR.instances.FirstComment.getData() == "") {
-                        alert("Необходимо ввести описание!");
-                        e.preventDefault();
-                        event.returnValue = false;
-                        return;
+                // очистка поля с файлами   Резник К.
+                var inputFiles = $("input[type='file']");
+                $("#clear_files").on("click", function () {
+                    inputFiles.wrap('<form>').parent('form').trigger('reset');
+                    inputFiles.unwrap();
+                });
+                // функции валидации файлов по типу  Резник К.
+                function IsNotValidType(el) {
+                    var element = el;
+                    var allowTypes = ["jpg", "jpeg"];
+                    var currentType = "";
+                    for (var i = 0; i < element.files.length; i++) {
+                        if (element.files[i].name.lastIndexOf(".") != -1) {
+                            currentType = element.files[i].name.substring(element.files[i].name.lastIndexOf(".") + 1);
+                            var res = allowTypes.indexOf(currentType);
+                            if (res == -1) {
+                                return true;
+                            }
+                        }
                     }
-
-                    if ($("input:file")[0].files.length == 0)
-                    {
-                        alert("Необходимо загрузить фото!");
-                        e.preventDefault();
-                        event.returnValue = false;
-                        return;
-                    }
+                    return false;
                 }
+                // функция валидации файлов по размеру  Резник К.
+                function IsNotValidSize(el) {
+                    var element = el;
+                    var allowSize = 1048576*3; //  3 Мб максимальный размер картинки
+                    if (element.files == undefined) {
+                        return true;
+                    }
+                    for (var i = 0; i < element.files.length; i++) {
+                        if (allowSize < element.files[i].size) {
+
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                // функция валидации описания  Коноваленко А.
+                function pointValidate(e) {
+                    if (CKEDITOR.instances.FirstComment.getData() == "" || CKEDITOR.instances.FirstComment.getData() == undefined) {
+                        alert("Необходимо ввести описание!");
+                        //e.preventDefault();
+                        //event.returnValue = false;
+                        return false;
+                    }
+                    return true;
+                }
+
+                $("form").submit(function (ev) {
+                    var inputFiles = $("input[type='file']");
+                    var isValidTypeSize = IsNotValidSize(inputFiles) || IsNotValidType(inputFiles);
+                    var isDescriptionEmpty = $("textarea[name='FirstComment']").val()==""?false:true;
+                    var res = !isValidTypeSize && isDescriptionEmpty;
+                    if (isValidTypeSize)
+                    {
+                        inputFiles.css("border", "1px red solid");
+                    }
+                    return res;
+                });
             </script>
            
             <div class="center_block vis">
-                <input id="subm" type="submit" value="Отправить" disabled  onclick="pointValidate(event);"/>
+                <input id="subm" type="submit" value="Отправить" />
                 <p>
                     @Html.ActionLink("Назад в галерею", "Gallery", "Point")
                 </p>
