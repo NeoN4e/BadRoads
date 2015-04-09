@@ -37,9 +37,12 @@
            
            @* Коноваленко А.В. 08 04 2015 проверка на заполнение комментария *@
             <script type="text/javascript">
-                function pointValidate() {
+                function pointValidate(e) {
+                    
+
                     if (CKEDITOR.instances.FirstComment.getData() == "") {
                         alert("Необходимо ввести описание!");
+                        e.preventDefault();
                         event.returnValue = false;
                         return;
                     }
@@ -47,6 +50,7 @@
                     if ($("input:file")[0].files.length == 0)
                     {
                         alert("Необходимо загрузить фото!");
+                        e.preventDefault();
                         event.returnValue = false;
                         return;
                     }
@@ -54,7 +58,7 @@
             </script>
            
             <div class="center_block">
-                <input id="subm" type="submit" value="Отправить" disabled  onclick="pointValidate();"/>
+                <input id="subm" type="submit" value="Отправить" disabled  onclick="pointValidate(event);"/>
             </div>
        }
     </div>   

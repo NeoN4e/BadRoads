@@ -23,23 +23,6 @@ namespace BadRoads.Models
             context.Defects.Add(new Defect() { Name = "Отсутствие разметки"});
             context.Defects.Add(new Defect() { Name = "Забитая ливневка" });
             context.SaveChanges();
-            // заглушка. чтобы наполнить список с точками, которых пока нет в базе
-            //Defect d = context.Defects.First();
-            //for (int x = 0; x < 100; x++)
-            //{
-            //    double latitude = 48.459015 + (x * 0.00045);
-            //    double longitude = 35.042302 + (x * 0.00045);
-            //    string adress = String.Format("Проблема на улице " + x);
-
-            //    GeoData g = new GeoData(latitude, longitude, adress);
-
-            //    Point p = new Point();
-            //    p.GeoData = g;
-            //    p.Defect = d;
-
-            //    context.Points.Add(p);
-            //}
-            
         }
     }
 
@@ -116,7 +99,6 @@ namespace BadRoads.Models
         {
             return this.Defects.First(d => d.ID == DefectId);
         }
-
         
     }
 
@@ -128,7 +110,7 @@ namespace BadRoads.Models
     }
 
     /// <summary>Точка дефекта на дороге</summary>
-    public class Point : BadroadsDataItem, IDisposable
+    public class Point : BadroadsDataItem
     {
         public Point()
         {
@@ -190,18 +172,6 @@ namespace BadRoads.Models
             return lastCommentDate;
         }
 
-        public void Dispose()
-        {
-            this.Comments.Clear();
-            this.Photos.Clear();
-            GC.SuppressFinalize(this);
-        }
-
-        protected void Finalize()
-        { 
-        }
-
-         
     }
 
     /// <summary>Гео данные  ГуглМапс</summary>

@@ -275,12 +275,8 @@ namespace BadRoads.Controllers
             if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //  если авторизован с ролью "модератор"
             {
                 Point p = db.Points.Find(id);                                   // находим точку по ID   
-                //p.Comments.Clear();
-                //p.Dispose();
-                //db.SaveChanges();
                 db.Points.Remove(p);                                            // удаляем точку.
                 db.SaveChanges();                                               // сохраняем изменения в базе
-                GC.SuppressFinalize(this);
                 return RedirectToAction("Map", "Home");                        // переход на основную карту
             }
             else
