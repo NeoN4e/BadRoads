@@ -64,6 +64,10 @@ label {
     overflow-y: scroll;
 }
 
+#content p {
+    display: none;
+    visibility: hidden;
+}
 /*=============STYLES AND COLORS=============*/
 
 input, select, textarea, button, #map_canvas, #map, .grid, .block {
@@ -213,6 +217,9 @@ select, .hd2 {
     height: 25vh;
 }
 
+.vh8 {
+    height: 8vh;
+}
 .center_text {
     margin: 0 auto;
     padding: 15px 0;
@@ -225,12 +232,6 @@ select, .hd2 {
     padding: 0;
     font-weight: 600;
     text-align: center;
-}
-
-body {
-    width: 100%;
-    height: 100%;
-    background-color: whitesmoke;
 }
 
 ol, ul {
@@ -283,6 +284,13 @@ li form {
 
 /*=============BODY STYLES=============*/
 
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
 #menu {
     background-color: #333333;
     position: fixed;
@@ -291,6 +299,11 @@ li form {
     min-height: 520px;
     margin-left: -250px;
     z-index: 1000;
+}
+
+#content {
+    height: 100vh;
+    overflow: hidden;
 }
 
 /*=============MENU=============*/
@@ -437,24 +450,25 @@ nav {
 }
 
 /*============MAP============*/
+
 .searchmap {
     position: absolute;
-    top: 15px;
+    top: 1.4%;
     margin: 0.5% 0.5% 0 0;
     padding: 0.2% 0.3%;
     right: 0;
     width: 20%;
 }
 
-#map_canvas, #map, #mapinfo {
+#map, #mapinfo {
     border: 1px solid #999999;
 }
 
 #map_canvas {
-    width: 98.8%;
-    height: 87.8vh;
-    margin: 0.5%;
-    padding: 2px;
+    width: 100%;
+    height: 92vh;
+    margin: 0;
+    padding: 0;
 }
 
 #map {
@@ -508,6 +522,10 @@ nav {
 
 /*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
 @media only screen and (max-width: 768px) {
+    .vh8 {
+        height: 11vh;
+    }
+
     .h-3.index {
         height: 0;
     }
@@ -529,7 +547,7 @@ nav {
     }
 
     #map_canvas {
-        height: 80vh;
+        height: 88.5vh;
     }
 
     .logo {
@@ -652,7 +670,7 @@ body {
     right: 8px;
     top: 4px;
     text-align: center;
-    background-color: silver;
+    background-color: #666666;
     color: white;
     font-size: 12px;
     font-family: monospace;
