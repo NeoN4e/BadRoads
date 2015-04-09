@@ -1,7 +1,7 @@
 ﻿@model BadRoads.Models.Point
 @{
     ViewBag.Title = String.Format(Model.Defect + " по адресу: " + Model.GeoData.FullAddress);
-    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    
+    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    //create undisplayable tags to transfer data in js script
 }
 
 @if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
@@ -80,7 +80,23 @@
 </div>
 
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>
-    @*подключение Google Maps API*@
-    @Scripts.Render("~/Scripts/pointinfo.js")
+ @*connect script Google Maps API depends on the chosen language*@
+    @if (ViewBag.Lang == "uk")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=uk"></script>
+    }
+    else if (ViewBag.Lang == "ru")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+    }
+    else if (ViewBag.Lang == "en")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=en"></script>
+    }
+    else
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+    }                                
+
+ @Scripts.Render("~/Scripts/pointinfo.js")
 }
