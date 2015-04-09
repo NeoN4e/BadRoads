@@ -308,12 +308,27 @@ namespace BadRoads.Controllers
             {
                 Point p = db.Points.Find(id);                                                  // находим точку по ID   
                 p.isValid = true;                                                              // подтверждаем точку
-                var def = p.Defect;
+                var def = p.Defect;                                                             //пердотвращает неясную потерю данных из поля Defect 09.04.15 Дон
                 try
                 {
                     db.SaveChanges();            // сохраняем изменения в базе !!!! НЕ СОХРАНЯЕТСЯ   выкидывает исключение!!!!!!!
                 }
-                catch { }
+                catch(DbEntityValidationException ex)
+                {
+                    var errorMessages = (from eve in ex.EntityValidationErrors
+                                         let entity = eve.Entry.Entity.GetType().Name
+                                         from ev in eve.ValidationErrors
+                                         select new
+                                         {
+                                             Entity = entity,
+                                             PropertyName = ev.PropertyName,
+                                             ErrorMessage = ev.ErrorMessage
+                                         });
+
+                    var fullErrorMessage = string.Join("; ", errorMessages.Select(e => string.Format("[Entity: {0}, Property: {1}] {2}", e.Entity, e.PropertyName, e.ErrorMessage)));
+
+                    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+                }
                 return RedirectToAction("Map", "Home");                                        // переход на основную карту
             }
             else
