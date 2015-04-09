@@ -55,7 +55,7 @@ namespace BadRoads.Models
                     }
                     else
                     {
-                        throw new ArgumentOutOfRangeException("Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены");
+                        throw new ArgumentOutOfRangeException("Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены"); //<!-- NEED LOCALIZATION -->
                     }
                 }
                 else
@@ -288,7 +288,7 @@ namespace BadRoads.Models
                             }
                             else
                             {
-                                throw new ArgumentOutOfRangeException("Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены");
+                                throw new ArgumentOutOfRangeException("Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены"); //<!-- NEED LOCALIZATION -->
                             }
                         }
                         else
