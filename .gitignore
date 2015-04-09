@@ -184,4 +184,8 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+<<<<<<< HEAD
 BadRoads/BadRoads/Images/Gallery/point_10/img_10_1.jpg
+=======
+*.jpg
+>>>>>>> origin/DEV3
