@@ -126,6 +126,15 @@
   <data name="_IndexTitle1" xml:space="preserve">
     <value>The purpose of the project: collection of data on the state of roads in Ukraine and the conclusion of the results on the general map of the country. Our site brings together those who have encountered the incompetence of road and other services of Ukraine who do not fulfill their obligations.</value>
   </data>
+  <data name="_IndexTitle2" xml:space="preserve">
+    <value>Photograph of damage on the road pavement.</value>
+  </data>
+  <data name="_IndexTitle3" xml:space="preserve">
+    <value>Sign up on our website and upload a photo of defects.</value>
+  </data>
+  <data name="_IndexTitle4" xml:space="preserve">
+    <value>Browse the map or gallery defective roads.</value>
+  </data>
   <data name="_Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -134,6 +143,12 @@
   </data>
   <data name="_Map" xml:space="preserve">
     <value>Map</value>
+  </data>
+  <data name="_MapTitle" xml:space="preserve">
+    <value>Map with defects of the road</value>
+  </data>
+  <data name="_ModerationList1" xml:space="preserve">
+    <value>The list of problems requiring moderation</value>
   </data>
   <data name="_Register" xml:space="preserve">
     <value>Register</value>

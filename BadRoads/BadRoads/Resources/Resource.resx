@@ -127,6 +127,15 @@
     <value>Цель проекта: сбор данных о состоянии дорог Украины и вывод полученных результатов на общую карту страны. 
                 Наш сайт объединяет тех, кто столкнулся с некомпетентностью дорожных и иных служб Украины, которые не выполняют свои обязательства.</value>
   </data>
+  <data name="_IndexTitle2" xml:space="preserve">
+    <value>Фотографируйте на дороге повреждения дорожного покрытия.</value>
+  </data>
+  <data name="_IndexTitle3" xml:space="preserve">
+    <value>Регистрируйтесь на нашем сайте и загружайте фото дефектов.</value>
+  </data>
+  <data name="_IndexTitle4" xml:space="preserve">
+    <value>Просматривайте карту или галерею с дефектами дорог.</value>
+  </data>
   <data name="_Language" xml:space="preserve">
     <value>Язык</value>
   </data>
@@ -135,6 +144,15 @@
   </data>
   <data name="_Map" xml:space="preserve">
     <value>Карта</value>
+  </data>
+  <data name="_MapTitle" xml:space="preserve">
+    <value>Карта с дефектами дороги</value>
+  </data>
+  <data name="_ModerationList1" xml:space="preserve">
+    <value>Список проблем требующих модерации</value>
+  </data>
+  <data name="_ModerationList2" xml:space="preserve">
+    <value>Перейти к точке</value>
   </data>
   <data name="_Register" xml:space="preserve">
     <value>Регистрация</value>

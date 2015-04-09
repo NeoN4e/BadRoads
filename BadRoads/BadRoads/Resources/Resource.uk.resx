@@ -127,6 +127,15 @@
     <value>Мета проекту: збір даних про стан доріг України і виведення отриманих результатів на загальну карту країни.
                  Наш сайт об'єднує тих, хто зіткнувся з некомпетентністю дорожніх та інших служб України, які не виконують свої зобов'язання.</value>
   </data>
+  <data name="_IndexTitle2" xml:space="preserve">
+    <value>Фотографуйте на дорозі пошкодження дорожнього покриття.</value>
+  </data>
+  <data name="_IndexTitle3" xml:space="preserve">
+    <value>Реєструйтеся на нашому сайті та завантажуйте фото дефектів.</value>
+  </data>
+  <data name="_IndexTitle4" xml:space="preserve">
+    <value>Переглядайте карту або галерею з дефектами доріг.</value>
+  </data>
   <data name="_Language" xml:space="preserve">
     <value>Мова</value>
   </data>
@@ -135,6 +144,12 @@
   </data>
   <data name="_Map" xml:space="preserve">
     <value>Мапа</value>
+  </data>
+  <data name="_MapTitle" xml:space="preserve">
+    <value>Карта з дефектами дороги</value>
+  </data>
+  <data name="_ModerationList1" xml:space="preserve">
+    <value>Список проблем які вимагають модерації</value>
   </data>
   <data name="_Register" xml:space="preserve">
     <value>Реєстрація</value>
