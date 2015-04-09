@@ -46,7 +46,6 @@ namespace BadRoads.Controllers
                 cookie.Value = lang;   // если куки уже установлено, то обновляем значение
             else
             {
-
                 cookie = new HttpCookie("lang");
                 cookie.HttpOnly = false;
                 cookie.Value = lang;
@@ -60,8 +59,8 @@ namespace BadRoads.Controllers
         {
             ViewBag.NeedShowPopup = flag;
             ViewBag.MarkerLocation = stringForMap;
-            //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
-            List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
+            List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
+            //List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
             return View(listPoints);
         }
     }

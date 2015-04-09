@@ -7,8 +7,12 @@
 
 @if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
 {                                                                                                   // главное оставить такую ссылку и проверку в if              - Волков Антон.  06.04.15
-    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a>               
-    <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
+    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a> 
+    if (Model.isValid==false)
+    {
+        @*Кнопка валидации видна только для неотмодерированных точек 09.04.15 Дон*@
+        <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
+    }
 }
 
 <div class="section group">

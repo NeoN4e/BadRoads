@@ -117,8 +117,8 @@ namespace BadRoads.Controllers
             {
                 ViewBag.MarkerLocation = stringForMap;
                 ViewBag.Problems = db.Defects.ToList();                // defect list for selecting the form
-                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // a list of validates points
-                List<Point> listPoints = db.Points.ToList<Point>();    //список всех точек в базе
+                List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // a list of validates points
+                //List<Point> listPoints = db.Points.ToList<Point>();    //список всех точек в базе
                 return View(listPoints);                               // view whith list of Points
             }
             else
@@ -308,6 +308,7 @@ namespace BadRoads.Controllers
             {
                 Point p = db.Points.Find(id);                                                  // находим точку по ID   
                 p.isValid = true;                                                              // подтверждаем точку
+                var def = p.Defect;
                 try
                 {
                     db.SaveChanges();            // сохраняем изменения в базе !!!! НЕ СОХРАНЯЕТСЯ   выкидывает исключение!!!!!!!
@@ -316,7 +317,7 @@ namespace BadRoads.Controllers
                 return RedirectToAction("Map", "Home");                                        // переход на основную карту
             }
             else
-                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+                return RedirectToAction("Login", "Account");                                    // иначе перенаправляем к экшену авторизации
         }
         public JsonResult Autocomplete(string term)
         {
