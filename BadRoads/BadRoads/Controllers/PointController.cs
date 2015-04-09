@@ -180,7 +180,7 @@ namespace BadRoads.Controllers
             int pointsOnPage = 8;//maximum Point elements on page
             if (flag != true)
             {
-                PaginatorList = db.Points.ToList<Point>();
+                PaginatorList = db.Points.Where(v => v.isValid == true).ToList<Point>();    //только проверенные точкиотображаются в галерее 09.04.15 Дон
             }
             //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
             return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
