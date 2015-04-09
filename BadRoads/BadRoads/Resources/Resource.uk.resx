@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="_AddDefect" xml:space="preserve">
+    <value>Додати інформацію про дефект на дорозі</value>
+  </data>
   <data name="_Added" xml:space="preserve">
     <value>Додано:</value>
+  </data>
+  <data name="_Adress" xml:space="preserve">
+    <value>Адреса:</value>
+  </data>
+  <data name="_AdvancedDescription" xml:space="preserve">
+    <value>Додатковий опис:</value>
+  </data>
+  <data name="_Coordinates" xml:space="preserve">
+    <value>Координати:</value>
+  </data>
+  <data name="_DefectOnTheMap" xml:space="preserve">
+    <value>Вкажіть дефект на мапі</value>
   </data>
   <data name="_EndRegister" xml:space="preserve">
     <value>Зареєструвати</value>
@@ -129,8 +144,14 @@
   <data name="_EnterSocialAccount" xml:space="preserve">
     <value>Увійти за допомогою соціальних мереж</value>
   </data>
+  <data name="_EnterStreet" xml:space="preserve">
+    <value>Введіть вулицю:</value>
+  </data>
   <data name="_FillFieldsRegistration" xml:space="preserve">
     <value>Заповніть поля для реєстрації</value>
+  </data>
+  <data name="_Filter" xml:space="preserve">
+    <value>Фільтр</value>
   </data>
   <data name="_Galery" xml:space="preserve">
     <value>Галерея</value>
@@ -169,6 +190,9 @@
   <data name="_ModerationList2" xml:space="preserve">
     <value>Перейти до точки</value>
   </data>
+  <data name="_PhotoDownLoad" xml:space="preserve">
+    <value>Виберіть фото для завантаження (файл не більше 3Мб):</value>
+  </data>
   <data name="_Register" xml:space="preserve">
     <value>Реєстрація</value>
   </data>
@@ -177,6 +201,12 @@
   </data>
   <data name="_Search" xml:space="preserve">
     <value>Пошук</value>
+  </data>
+  <data name="_SelectIssue" xml:space="preserve">
+    <value>Виберіть проблему:</value>
+  </data>
+  <data name="_Send" xml:space="preserve">
+    <value>Відправити</value>
   </data>
   <data name="_SignIn" xml:space="preserve">
     <value>Увійти</value>

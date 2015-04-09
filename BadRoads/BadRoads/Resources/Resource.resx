@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="_AddDefect" xml:space="preserve">
+    <value>Добавить информацию о дефекте на дороге</value>
+  </data>
   <data name="_Added" xml:space="preserve">
     <value>Добавлено:</value>
+  </data>
+  <data name="_Adress" xml:space="preserve">
+    <value>Адрес:</value>
+  </data>
+  <data name="_AdvancedDescription" xml:space="preserve">
+    <value>Дополнительное описание:</value>
+  </data>
+  <data name="_Coordinates" xml:space="preserve">
+    <value>Координаты:</value>
+  </data>
+  <data name="_DefectOnTheMap" xml:space="preserve">
+    <value>Укажите дефект на карте</value>
   </data>
   <data name="_EndRegister" xml:space="preserve">
     <value>Зарегистрировать</value>
@@ -129,8 +144,14 @@
   <data name="_EnterSocialAccount" xml:space="preserve">
     <value>Войти с помощью социальных сетей</value>
   </data>
+  <data name="_EnterStreet" xml:space="preserve">
+    <value>Введите улицу:</value>
+  </data>
   <data name="_FillFieldsRegistration" xml:space="preserve">
     <value>Заполните поля для регистрации</value>
+  </data>
+  <data name="_Filter" xml:space="preserve">
+    <value>Фильтр</value>
   </data>
   <data name="_Galery" xml:space="preserve">
     <value>Галерея</value>
@@ -169,6 +190,9 @@
   <data name="_ModerationList2" xml:space="preserve">
     <value>Перейти к точке</value>
   </data>
+  <data name="_PhotoDownLoad" xml:space="preserve">
+    <value>Выберите фото для загрузки (файл не более 3мб):</value>
+  </data>
   <data name="_Register" xml:space="preserve">
     <value>Регистрация</value>
   </data>
@@ -177,6 +201,12 @@
   </data>
   <data name="_Search" xml:space="preserve">
     <value>Поиск</value>
+  </data>
+  <data name="_SelectIssue" xml:space="preserve">
+    <value>Выберите проблему:</value>
+  </data>
+  <data name="_Send" xml:space="preserve">
+    <value>Отправить</value>
   </data>
   <data name="_SignIn" xml:space="preserve">
     <value>Войти</value>

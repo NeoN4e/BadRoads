@@ -33,6 +33,15 @@
 
     </script>
 
+    <script type="text/javascript" >
+        if (localStorage.option !== undefined) {
+            $('select[name="lang"]').prop('selectedIndex', localStorage.option);
+        }
+        $('select[name="lang"]').change(function () {
+            localStorage.option = this.selectedIndex;
+        });
+    </script>
+
     <header id="menu">
         <div id="btnmenu" title="Меню">
             <i class="fa fa-bars fa-2x"></i>

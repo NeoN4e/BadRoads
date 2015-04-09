@@ -61,11 +61,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавить информацию о дефекте на дороге.
+        /// </summary>
+        public static string _AddDefect {
+            get {
+                return ResourceManager.GetString("_AddDefect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Добавлено:.
         /// </summary>
         public static string _Added {
             get {
                 return ResourceManager.GetString("_Added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Адрес:.
+        /// </summary>
+        public static string _Adress {
+            get {
+                return ResourceManager.GetString("_Adress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дополнительное описание:.
+        /// </summary>
+        public static string _AdvancedDescription {
+            get {
+                return ResourceManager.GetString("_AdvancedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Координаты:.
+        /// </summary>
+        public static string _Coordinates {
+            get {
+                return ResourceManager.GetString("_Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Укажите дефект на карте.
+        /// </summary>
+        public static string _DefectOnTheMap {
+            get {
+                return ResourceManager.GetString("_DefectOnTheMap", resourceCulture);
             }
         }
         
@@ -97,11 +142,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите улицу:.
+        /// </summary>
+        public static string _EnterStreet {
+            get {
+                return ResourceManager.GetString("_EnterStreet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Заполните поля для регистрации.
         /// </summary>
         public static string _FillFieldsRegistration {
             get {
                 return ResourceManager.GetString("_FillFieldsRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фильтр.
+        /// </summary>
+        public static string _Filter {
+            get {
+                return ResourceManager.GetString("_Filter", resourceCulture);
             }
         }
         
@@ -215,6 +278,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите фото для загрузки (файл не более 3мб):.
+        /// </summary>
+        public static string _PhotoDownLoad {
+            get {
+                return ResourceManager.GetString("_PhotoDownLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Регистрация.
         /// </summary>
         public static string _Register {
@@ -238,6 +310,24 @@ namespace Resources {
         public static string _Search {
             get {
                 return ResourceManager.GetString("_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите проблему:.
+        /// </summary>
+        public static string _SelectIssue {
+            get {
+                return ResourceManager.GetString("_SelectIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отправить.
+        /// </summary>
+        public static string _Send {
+            get {
+                return ResourceManager.GetString("_Send", resourceCulture);
             }
         }
         
