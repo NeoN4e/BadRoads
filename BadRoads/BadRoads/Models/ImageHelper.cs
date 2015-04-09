@@ -14,7 +14,7 @@ namespace BadRoads.Models
 {
     /// <summary>
     /// This class provides info about GPS Metadata in images and other
-    /// Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 07/04/2015 23:40
+    /// Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 08/04/2015 20:35
     /// </summary>
     public class ImageHelper
     {
@@ -48,7 +48,7 @@ namespace BadRoads.Models
                         filename = HttpContext.Current.Server.MapPath("~" + filename); // find file in server path
                     }
                     FileInfo f = new FileInfo(filename);
-                    if (f.Extension == ".jpg" || f.Extension == ".jpeg") // only file extensions ".jpg", ".jpeg"
+                    if (f.Extension.ToLower() == ".jpg" || f.Extension.ToLower() == ".jpeg") // only file extensions ".jpg", ".jpeg"
                     {
                         this.fileName = filename;
                         ReadGPSMetadata(); // call method for take metadata
@@ -245,7 +245,7 @@ namespace BadRoads.Models
         /// </summary>
         /// <param name="idPoint">id point</param>
         /// <param name="upload">files, where be upload from html-form</param>
-        /// <returns></returns>
+        /// <returns>list whith Url-path for files in folder on server</returns>
         public static List<string> SaveUploadFiles(int idPoint, IEnumerable<HttpPostedFileBase> upload)
         {
             List<string> fileList = new List<string>();
@@ -268,12 +268,12 @@ namespace BadRoads.Models
                         if (file != null)
                         {
                             FileInfo f = new FileInfo(file.FileName);
-                            if (f.Extension == ".jpg" || f.Extension == ".jpeg") // only file extensions ".jpg", ".jpeg"
+                            if (f.Extension.ToLower() == ".jpg" || f.Extension.ToLower() == ".jpeg") // only file extensions ".jpg", ".jpeg"
                             {
                                 bool stop = true;
                                 do
                                 {
-                                    fileName = Path.Combine(basePath + directory, "img_" + idPoint.ToString() + "_" + countFile + f.Extension); // create file name
+                                    fileName = Path.Combine(basePath + directory, "img_" + idPoint.ToString() + "_" + countFile + f.Extension.ToLower()); // create file name
                                     if (!File.Exists(fileName))
                                     {
                                         file.SaveAs(fileName); // save image on the server
@@ -319,13 +319,13 @@ namespace BadRoads.Models
         }
         
         /// <summary>
-        /// a method which calculates the distance between points
+        /// A method which calculates the distance between points
         /// </summary>
         /// <param name="lat1">GPS Latitude point 1</param>
         /// <param name="long1">GPS Longitude 1</param>
         /// <param name="lat2">GPS Latitude point 2</param>
         /// <param name="long2">GPS Longitude 2</param>
-        /// <returns></returns>
+        /// <returns>the distance in meters, rounded to 0.01 m</returns>
         public static double LatLngToDistance(double lat1, double long1, double lat2, double long2)
         {
             double R = 6372795.0; // Earth's radius in meters
@@ -360,7 +360,7 @@ namespace BadRoads.Models
         /// <param name="fileList">List whith path to image</param>
         /// <param name="p">Point for check</param>
         /// <param name="radius">for chek distance</param>
-        /// <returns></returns>
+        /// <returns>true, if point is valid, and false in other</returns>
         public static bool CheckPointMetaDataAndDistance(List<string> fileList, Point p, double radius=100.00)
         {
             bool check = false;
@@ -389,6 +389,30 @@ namespace BadRoads.Models
             }
             return check;
         }
+
+        /// <summary>
+        /// Method for delete uploads files
+        /// </summary>
+        /// <param name="idPoint">id point</param>
+        public static void DeleteAllUploadFiles(int idPoint)
+        {
+            try
+            {
+                string bPath = "/Images/Gallery/"; // path for save references from "src"-attribute view image
+                    string basePath = HttpContext.Current.Server.MapPath("~" + bPath); // physical path
+                    string directory = "point_" + idPoint.ToString(); // name for directory
+                    if (System.IO.Directory.Exists(basePath + directory))
+                    {
+                        Directory.Delete(basePath + directory,true); // delete directory whith all files
+                    }
+                    return;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Произошла ошибка при удалении файлов", ex);
+            }
+        }
+
 
 #endregion
 

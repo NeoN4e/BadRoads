@@ -87,6 +87,8 @@ namespace BadRoads.Models
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Defect> Defects { get; set; }
         public DbSet<UserProfile> Users { get; set; }
+        public DbSet<GeoData> GeoDatas { get; set; } // add Y.Kovalenko 08/04/2105 in 14:03
+        public DbSet<Comment> Commentes { get; set; } // add Y.Kovalenko 08/04/2105 in 14:08
 
         /// <summary>Получение ссылки на профиль пользователя</summary>
         /// <param name="User"></param>
@@ -208,6 +210,8 @@ namespace BadRoads.Models
         
         /// <summary>Точный адрес объекта</summary>
         public string FullAddress{get;set;}
+
+        public virtual ICollection<Point> Points { get; set; } // add Y.Kovalenko 08/04/2105 in 14:06
     }
 
     /// <summary>Дефект дороги</summary>
