@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавлено:.
+        /// </summary>
+        public static string _Added {
+            get {
+                return ResourceManager.GetString("_Added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Галерея.
         /// </summary>
         public static string _Galery {

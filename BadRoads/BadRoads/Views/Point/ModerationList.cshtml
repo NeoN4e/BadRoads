@@ -10,10 +10,10 @@
 
 @foreach (var item in Model)
 {
-    <a href="@Url.Action("PointInfo", "Point", new { id = item.ID })" title="Перейти к точке"><!--требуется локализация-->
+    <a href="@Url.Action("PointInfo", "Point", new { id = item.ID })" title=@Resources.Resource._ModerationList2><!--требуется локализация-->
         <div class="in-block grid f ct">
             <p><b>@item.Defect на @item.GeoData.FullAddress</b> </p> <!--требуется локализация-->
-            <h5>Добавлено: @item.Date.ToShortDateString() - @item.Date.ToLongTimeString()</h5>  <!--требуется локализация-->
+            <h5>@Resources.Resource._Added @item.Date.ToShortDateString() - @item.Date.ToLongTimeString()</h5>  <!--требуется локализация-->
             <br />
            
             @if(item.Cover ==null)//Check cover img in current item
