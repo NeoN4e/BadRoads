@@ -38,9 +38,9 @@
         <div id="mapinfo"></div>
     </div>
     <div class="col span_2_of_5">     
-        <label class="f mtop50 bold">Описание:</label>
+        <label class="f mtop50 bold">@Resources.Resource._Description</label>
         <label class="f mtopnul">@Html.Raw(ViewBag.Description)</label> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
-        <label class="f mtopnul bold">Комментарии:</label>
+        <label class="f mtopnul bold">@Resources.Resource._Comments</label>
         <div class="scrolly comnt">
         @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
         {
@@ -55,7 +55,7 @@
         }
         else                                             // если коллекция пуста
         {
-            <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
+            <p class="in-block f mtopnul">@Resources.Resource._NotComments</p>            // добавляем одну заглушку
         }
         </div>
         @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
@@ -66,7 +66,7 @@
             @Html.Hidden("Id", @Model.ID) @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
             <textarea class="ckeditor" name="NewComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
             <div class="center_block">
-                <input id="subm" type="submit" value="Отправить"/> @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
+                <input id="subm" type="submit" value=@Resources.Resource._Send/> @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
             </div>
             }
         }

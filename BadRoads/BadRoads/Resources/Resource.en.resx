@@ -129,11 +129,17 @@
   <data name="_AdvancedDescription" xml:space="preserve">
     <value>Advanced Description:</value>
   </data>
+  <data name="_Comments" xml:space="preserve">
+    <value>Comments:</value>
+  </data>
   <data name="_Coordinates" xml:space="preserve">
     <value>Coordinates:</value>
   </data>
   <data name="_DefectOnTheMap" xml:space="preserve">
     <value>Specify defect on the map</value>
+  </data>
+  <data name="_Description" xml:space="preserve">
+    <value>Description:</value>
   </data>
   <data name="_EndRegister" xml:space="preserve">
     <value>Check in</value>
@@ -189,6 +195,9 @@
   <data name="_ModerationList2" xml:space="preserve">
     <value>Jump to a point</value>
   </data>
+  <data name="_NotComments" xml:space="preserve">
+    <value>No comments yet. Be the first.</value>
+  </data>
   <data name="_PhotoDownLoad" xml:space="preserve">
     <value>Select the photo for loading the file no more than 3MB:</value>
   </data>
@@ -209,5 +218,8 @@
   </data>
   <data name="_SignIn" xml:space="preserve">
     <value>Sing In</value>
+  </data>
+  <data name="_ThankYou" xml:space="preserve">
+    <value>Thank you for submitting a problem space. After moderation site will be added to the database and will be available for review and comment.</value>
   </data>
 </root>

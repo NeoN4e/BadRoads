@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Комментарии:.
+        /// </summary>
+        public static string _Comments {
+            get {
+                return ResourceManager.GetString("_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Координаты:.
         /// </summary>
         public static string _Coordinates {
@@ -111,6 +120,15 @@ namespace Resources {
         public static string _DefectOnTheMap {
             get {
                 return ResourceManager.GetString("_DefectOnTheMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Описание:.
+        /// </summary>
+        public static string _Description {
+            get {
+                return ResourceManager.GetString("_Description", resourceCulture);
             }
         }
         
@@ -278,6 +296,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Пока нет комментариев. Будьте первым..
+        /// </summary>
+        public static string _NotComments {
+            get {
+                return ResourceManager.GetString("_NotComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите фото для загрузки (файл не более 3мб):.
         /// </summary>
         public static string _PhotoDownLoad {
@@ -337,6 +364,15 @@ namespace Resources {
         public static string _SignIn {
             get {
                 return ResourceManager.GetString("_SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Спасибо Вам за добавление проблемного места. После модерации место будет добавлено в базу и станет доступно для просмотра и комментариев..
+        /// </summary>
+        public static string _ThankYou {
+            get {
+                return ResourceManager.GetString("_ThankYou", resourceCulture);
             }
         }
     }

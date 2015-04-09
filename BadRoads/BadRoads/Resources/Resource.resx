@@ -129,11 +129,17 @@
   <data name="_AdvancedDescription" xml:space="preserve">
     <value>Дополнительное описание:</value>
   </data>
+  <data name="_Comments" xml:space="preserve">
+    <value>Комментарии:</value>
+  </data>
   <data name="_Coordinates" xml:space="preserve">
     <value>Координаты:</value>
   </data>
   <data name="_DefectOnTheMap" xml:space="preserve">
     <value>Укажите дефект на карте</value>
+  </data>
+  <data name="_Description" xml:space="preserve">
+    <value>Описание:</value>
   </data>
   <data name="_EndRegister" xml:space="preserve">
     <value>Зарегистрировать</value>
@@ -190,6 +196,9 @@
   <data name="_ModerationList2" xml:space="preserve">
     <value>Перейти к точке</value>
   </data>
+  <data name="_NotComments" xml:space="preserve">
+    <value>Пока нет комментариев. Будьте первым.</value>
+  </data>
   <data name="_PhotoDownLoad" xml:space="preserve">
     <value>Выберите фото для загрузки (файл не более 3мб):</value>
   </data>
@@ -210,5 +219,8 @@
   </data>
   <data name="_SignIn" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="_ThankYou" xml:space="preserve">
+    <value>Спасибо Вам за добавление проблемного места. После модерации место будет добавлено в базу и станет доступно для просмотра и комментариев.</value>
   </data>
 </root>
