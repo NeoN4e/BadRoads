@@ -32,7 +32,7 @@ namespace BadRoads.Controllers
 
         /// <summary>
         /// Экшен, который принимает данные с формы, для создания новой точки
-        /// Last Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 07/04/2015 23:40
+        /// Yuriy Kovalenko (anekosheik@gmail.com). Last modified 09/04/2015 9:46
         /// </summary>
         /// <param name="collection">Данные с формы добавления точки</param>
         /// <param name="upload">Коллекция фото</param>
@@ -42,6 +42,7 @@ namespace BadRoads.Controllers
         [ValidateInput(false)]
         public ActionResult Add(FormCollection collection, IEnumerable<HttpPostedFileBase> upload)
         {
+            int id = - 1;
             try
             {
                 UserProfile CurAutor = db.GetUSerProfile(User);
@@ -66,12 +67,20 @@ namespace BadRoads.Controllers
                     Autor = CurAutor,
                     Defect = db.GetDefect(collection["DefName"])
                 };
-                p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
+
+                if (collection["FirstComment"] == null || collection["FirstComment"] == "")
+                {
+                    p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor });
+                }
+                else
+                {
+                    p.AddComent(new Comment() { ContentText = collection["FirstComment"], Autor = CurAutor });
+                }
                 
                 db.Points.Add(p);
-                
                 db.SaveChanges();
-                int id = p.ID;
+                
+                id = p.ID;
                 List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фото
                 p.isValid = ImageHelper.CheckPointMetaDataAndDistance(fileList, p); // check
 
@@ -86,11 +95,16 @@ namespace BadRoads.Controllers
             }
             catch (Exception ex)
             {
+                if (id != -1)
+                {
+                    Point p = db.Points.Find(id);
+                    db.Points.Remove(p);
+                    db.SaveChanges();
+                    ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
+                }
                 ViewBag.Message = ex.Message;
                 return View("MyError");
             }
-
-            //return RedirectToAction("ThanksForPoint", "Point");    // переход в экшен ThanksForPoint
         }
 
         public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
@@ -281,6 +295,8 @@ namespace BadRoads.Controllers
                 db.Points.Remove(p);                                            // удаляем точку.
                 db.SaveChanges();                                               // сохраняем изменения в базе
                 GC.SuppressFinalize(this);
+                ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
+>>>>>>> kovalenkou_2
                 return RedirectToAction("Map", "Home");                        // переход на основную карту
             }
             else
