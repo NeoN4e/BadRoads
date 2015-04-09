@@ -117,22 +117,109 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ab" xml:space="preserve">
-    <value>About us</value>
+  <data name="_AddDefect" xml:space="preserve">
+    <value>Add info to defekte expensive</value>
   </data>
-  <data name="ChooseLang" xml:space="preserve">
-    <value>Choose your language</value>
+  <data name="_Added" xml:space="preserve">
+    <value>Added:</value>
   </data>
-  <data name="Con" xml:space="preserve">
-    <value>Contact Information</value>
+  <data name="_Adress" xml:space="preserve">
+    <value>Adress:</value>
   </data>
-  <data name="Hom" xml:space="preserve">
-    <value>Homepage</value>
+  <data name="_AdvancedDescription" xml:space="preserve">
+    <value>Advanced Description:</value>
   </data>
-  <data name="Log" xml:space="preserve">
-    <value>Login</value>
+  <data name="_Comments" xml:space="preserve">
+    <value>Comments:</value>
   </data>
-  <data name="Logo" xml:space="preserve">
-    <value>Your logo</value>
+  <data name="_Coordinates" xml:space="preserve">
+    <value>Coordinates:</value>
+  </data>
+  <data name="_DefectOnTheMap" xml:space="preserve">
+    <value>Specify defect on the map</value>
+  </data>
+  <data name="_Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="_EndRegister" xml:space="preserve">
+    <value>Check in</value>
+  </data>
+  <data name="_EnterLoginPassword" xml:space="preserve">
+    <value>Enter your login and password</value>
+  </data>
+  <data name="_EnterSocialAccount" xml:space="preserve">
+    <value>Sign in via social networks</value>
+  </data>
+  <data name="_EnterStreet" xml:space="preserve">
+    <value>Enter street:</value>
+  </data>
+  <data name="_FillFieldsRegistration" xml:space="preserve">
+    <value>Fill in the fields for registration</value>
+  </data>
+  <data name="_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="_Galery" xml:space="preserve">
+    <value>Galery</value>
+  </data>
+  <data name="_ImageHelperExeptionConstructor" xml:space="preserve">
+    <value>Only files with the extension \ ". Jpg \" or \ ". Jpeg \" may be added</value>
+  </data>
+  <data name="_IndexTitle1" xml:space="preserve">
+    <value>The purpose of the project: collection of data on the state of roads in Ukraine and the conclusion of the results on the general map of the country. Our site brings together those who have encountered the incompetence of road and other services of Ukraine who do not fulfill their obligations.</value>
+  </data>
+  <data name="_IndexTitle2" xml:space="preserve">
+    <value>Photograph of damage on the road pavement.</value>
+  </data>
+  <data name="_IndexTitle3" xml:space="preserve">
+    <value>Sign up on our website and upload a photo of defects.</value>
+  </data>
+  <data name="_IndexTitle4" xml:space="preserve">
+    <value>Browse the map or gallery defective roads.</value>
+  </data>
+  <data name="_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="_Main" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="_Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="_MapTitle" xml:space="preserve">
+    <value>Map with defects of the road</value>
+  </data>
+  <data name="_ModerationList1" xml:space="preserve">
+    <value>The list of problems requiring moderation</value>
+  </data>
+  <data name="_ModerationList2" xml:space="preserve">
+    <value>Jump to a point</value>
+  </data>
+  <data name="_NotComments" xml:space="preserve">
+    <value>No comments yet. Be the first.</value>
+  </data>
+  <data name="_PhotoDownLoad" xml:space="preserve">
+    <value>Select the photo for loading the file no more than 3MB:</value>
+  </data>
+  <data name="_Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="_RegisterSocialNetwork" xml:space="preserve">
+    <value>You can Register of Accounts through Social Networks</value>
+  </data>
+  <data name="_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="_SelectIssue" xml:space="preserve">
+    <value>Select issue:</value>
+  </data>
+  <data name="_Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="_SignIn" xml:space="preserve">
+    <value>Sing In</value>
+  </data>
+  <data name="_ThankYou" xml:space="preserve">
+    <value>Thank you for submitting a problem space. After moderation site will be added to the database and will be available for review and comment.</value>
   </data>
 </root>

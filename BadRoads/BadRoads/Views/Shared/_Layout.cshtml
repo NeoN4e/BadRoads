@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BadRoads - портал о плохих дорогах</title>
-    <link href="~/Images/icon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/Images/icon.png" rel="shortcut icon" type="image/x-icon" />    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/scripts")
     <script type="text/javascript">
@@ -21,8 +21,18 @@
             });
         });
     </script>
+
 </head>
 <body>
+    <script type="text/javascript">
+
+        function SubM() {           
+            $('#sub').click();             
+        }     
+
+    </script> 
+      
+
     <header id="menu">
         <div id="btnmenu" title="Меню">
             <i class="fa fa-bars fa-2x"></i>
@@ -35,11 +45,15 @@
                 </div>
             </a>
         }
-        <select name="lang" id="lang">
-            <option value="RU">RU</option>
-            <option value="UK">UA</option>
-            <option value="EN">EN</option>
-        </select>
+        @using (Html.BeginForm("ChangeCulture", "Home"))
+        { 
+            <select name="lang" id="lang" onchange="SubM()">               
+                <option value="ru">RU</option>
+                <option value="uk">UA</option>
+                <option value="en">EN</option>
+            </select>
+            <input id="sub" type="submit" hidden>
+        }
         <div id="logo">
             <a href="/">
                 <img src="~/Images/logo_badroads.png" alt="badroads"></a>
@@ -49,6 +63,8 @@
                 <input class="search" name="searchText" type="text" placeholder="Поиск" id="srch_input">
                 <span id="srch_clear">X</span>
             </span> 
+        <form>
+            <input class="search" type="text" placeholder=@Resources.Resource._Search>
             <input class="search" type="submit" value="GO">
         </form>
         <nav>
@@ -71,6 +87,15 @@
                     <li>Модерация</li>
                  </a>
                 }
+                <li>
+                    @Html.ActionLink(@Resources.Resource._Main, "Index", "Home")
+                </li>
+                <li>
+                    @Html.ActionLink(@Resources.Resource._Map, "Map", "Home")
+                </li>
+                <li>
+                    @Html.ActionLink(@Resources.Resource._Galery, "Gallery", "Point")
+                </li>
             </ul>
         </nav>
     </header>
@@ -81,3 +106,5 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script type="text/javascript" src="Scripts/cultureSaver.js"></script>

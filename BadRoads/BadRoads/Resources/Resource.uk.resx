@@ -117,22 +117,110 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ab" xml:space="preserve">
-    <value>Про нас</value>
+  <data name="_AddDefect" xml:space="preserve">
+    <value>Додати інформацію про дефект на дорозі</value>
   </data>
-  <data name="ChooseLang" xml:space="preserve">
-    <value>Виберіть мову</value>
+  <data name="_Added" xml:space="preserve">
+    <value>Додано:</value>
   </data>
-  <data name="Con" xml:space="preserve">
-    <value>Контакти</value>
+  <data name="_Adress" xml:space="preserve">
+    <value>Адреса:</value>
   </data>
-  <data name="Hom" xml:space="preserve">
-    <value>Домашня сторінка</value>
+  <data name="_AdvancedDescription" xml:space="preserve">
+    <value>Додатковий опис:</value>
   </data>
-  <data name="Log" xml:space="preserve">
+  <data name="_Comments" xml:space="preserve">
+    <value>Коментарі:</value>
+  </data>
+  <data name="_Coordinates" xml:space="preserve">
+    <value>Координати:</value>
+  </data>
+  <data name="_DefectOnTheMap" xml:space="preserve">
+    <value>Вкажіть дефект на мапі</value>
+  </data>
+  <data name="_Description" xml:space="preserve">
+    <value>Опис:</value>
+  </data>
+  <data name="_EndRegister" xml:space="preserve">
+    <value>Зареєструвати</value>
+  </data>
+  <data name="_EnterLoginPassword" xml:space="preserve">
+    <value>Введіть логін і пароль</value>
+  </data>
+  <data name="_EnterSocialAccount" xml:space="preserve">
+    <value>Увійти за допомогою соціальних мереж</value>
+  </data>
+  <data name="_EnterStreet" xml:space="preserve">
+    <value>Введіть вулицю:</value>
+  </data>
+  <data name="_FillFieldsRegistration" xml:space="preserve">
+    <value>Заповніть поля для реєстрації</value>
+  </data>
+  <data name="_Filter" xml:space="preserve">
+    <value>Фільтр</value>
+  </data>
+  <data name="_Galery" xml:space="preserve">
+    <value>Галерея</value>
+  </data>
+  <data name="_ImageHelperExeptionConstructor" xml:space="preserve">
+    <value>Тільки файли з розширенням \ ". Jpg \" або \ ". Jpeg \" можуть бути додані</value>
+  </data>
+  <data name="_IndexTitle1" xml:space="preserve">
+    <value>Мета проекту: збір даних про стан доріг України і виведення отриманих результатів на загальну карту країни.
+                 Наш сайт об'єднує тих, хто зіткнувся з некомпетентністю дорожніх та інших служб України, які не виконують свої зобов'язання.</value>
+  </data>
+  <data name="_IndexTitle2" xml:space="preserve">
+    <value>Фотографуйте на дорозі пошкодження дорожнього покриття.</value>
+  </data>
+  <data name="_IndexTitle3" xml:space="preserve">
+    <value>Реєструйтеся на нашому сайті та завантажуйте фото дефектів.</value>
+  </data>
+  <data name="_IndexTitle4" xml:space="preserve">
+    <value>Переглядайте карту або галерею з дефектами доріг.</value>
+  </data>
+  <data name="_Language" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+  <data name="_Main" xml:space="preserve">
+    <value>Головна</value>
+  </data>
+  <data name="_Map" xml:space="preserve">
+    <value>Мапа</value>
+  </data>
+  <data name="_MapTitle" xml:space="preserve">
+    <value>Карта з дефектами дороги</value>
+  </data>
+  <data name="_ModerationList1" xml:space="preserve">
+    <value>Список проблем які вимагають модерації</value>
+  </data>
+  <data name="_ModerationList2" xml:space="preserve">
+    <value>Перейти до точки</value>
+  </data>
+  <data name="_NotComments" xml:space="preserve">
+    <value>Поки немає коментарів. Будьте першим.</value>
+  </data>
+  <data name="_PhotoDownLoad" xml:space="preserve">
+    <value>Виберіть фото для завантаження (файл не більше 3Мб):</value>
+  </data>
+  <data name="_Register" xml:space="preserve">
+    <value>Реєстрація</value>
+  </data>
+  <data name="_RegisterSocialNetwork" xml:space="preserve">
+    <value>Ви можете зареєструватися за допомогою облікових записів соціальних мереж</value>
+  </data>
+  <data name="_Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="_SelectIssue" xml:space="preserve">
+    <value>Виберіть проблему:</value>
+  </data>
+  <data name="_Send" xml:space="preserve">
+    <value>Відправити</value>
+  </data>
+  <data name="_SignIn" xml:space="preserve">
     <value>Увійти</value>
   </data>
-  <data name="Logo" xml:space="preserve">
-    <value>Ваша емблема</value>
+  <data name="_ThankYou" xml:space="preserve">
+    <value>Спасибі Вам за додавання проблемного місця. Після модерації місце буде додано в базу і стане доступно для перегляду і коментарів.</value>
   </data>
 </root>
