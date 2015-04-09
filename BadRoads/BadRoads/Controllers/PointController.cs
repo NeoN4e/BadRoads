@@ -296,7 +296,6 @@ namespace BadRoads.Controllers
                 db.SaveChanges();                                               // сохраняем изменения в базе
                 GC.SuppressFinalize(this);
                 ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
->>>>>>> kovalenkou_2
                 return RedirectToAction("Map", "Home");                        // переход на основную карту
             }
             else
