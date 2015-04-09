@@ -1,26 +1,9 @@
 ﻿@model IEnumerable<BadRoads.Models.Point>
-
 @{
-    ViewBag.Title = "Карта с дефектами дороги"; <!-- NEED LOCALIZATION -->
+    ViewBag.Title = "Карта с дефектами дорог"; <!-- NEED LOCALIZATION -->
+
     <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 }
-
-<!-- PopUp-message structure/ Show, only after adding new point-->
-@if (ViewBag.NeedShowPopup == true)
-{
-    <div id="ThanksPopUp">
-        <div id="PopupTransparentBG" style="background-color:rgba(0, 0, 0, 0.79);position: fixed;  top: 0;  left: 0;  width: 100%;  height: 100%; display:block; z-index:1005; ">
-            <div id="ThanksTitleBlock" style="background-color:#ffd800; width:50%;height:3%;display:block; z-index:1006; margin: 0 23% 0; padding:2%;">
-                <b>Спасибо</b>
-            </div><!-- NEED LOCALIZATION -->
-            <div id="ThanksTextBlock" style="background-color:#fff; width:50%;height:30%;display:block; z-index:1006; position:fixed; left:23%;padding:2%;">
-                <p style="text-align:justify">Ваша точка добавлена, но требует модерации.<br />Пройдет совсем немного времени и наш модератор добавит Вашу проблему в общий список.</p><!-- NEED LOCALIZATION -->
-                <button id="ThanksOk_btn" onclick="new function () { document.getElementById('ThanksPopUp').style.display = 'none'; }" style="position:absolute; bottom:25%; left:60%; width:20%; height:15%; ">Ok</button><!-- NEED LOCALIZATION -->
-            </div>
-        </div>
-    </div>
-}
-
 @if (Model != null && Model.Count() > 0)
 {
     foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
@@ -28,20 +11,35 @@
     <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" data-id="@item.ID" class="points"></p>
     }
 }
-<div class="section group">
+<!-- PopUp-message structure/ Show, only after adding new point-->
+@if (ViewBag.NeedShowPopup == true)
+{    
+    <div class="popupblock">
+        <h3>Спасибо</h3>
+        <p>
+            Ваша точка добавлена, но требует модерации.<br />
+            Пройдет совсем немного времени и наш модератор добавит Вашу проблему в общий список.
+        </p>
+        <button onclick="new function () { $('.popupblock').css('display', 'none');}">Ok</button>
+        <!-- NEED LOCALIZATION -->
+    </div>
+}
+<div class="section group vh8">
     <div class="col second span_5_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        <input class="searchmap" type="text" id="searchAdress" placeholder="Поиск"  /><!-- NEED LOCALIZATION -->
+        <input class="searchmap" type="text" id="searchAdress" placeholder="Поиск" /><!-- NEED LOCALIZATION -->
         <div id="resultSearch f"></div>
     </div>
 </div>
-<div class="section group">    
+<div class="section group">
     <div class="col second span_5_of_5">
         <div id="map_canvas"></div>
     </div>
 </div>
-@section Scripts {    
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
-    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=uk"></script>
+    @*подключение Google Maps API*@
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
+    @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/map.js")
-}  
+}

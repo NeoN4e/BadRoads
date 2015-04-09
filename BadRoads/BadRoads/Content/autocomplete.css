@@ -14,9 +14,10 @@
 	    left: 0;
 	    cursor: default;
         z-index:1200;
-        background:rgba(255, 255, 255,0.9);
+        background-color: whitesmoke;
         max-height:300px;
         overflow:auto;
+        width: 192px;
     }
     .ui-menu-item {
         padding:5px 0 5px 0;

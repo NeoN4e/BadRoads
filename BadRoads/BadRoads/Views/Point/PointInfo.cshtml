@@ -14,8 +14,8 @@
 <div class="section group">
     <div class="col span_3_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        @*<div class="blockpointimg">*@           
-        <div class="slider">
+        <div class="blockpointimg">           
+  @*      <div class="slider">*@
             @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
             {
                 foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
@@ -34,15 +34,15 @@
                 <img src="../../Images/nophoto.png" />             // добавляем одну фотографию-заглушку
             }
 
-            @*<div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
-            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>*@
-            @*</div>*@
-            <div class="buttons">
+            <div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
+            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>
+            </div>
+          @*  <div class="buttons">
                 <a href="#" class="prev"></a>
                 <a href="#" class="next"></a>
-            </div>
-            <span class="nav"></span>
-        </div>
+            </div>*@
+       @*     <span class="nav"></span>
+        </div>*@
             <div id="mapinfo"></div>
         </div>
     <div class="col span_2_of_5">     
@@ -84,11 +84,5 @@
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     @Scripts.Render("~/Scripts/pointinfo.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")@* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>@*Bohuslavskyi 08.04.15 For Slider*@
-    <script src="~/Scripts/Slider.js"></script>@*Bohuslavskyi 08.04.15 For Slider*@
-
+    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")@* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@    
     }
-
-
-

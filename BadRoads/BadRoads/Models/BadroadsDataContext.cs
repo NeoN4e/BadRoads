@@ -38,6 +38,20 @@ namespace BadRoads.Models
             Database.SetInitializer(new DbInitializer());
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            //Удалим связанные комментарии
+            //List<Comment> list = this.Set<Comment>().Where(c => c.Points.Count == 0).ToList();
+            this.Set<Comment>().RemoveRange(this.Set<Comment>().Where(c => c.Points.Count == 0));
+
+            //Удалим связанные фотографии
+            this.Set<Photo>().RemoveRange(this.Set<Photo>().Where(p=>p.Points.Count==0));
+
+            this.SaveChanges();
+
+            base.Dispose(disposing);
+        }
+
         //Построитель модели
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

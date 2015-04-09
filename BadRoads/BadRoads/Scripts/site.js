@@ -2,6 +2,11 @@ $(document).ready(function () {
     Size();
     $(window).resize(Size);
     $('#btnmenu').click(HideShowMenu);
+    $('#content').click(function () {
+        $('#menu').animate({
+            'margin-left': '-250px'
+        }, 500);
+    });
 });
 
 function Size() {
