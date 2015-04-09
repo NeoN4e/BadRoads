@@ -64,13 +64,13 @@ label {
     overflow-y: scroll;
 }
 
-#content p {
+.content p {
     display: none;
     visibility: hidden;
 }
 /*=============STYLES AND COLORS=============*/
 
-input, select, textarea, button, #map_canvas, #map, .grid, .block {
+input, select, textarea, #map_canvas, #map, .grid, .block {
     background-color: #999999;
     border: 0;
 }
@@ -90,7 +90,8 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 input[type="submit"],
-input[type="button"] {
+input[type="button"],
+button {
     background-color: #f1c40f;
     color: black;
     cursor: pointer;
@@ -103,27 +104,27 @@ input[type="button"] {
         border: 2px solid #666666;
     }
 
-button[value="vkontakte"] {
-    background-color: #537599;
-    border: 2px solid transparent;
-}
-
-button[value="facebook"] {
-    background-color: #44619d;
-    border: 2px solid transparent;
-}
-
-button[value="google"] {
-    background-color: #dd4b39;
-    border: 2px solid transparent;
-}
-
-    button[value="vkontakte"]:hover,
-    button[value="facebook"]:hover,
-    button[value="google"]:hover {
-        border: 2px solid #666666;
-        color: black;
+    button[value="vkontakte"] {
+        background-color: #537599;
+        border: 2px solid transparent;
     }
+
+    button[value="facebook"] {
+        background-color: #44619d;
+        border: 2px solid transparent;
+    }
+
+    button[value="google"] {
+        background-color: #dd4b39;
+        border: 2px solid transparent;
+    }
+
+        button[value="vkontakte"]:hover,
+        button[value="facebook"]:hover,
+        button[value="google"]:hover {
+            border: 2px solid #666666;
+            color: black;
+        }
 
 .bt {
     background-color: transparent;
@@ -220,6 +221,7 @@ select, .hd2 {
 .vh8 {
     height: 8vh;
 }
+
 .center_text {
     margin: 0 auto;
     padding: 15px 0;
@@ -301,7 +303,7 @@ body {
     z-index: 1000;
 }
 
-#content {
+.content {
     height: 100vh;
     overflow: hidden;
 }
@@ -484,6 +486,7 @@ nav {
 }
 
 /*============BLOCK POINTINFO IMG===========*/
+
 .blockpointimg {
     width: 95%;
     height: 70vh;
@@ -511,17 +514,65 @@ nav {
 .prev {
     left: 1%;
 }
+
 .blockpointimg {
     background-color: gray;
 }
-.blockpointimg img {
-    height: 100%;
-    display: block;
-    margin: 0 auto;
+
+    .blockpointimg img {
+        height: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+
+/*=================INFOBLOCK================*/
+
+.popupblock {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    width: 30%;
+    color: black;
+    background-color: whitesmoke;
+    z-index: 500;
+    box-shadow: 0 0 150px black;
+    -webkit-box-shadow: 0 0 150px black;
+    -moz-box-shadow: 0 0 150px black;
 }
+
+    .popupblock h3 {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background-color: #f1c40f;
+    }
+
+    .popupblock p {
+        margin: 0;
+        padding: 2%;
+        display: block;
+        visibility: initial;
+    }
+
+    .popupblock button {
+        color: black;
+        display: block;
+        margin: 10px auto;
+    }
 
 /*  GO FULL WIDTH AT LESS THAN 768 PIXELS */
 @media only screen and (max-width: 768px) {
+
+    /*=================INFOBLOCK================*/
+    .popupblock {
+        width: 80%;
+        left: 10%;
+        top: 35%;
+    }
+
     .vh8 {
         height: 11vh;
     }
@@ -576,92 +627,13 @@ nav {
         order: 2;
     }
 }
-/*SLIDER*/
-
-.slider {
-	position:relative;
-	width: 90%;
-	height: 500px;
-	margin: 0 auto;
-}
-
-.slider img {
-	position: absolute;
-	top:0px;
-	left:0px;
-	display: none;
-	background-color: #f3f4ef; 
-	border: 13px solid #dedede; 
-    width: 100%;
-    height: 470px;
-}
-
-.slider .active {
-	display: block;
-	z-index: 100;
-}
-
-.nav {
-	z-index: 999;
-	position: absolute;
-	bottom: 0;
-	text-align: center;
-	width: 100%;
-	padding: 10px 0 20px 0;
-}
-
-.nav a {
-	margin-right: 15px;
-	display: inline-block;
-	border-radius: 50%;
-	width: 10px;
-	background: #fff;
-	height: 10px; 
-}
-
-.nav .navActive {
-	background: #666;
-	border: none;
-}
-
-.buttons {
-	width: 100%;
-	position:absolute;
-}
-
-.buttons a {
-	position:absolute;
-	z-index: 999;
-	top: 230px;
-	height: 30px;
-	width: 30px;
-	background: url('../Images/SliderBtns.jpg');
-}
-
-.buttons .prev { left:20px;}
-.buttons .next { right:20px; background-position: 30px 30px; }
-
-
-body { 
-	-webkit-backface-visibility: hidden;
-}
-.animated {
-	-webkit-animation-duration: 1s;
-	   -moz-animation-duration: 1s;
-	     -o-animation-duration: 1s;
-	        animation-duration: 1s;
-	-webkit-animation-fill-mode: both;
-	   -moz-animation-fill-mode: both;
-	     -o-animation-fill-mode: both;
-	        animation-fill-mode: both;
-}
 
 /*======== для поиска =======*/
 #srch_wrapper {
     position: relative;
     width: auto;
-    
 }
+
 #srch_clear {
     width: 12px;
     height: 12px;
@@ -680,94 +652,3 @@ body {
     -webkit-border-radius: 10px;
     cursor: pointer;
 }
-
-
-
-@-webkit-keyframes flipInX {
-    0% {
-        -webkit-transform: perspective(400px) rotateX(90deg);
-        opacity: 0;
-    }
-
-    40% {
-        -webkit-transform: perspective(400px) rotateX(-10deg);
-    }
-
-    70% {
-        -webkit-transform: perspective(400px) rotateX(10deg);
-    }
-
-    100% {
-        -webkit-transform: perspective(400px) rotateX(0deg);
-        opacity: 1;
-    }
-}
-@-moz-keyframes flipInX {
-    0% {
-        -moz-transform: perspective(400px) rotateX(90deg);
-        opacity: 0;
-    }
-
-    40% {
-        -moz-transform: perspective(400px) rotateX(-10deg);
-    }
-
-    70% {
-        -moz-transform: perspective(400px) rotateX(10deg);
-    }
-
-    100% {
-        -moz-transform: perspective(400px) rotateX(0deg);
-        opacity: 1;
-    }
-}
-@-o-keyframes flipInX {
-    0% {
-        -o-transform: perspective(400px) rotateX(90deg);
-        opacity: 0;
-    }
-
-    40% {
-        -o-transform: perspective(400px) rotateX(-10deg);
-    }
-
-    70% {
-        -o-transform: perspective(400px) rotateX(10deg);
-    }
-
-    100% {
-        -o-transform: perspective(400px) rotateX(0deg);
-        opacity: 1;
-    }
-}
-@keyframes flipInX {
-    0% {
-        transform: perspective(400px) rotateX(90deg);
-        opacity: 0;
-    }
-
-    40% {
-        transform: perspective(400px) rotateX(-10deg);
-    }
-
-    70% {
-        transform: perspective(400px) rotateX(10deg);
-    }
-
-    100% {
-        transform: perspective(400px) rotateX(0deg);
-        opacity: 1;
-    }
-}
-
-.animated.flipInX {
-    -webkit-backface-visibility: visible !important;
-    -webkit-animation-name: flipInX;
-    -moz-backface-visibility: visible !important;
-    -moz-animation-name: flipInX;
-    -o-backface-visibility: visible !important;
-    -o-animation-name: flipInX;
-    backface-visibility: visible !important;
-}
-
-
