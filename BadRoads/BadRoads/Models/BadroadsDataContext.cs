@@ -38,6 +38,15 @@ namespace BadRoads.Models
             Database.SetInitializer(new DbInitializer());
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            List<Comment> list = this.Set<Comment>().Where(c => c.Points.Count == 0).ToList();
+            this.Set<Comment>().RemoveRange(list);
+            this.SaveChanges();
+
+            base.Dispose(disposing);
+        }
+
         //Построитель модели
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -123,33 +132,42 @@ namespace BadRoads.Models
         }
         
         /// <summary>Дата и Время публикации дефекта</summary>
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "DateRequired")]
+        [Display(Name = "Date", ResourceType = typeof(Resources.Resource))]
         public DateTime Date { get; private set; }
 
         /// <summary>Разновидность дефекта</summary>
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "DefectRequired")]
+        [Display(Name = "Defect", ResourceType = typeof(Resources.Resource))]
         public virtual Defect Defect { get; set; }
         
         /// <summary>Рейтинг ямы</summary>
+        [Display(Name = "PointRate", ResourceType = typeof(Resources.Resource))]
         public int Rate { get; set; }
 
         /// <summary>Статус проверена или нет</summary>
+        [Display(Name = "isValid", ResourceType = typeof(Resources.Resource))]
         public bool isValid { get; set; }
 
         /// <summary>Автор</summary>
         //[Required]
+        [Display(Name = "Aytor", ResourceType = typeof(Resources.Resource))]
         public virtual UserProfile Autor { get; set; }
 
          /// <summary>Метаданные гугл мама, координаты точки</summary>
+         [Display(Name = "GoogleGeoData", ResourceType = typeof(Resources.Resource))]
         public virtual GeoData GeoData { get; set; }
 
         /// <summary>Обложка дефекта</summary>
+        [Display(Name = "Cover", ResourceType = typeof(Resources.Resource))]
         public virtual Photo Cover { get; set; } 
 
         /// <summary>Коллекция комментариев</summary>
+        [Display(Name = "Comments", ResourceType = typeof(Resources.Resource))]
         public virtual ICollection<Comment> Comments { get; set; }
 
         /// <summary>Коллекция фотографий</summary>
+        [Display(Name = "Photos", ResourceType = typeof(Resources.Resource))]
         public virtual ICollection<Photo> Photos { get; set; }
 
         public void AddPhoto(Photo p)
@@ -161,6 +179,7 @@ namespace BadRoads.Models
         {
             this.Comments.Add(C);
         }
+       
         public DateTime GetLastCommentDate()
         {
             DateTime lastCommentDate = new DateTime(1970, 01, 01, 00, 00, 00);//для инициализации  переменной используем дату 01.01.1970
@@ -187,19 +206,25 @@ namespace BadRoads.Models
         public GeoData()
         { }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "LatitudeRequired")]
+        [Display(Name = "Latitude", ResourceType = typeof(Resources.Resource))]
         public double Latitude{get;private set;}
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "LongitudeRequired")]
+        [Display(Name = "Longitude", ResourceType = typeof(Resources.Resource))]
         public double Longitude{get;private set;}
         
         /// <summary>Точный адрес объекта</summary>
+        [Display(Name = "Address", ResourceType = typeof(Resources.Resource))]
         public string FullAddress{get;set;}
     }
 
     /// <summary>Дефект дороги</summary>
     public class Defect: BadroadsDataItem
     {
-        [Required,MaxLength(50)]
+        [MaxLength(50)]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "NameRequired")]
+        [Display(Name = "Name", ResourceType = typeof(Resources.Resource))]
         public string Name { get; set; }
 
         public override string ToString()
@@ -211,11 +236,11 @@ namespace BadRoads.Models
     /// <summary>Фотография дефекта на дороге</summary>
     public class Photo : BadroadsDataItem
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "UrlRequired")]
+        [Display(Name = "Url", ResourceType = typeof(Resources.Resource))]
         public string Url { get; set; }
 
         public virtual ICollection<Point> Points { get; set; }
-
     }
 
     /// <summary>Комментарий к Дефекту</summary>
@@ -228,16 +253,17 @@ namespace BadRoads.Models
         }
         
         /// <summary>Дата и Время публикации комментария</summary>
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "DateRequired")]
+        [Display(Name = "Date", ResourceType = typeof(Resources.Resource))]
         public DateTime Date { get; private set; }
 
         /// <summary>Сам текст комментария</summary>
-        [Required]
-        [Display(Name = "Comment")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "ContentRequired")]
+        [Display(Name = "Content", ResourceType = typeof(Resources.Resource))]
         public string ContentText { get; set; }
 
         /// <summary>Автор Комментария</summary>
-        //[Required]
+        [Display(Name = "Autor", ResourceType = typeof(Resources.Resource))]
         public virtual UserProfile Autor { get;  set; }
 
         public virtual ICollection<Point> Points { get; set; }        
