@@ -32,7 +32,7 @@ namespace BadRoads.Controllers
 
         /// <summary>
         /// Экшен, который принимает данные с формы, для создания новой точки
-        /// Last Author: Yuriy Kovalenko (anekosheik@gmail.com). Last modified 08/04/2015 20:30
+        /// Yuriy Kovalenko (anekosheik@gmail.com). Last modified 09/04/2015 9:46
         /// </summary>
         /// <param name="collection">Данные с формы добавления точки</param>
         /// <param name="upload">Коллекция фото</param>
@@ -98,8 +98,6 @@ namespace BadRoads.Controllers
                 if (id != -1)
                 {
                     Point p = db.Points.Find(id);
-                    //GeoData gd = (from g in db.GeoDatas where g.Points == p select g).Single();
-                    //Comment cm = (from c in db.Commentes where g.Points == p select g).Single();
                     db.Points.Remove(p);
                     db.SaveChanges();
                     ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
