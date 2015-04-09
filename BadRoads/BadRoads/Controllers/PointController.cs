@@ -31,12 +31,12 @@ namespace BadRoads.Controllers
         }
 
         /// <summary>
-        /// Экшен, который принимает данные с формы, для создания новой точки
-        /// Yuriy Kovalenko (anekosheik@gmail.com). Last modified 09/04/2015 9:46
+        /// Provides create a new point and processing the obtained data from the html-form
+        /// Yuriy Kovalenko (anekosheik@gmail.com)
         /// </summary>
-        /// <param name="collection">Данные с формы добавления точки</param>
-        /// <param name="upload">Коллекция фото</param>
-        /// <returns></returns>
+        /// <param name="collection">Data from the html-form</param>
+        /// <param name="upload">Collection uploads images</param>
+        /// <returns>Redirect to view "Map"</returns>
         [HttpPost]
         [Authorize]
         [ValidateInput(false)]
@@ -49,13 +49,13 @@ namespace BadRoads.Controllers
                 string lat = collection["latitude"];
                 if (lat.Count() > 10)
                 {
-                    lat = lat.Substring(0, 10); // уменьшаем размер символов после запятой
+                    lat = lat.Substring(0, 10); // reduce the size of characters after the decimal point
                 }
                 lat = lat.Replace(".", ",");
                 string lng = collection["longitude"];
                 if (lng.Count() > 10)
                 {
-                    lng = lng.Substring(0, 10); // уменьшаем размер символов после запятой
+                    lng = lng.Substring(0, 10); // reduce the size of characters after the decimal point
                 }
                 lng = lng.Replace(".", ",");
                 double latdouble = Convert.ToDouble(lat);
@@ -70,7 +70,7 @@ namespace BadRoads.Controllers
 
                 if (collection["FirstComment"] == null || collection["FirstComment"] == "")
                 {
-                    p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor });
+                    p.AddComent(new Comment() { ContentText = "No comment", Autor = CurAutor }); // <!-- NEED LOCALIZATION -->
                 }
                 else
                 {
@@ -81,14 +81,14 @@ namespace BadRoads.Controllers
                 db.SaveChanges();
                 
                 id = p.ID;
-                List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // Метод сохранения фото
-                p.isValid = ImageHelper.CheckPointMetaDataAndDistance(fileList, p); // check
+                List<string> fileList = ImageHelper.SaveUploadFiles(id, upload); // save foto
+                p.isValid = ImageHelper.CheckPointMetaDataAndDistance(fileList, p); // check validation
 
                 foreach (var item in fileList)
                 {
-                    p.AddPhoto(new Photo() { Url = item.ToString() }); // запись ссылки на фото в таблицу ФОТО
+                    p.AddPhoto(new Photo() { Url = item.ToString() }); // post links to photos in the table PHOTO
                 }
-                p.Cover = p.Photos.First(); // запись ссылки на фото в кавер для галлереи
+                p.Cover = p.Photos.First(); // post links first photo in the main image from Gallery
                 
                 db.SaveChanges();
                 return RedirectToAction("Map", "Home", new { flag = true });
@@ -100,27 +100,30 @@ namespace BadRoads.Controllers
                     Point p = db.Points.Find(id);
                     db.Points.Remove(p);
                     db.SaveChanges();
-                    ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
+                    ImageHelper.DeleteAllUploadFiles(id);       // delete folder whith uploads foto
                 }
                 ViewBag.Message = ex.Message;
                 return View("MyError");
             }
         }
-
-        public ActionResult Add(string stringForMap = null)                    // оформление добавления новой точки, принимает строку координат для новой точки, если она передвалась с экшена Map
+        /// <summary>
+        /// Provides a transition to a new point View
+        /// </summary>
+        /// <param name="stringForMap">Takes a string of coordinates for the new point, if it is passed on to the action "Map"</param>
+        /// <returns>view whith list of Points</returns>
+        public ActionResult Add(string stringForMap = null)                    
         {
-            if (User.Identity.IsAuthenticated)                                 // если пользователь авторизован
+            if (User.Identity.IsAuthenticated)                        // only Authenticated user
             {
-
                 ViewBag.MarkerLocation = stringForMap;
-                ViewBag.Problems = db.Defects.ToList();  // список дефектов для выбора их на форме заполнения точки
-                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
-                List<Point> listPoints = db.Points.ToList<Point>();//список всех точек в базе
-                return View(listPoints);      // отправляем список всех точек, чтобы при выборе точки не выбирали ее там, где она уже есть
+                ViewBag.Problems = db.Defects.ToList();                // defect list for selecting the form
+                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // a list of validates points
+                List<Point> listPoints = db.Points.ToList<Point>();    //список всех точек в базе
+                return View(listPoints);                               // view whith list of Points
             }
             else
             {
-                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+                return RedirectToAction("Login", "Account");           // redirects to login action
             }
         }
 
