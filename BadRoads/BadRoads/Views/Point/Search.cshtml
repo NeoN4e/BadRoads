@@ -7,14 +7,17 @@
     {
         <a href="/Point/PointInfo/@item.ID">
             <div class="grid">
-                <h3 class="title">@item.Defect на @item.GeoData.FullAddress</h3>
-                <div>
-                    @try{
+                <div class="title">
+                    <h3>@item.Defect на @item.GeoData.FullAddress</h3>
+                </div>
+                <div class="img">
+                    @try
+                    {
                         <img src="@item.Cover.Url"/>
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
-                        <img src="../../Images/nophoto.png"/>
+                        <img src="../../Images/nophoto.png" />
                     }
                 </div>
             </div>

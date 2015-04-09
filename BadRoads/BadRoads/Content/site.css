@@ -68,6 +68,12 @@ label {
     display: none;
     visibility: hidden;
 }
+
+.vis p {
+    display: inline-block;
+    visibility: initial;
+}
+
 /*=============STYLES AND COLORS=============*/
 
 input, select, textarea, #map_canvas, #map, .grid, .block {
@@ -145,8 +151,8 @@ input, select, textarea, button, .t, #map, p, h3, .block, .pad {
     padding: 0 1%;
 }
 
-.mtop50 {
-    margin: 20px 2.5% 0.5% 2.5%;
+.mtop8vh {
+    margin: 8vh 2.5% 0.5vh 2.5%;
     padding: 0 1%;
 }
 
@@ -203,7 +209,7 @@ select, .hd2 {
 }
 
 .comnt {
-    max-height: 58vh;
+    max-height: 61vh;
 }
 
 .h-2 {
@@ -223,8 +229,9 @@ select, .hd2 {
 }
 
 .center_text {
+    height: 8vh;
+    line-height: 8vh;
     margin: 0 auto;
-    padding: 15px 0;
     font-weight: 600;
     text-align: center;
 }
@@ -410,6 +417,7 @@ nav {
     color: #f8d200;
     font-size: 1.2em;
     text-shadow: black 0 0 2px;
+    text-align: justify;
 }
 
 .points {
@@ -424,32 +432,47 @@ nav {
     text-align: center;
     margin: 0.5% 0 0 0.5%;
     background-color: #f1c40f;
-    border: 2px solid transparent;
 }
 
     .grid:hover {
-        border: 2px solid #666666;
+        box-shadow: 0 0 5px black;
+        -webkit-box-shadow: 0 0 5px black;
+        -moz-box-shadow: 0 0 5px black;
     }
-
-    .grid div {
-        width: 100%;
-        height: 34.9vh;
-        background-color: gray;
-        overflow: hidden;
-    }
-
-        .grid div img {
-            display: block;
-            height: 100%;
-            margin: 0 auto;
-        }
 
 .title {
-    font-size: 1.02em;
-    height: 5.2vh;
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     overflow: hidden;
-    padding: 0.5% 0;
 }
+
+    .title h3 {
+        font-size: 1.02em;
+        width: 100%;
+        margin: auto;
+        vertical-align: middle;
+        font-weight: 600;
+    }
+
+.img {
+    width: 100%;
+    height: 36vh;
+    background-color: gray;
+    overflow: hidden;
+}
+
+    .img img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+
+
 
 /*============MAP============*/
 
@@ -480,32 +503,30 @@ nav {
 
 #mapinfo {
     width: 94.9%;
-    height: 15.9vh;
-    margin: 0.5% 2.5% 0.5% 2.5%;
+    height: 17.8vh;
+    margin: 0.5vh 2.5% 0.5vh 2.5%;
     padding: 0;
 }
 
 /*============BLOCK POINTINFO IMG===========*/
 
-.blockpointimg {
+.slider {
     width: 95%;
     height: 70vh;
-    margin: 0.5% 2.5% 1% 2.5%;
+    margin: 0.5vh 2.5% 0.5vh 2.5%;
     padding: 0;
     overflow: hidden;
     position: relative;
+    background-color: gray;
 }
 
 .next, .prev {
     position: absolute;
-    color: #333333;
+    color: #f1c40f;
+    text-shadow: black 1px 0px, black 1px 1px, black 0px 1px, black -1px 1px, black -1px 0px, black -1px -1px, black 0px -1px, black 1px -1px, black 0 0 3px, black 0 0 3px, black 0 0 3px, black 0 0 3px, black 0 0 3px, black 0 0 3px, black 0 0 3px, black 0 0 3px;
     top: 48%;
+    cursor: pointer;
 }
-
-    .next:hover, .prev:hover {
-        color: #666666;
-        cursor: pointer;
-    }
 
 .next {
     right: 1%;
@@ -515,15 +536,17 @@ nav {
     left: 1%;
 }
 
-.blockpointimg {
-    background-color: gray;
+.slider img {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
 }
-
-    .blockpointimg img {
-        height: 100%;
-        display: block;
-        margin: 0 auto;
-    }
 
 /*=================INFOBLOCK================*/
 
@@ -555,6 +578,7 @@ nav {
         padding: 2%;
         display: block;
         visibility: initial;
+        text-align: justify;
     }
 
     .popupblock button {
@@ -573,8 +597,21 @@ nav {
         top: 35%;
     }
 
+    .content, body {
+        height: auto;
+        overflow: initial;
+    }
+
+    .scrolly {
+        overflow-y: initial;
+    }
+
+    .hd2 {
+        height: 0;
+    }
+
     .vh8 {
-        height: 11vh;
+        height: 14.5vh;
     }
 
     .h-3.index {
@@ -593,12 +630,16 @@ nav {
         padding: 1% 0 1% 1%;
     }
 
+    .comnt {
+        max-height: 100%;
+    }
+
     #map {
         height: 50vh;
     }
 
     #map_canvas {
-        height: 88.5vh;
+        height: 84.4vh;
     }
 
     .logo {
@@ -610,7 +651,11 @@ nav {
 
     .grid {
         width: 98%;
-        height: 70vh;
+        margin: 3% 1%;
+    }
+
+    .img {
+        height: 65vh;
     }
 
     .col.first {

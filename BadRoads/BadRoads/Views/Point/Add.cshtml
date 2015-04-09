@@ -33,7 +33,7 @@
                     }
             </select>
             <label class="f t">Дополнительное описание:</label>
-           <textarea class="ckeditor" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
+            <textarea class="f ht" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
            
            @* Коноваленко А.В. 08 04 2015 проверка на заполнение комментария *@
             <script type="text/javascript">
@@ -57,18 +57,18 @@
                 }
             </script>
            
-            <div class="center_block">
+            <div class="center_block vis">
                 <input id="subm" type="submit" value="Отправить" disabled  onclick="pointValidate(event);"/>
+                <p>
+                    @Html.ActionLink("Назад в галерею", "Gallery", "Point")
+                </p>
             </div>
        }
     </div>   
 </div>
 
-
-
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/addpoint.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js") @* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@
 }  
