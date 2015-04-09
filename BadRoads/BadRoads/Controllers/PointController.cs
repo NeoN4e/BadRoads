@@ -154,13 +154,15 @@ namespace BadRoads.Controllers
         /// </summary>
         /// <returns>List of points that require moderation</returns>
         [Authorize(Roles = "Moderator, Administrator")]
-        public ActionResult ModerationList()
+        public ActionResult ModerationList(int? page, bool? flag)
         {
+            int pointsOnPage = 8;
             if (User.Identity.IsAuthenticated)    // Auth check
             {
                 List<Point> NeedModeratePoints = db.Points.Where(p => p.isValid == false).ToList(); //Creating and filling a list of points that require moderation
 
-                return View(NeedModeratePoints);
+                //return View(NeedModeratePoints);
+                return View(SortByLastComment(NeedModeratePoints).ToPagedList<Point>(page ?? 1, pointsOnPage));
             }
             else
             {
@@ -182,8 +184,8 @@ namespace BadRoads.Controllers
             {
                 PaginatorList = db.Points.Where(v => v.isValid == true).ToList<Point>();    //только проверенные точкиотображаются в галерее 09.04.15 Дон
             }
-            //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
-            return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
+            return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); //uncomment after adding normal data in database
+            //return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
         /// show points on pages using partial view
