@@ -60,7 +60,15 @@ namespace BadRoads.Controllers
             ViewBag.NeedShowPopup = flag;
             ViewBag.MarkerLocation = stringForMap;
             List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // список точек прошедших валидацию
-            //List<Point> listPoints = db.Points.ToList<Point>();   //список всех точек в базе
+            HttpCookie cookie = Request.Cookies["lang"];   // определяем текущий язык
+            if (cookie != null)
+            {
+                ViewBag.Lang = cookie.Value;
+            }
+            else                                           // если язык еще не устанавливался, передаем русский по умолчанию
+            {
+                ViewBag.Lang = "ru";
+            }
             return View(listPoints);
         }
     }

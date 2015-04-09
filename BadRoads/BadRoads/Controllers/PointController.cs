@@ -136,7 +136,15 @@ namespace BadRoads.Controllers
             Comment c = new Comment();
             c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
             ViewBag.Description = c.ContentText;
-
+            HttpCookie cookie = Request.Cookies["lang"];   // определяем текущий язык
+            if (cookie != null)
+            {
+                ViewBag.Lang = cookie.Value;
+            }
+            else                                           // если язык еще не устанавливался, передаем русский по умолчанию
+            {
+                ViewBag.Lang = "ru";
+            }
             return View(p);
         }
 
@@ -287,31 +295,31 @@ namespace BadRoads.Controllers
             return View();
         }
 
-        public ActionResult DeletePoint(int id)          // экшен удаления точки модератором. Принимает ID точки.     Волков Антон. 06.04.15
+        public ActionResult DeletePoint(int id)          // action to delete point by moderator. Takes ID of point.
         {
-            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //  если авторизован с ролью "модератор"
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //   if authorized and role is "Moderator"
             {
-                Point p = db.Points.Find(id);                                   // находим точку по ID   
-                db.Points.Remove(p);                                            // удаляем точку.
-                db.SaveChanges();                                               // сохраняем изменения в базе
+                Point p = db.Points.Find(id);                                   // find point by ID  
+                db.Points.Remove(p);                                            // delete point
+                db.SaveChanges();                                              // save the changes in  the database
 
-                ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
-                return RedirectToAction("Map", "Home");                        // переход на основную карту
+                ImageHelper.DeleteAllUploadFiles(id);                          // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
+                return RedirectToAction("Map", "Home");                        // redirect to main map
             }
             else
-                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации                    
+                return RedirectToAction("Login", "Account");                              // else redirect to Login action                   
         }
 
-        public ActionResult ConfirmPoint(int id)               // экшен валидации точки модератором. Принимает ID точки.     Волков Антон 06.04.15
+        public ActionResult ConfirmPoint(int id)               // action of point's validation. Takes ID of point.
         {
-            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                    //  если авторизован с ролью "модератор"
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                    //  if authorized and role is "Moderator"
             {
-                Point p = db.Points.Find(id);                                                  // находим точку по ID   
-                p.isValid = true;                                                              // подтверждаем точку
-                var def = p.Defect;                                                             //пердотвращает неясную потерю данных из поля Defect 09.04.15 Дон
+                Point p = db.Points.Find(id);                                                  // find point by ID  
+                p.isValid = true;                                                              // confirm point
+                var def = p.Defect;                                                    // prevent strange loss of value Defect. 09.04.15 - Don
                 try
                 {
-                    db.SaveChanges();            // сохраняем изменения в базе !!!! НЕ СОХРАНЯЕТСЯ   выкидывает исключение!!!!!!!
+                    db.SaveChanges();                                                         // try to save the changes in  the database
                 }
                 catch(DbEntityValidationException ex)
                 {
@@ -329,10 +337,10 @@ namespace BadRoads.Controllers
 
                     var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
                 }
-                return RedirectToAction("Map", "Home");                                        // переход на основную карту
+                return RedirectToAction("Map", "Home");                                        // redirect to main map
             }
             else
-                return RedirectToAction("Login", "Account");                                    // иначе перенаправляем к экшену авторизации
+                return RedirectToAction("Login", "Account");                                    // else redirect to Login action
         }
         public JsonResult Autocomplete(string term)
         {
