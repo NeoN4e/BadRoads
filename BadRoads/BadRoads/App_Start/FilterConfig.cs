@@ -11,6 +11,7 @@ namespace BadRoads
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new InitializeSimpleMembershipAttribute());
+            //
         }
     }
 }
