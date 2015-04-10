@@ -24,7 +24,7 @@
             <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
             <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
             <label class="f t">Выберите фото для загрузки (файл не более 3мб):</label>
-            <input name="upload" class="f" type="file" multiple id="upload_files"/><span id="clear_files">X</span>
+            <input name="upload" type="file" multiple id="upload_files"/><span id="clear_files">X</span>
             <label class="f t">Выберите проблему:</label>
             <select name="DefName" class="sel f">
                     @foreach (var item in ViewBag.Problems)
@@ -33,9 +33,7 @@
                     }
             </select>
             <label class="f t">Дополнительное описание:</label>
-            <textarea class="f ht" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
-           
-           
+            <textarea class="f ht" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@                    
             <script type="text/javascript">
                 // очистка поля с файлами   Резник К.
                 var inputFiles = $("input[type='file']");
