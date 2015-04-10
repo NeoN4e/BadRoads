@@ -1,12 +1,13 @@
-﻿@model IEnumerable<BadRoads.Models.Point>
+﻿@model PagedList.IPagedList<BadRoads.Models.Point>
+@using PagedList.Mvc;
+@using PagedList;
 
 @{
     ViewBag.Title = "ModerationList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="ct">Список проблем требущих модерации</h1> <!--требуется локализация-->
-
+<h1 class="ct center_text">Список проблем требущих модерации</h1> <!--требуется локализация-->
 
 @foreach (var item in Model)
 {
@@ -22,9 +23,10 @@
             }
             else
             {
-                <img src="@item.Cover" />
+                <img src="@item.Cover.Url" class="img" />
             }
             
         </div>
     </a>
 }
+@Html.PagedListPager(Model, page => Url.Action("ModerationList", new { page, flag = true }), new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 5 })

@@ -1,70 +1,64 @@
 ﻿@model BadRoads.Models.Point
-
 @{
     ViewBag.Title = String.Format(Model.Defect + " по адресу: " + Model.GeoData.FullAddress);
-    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    
+    <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    //create undisplayable tags to transfer data in js script
 }
 
 @if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
 {                                                                                                   // главное оставить такую ссылку и проверку в if              - Волков Антон.  06.04.15
-    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a>               
-    <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
+    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a> 
+    if (Model.isValid==false)
+    {
+        @*Кнопка валидации видна только для неотмодерированных точек 09.04.15 Дон*@
+        <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
+    }
 }
-
 <div class="section group">
     <div class="col span_3_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        <div class="blockpointimg">           
-  @*      <div class="slider">*@
-            @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
-            {
-                foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
+        <div class="slider">
+                @if (Model.Photos != null && Model.Photos.Count > 0)                       // если коллекция с фотографиями не пуста
                 {
-                    string path = "../../Images/nophoto.png";
-                    if (item.Url != null)
+                    foreach (var item in Model.Photos)                // перебираем ее и добавляем теги с фотографиями
                     {
-                        path = item.Url;
+                        string path = "../../Images/nophoto.png";
+                        if (item.Url != null)
+                        {
+                            path = item.Url;
+                        }
+                        <img src="@path" />
                     }
-                    <img @*class="imgpoint"*@ src="@path" />
+                }
+                else                                             // если коллекция пуста
+                {
+                        <img src="../../Images/nophoto.png" />           // добавляем одну фотографию-заглушку
+                }
+            <div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
+            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>
+        </div>
+        <div id="mapinfo"></div>
+    </div>
+    <div class="col span_2_of_5">
+        <label class="f mtop8vh bold ">Описание:</label>
+        <label class="f mtopnul vis">@Html.Raw(ViewBag.Description)</label>
+        @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
+        <label class="f mtopnul bold">Комментарии:</label>
+        <div class="scrolly comnt vis">
+            @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
+            {
+                foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
+                {
+                    if (@ViewBag.Description != @item.ContentText)
+                    {
+                <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
+                <p class="in-block f mtopnul">@Html.Raw(item.ContentText)</p> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
+                    }
                 }
             }
             else                                             // если коллекция пуста
             {
-
-                <img src="../../Images/nophoto.png" />             // добавляем одну фотографию-заглушку
+                <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
             }
-
-            <div class="next"><i class="fa fa-chevron-right fa-3x"></i></div>
-            <div class="prev"><i class="fa fa-chevron-left fa-3x"></i></div>
-            </div>
-          @*  <div class="buttons">
-                <a href="#" class="prev"></a>
-                <a href="#" class="next"></a>
-            </div>*@
-       @*     <span class="nav"></span>
-        </div>*@
-            <div id="mapinfo"></div>
-        </div>
-    <div class="col span_2_of_5">     
-        <label class="f mtop50 bold">Описание:</label>
-        <label class="f mtopnul">@Html.Raw(ViewBag.Description)</label> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
-        <label class="f mtopnul bold">Комментарии:</label>
-        <div class="scrolly comnt">
-        @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
-        {
-            foreach (var item in Model.Comments)                // перебираем ее и добавляем теги с комментариями
-            {
-                if(@ViewBag.Description != @item.ContentText)
-                {
-                <label class="f mtopnul bold">@item.Date - @item.Autor.UserName</label>
-                <p class="in-block f mtopnul">@Html.Raw(item.ContentText)</p> @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
-                }
-            }
-        }
-        else                                             // если коллекция пуста
-        {
-            <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
-        }
         </div>
         @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
         {
@@ -72,9 +66,13 @@
                       new { enctype = "multipart/form-data" }))
             {
             @Html.Hidden("Id", @Model.ID) @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
-            <textarea class="ckeditor" name="NewComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
-            <div class="center_block">
-                <input id="subm" type="submit" value="Отправить"/> @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
+            <textarea class="f h100" name="NewComment" placeholder="Коментируем..."></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
+            <div class="center_block vis">
+                <input id="subm" type="submit" value="Отправить" />
+                <p>
+                    @Html.ActionLink("Назад в галерею", "Gallery", "Point")
+                </p>
+                @* 7,04,15 - Малый Дмитрий, Изменил состояние submit`a с disabled на противоположный*@
             </div>
             }
         }
@@ -82,7 +80,23 @@
 </div>
 
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
-    @Scripts.Render("~/Scripts/pointinfo.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js")@* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@    
+ @*connect script Google Maps API depends on the chosen language*@
+    @if (ViewBag.Lang == "uk")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=uk"></script>
     }
+    else if (ViewBag.Lang == "ru")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+    }
+    else if (ViewBag.Lang == "en")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=en"></script>
+    }
+    else
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+    }                                
+
+ @Scripts.Render("~/Scripts/pointinfo.js")
+}

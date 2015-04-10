@@ -24,7 +24,7 @@
             <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
             <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
             <label class="f t">Выберите фото для загрузки (файл не более 3мб):</label>
-            <input name="upload" class="f" type="file" multiple />
+            <input name="upload" class="f" type="file" multiple id="upload_files"/><span id="clear_files">X</span>
             <label class="f t">Выберите проблему:</label>
             <select name="DefName" class="sel f">
                     @foreach (var item in ViewBag.Problems)
@@ -33,42 +33,85 @@
                     }
             </select>
             <label class="f t">Дополнительное описание:</label>
-           <textarea class="ckeditor" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
+            <textarea class="f ht" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
            
-           @* Коноваленко А.В. 08 04 2015 проверка на заполнение комментария *@
+           
             <script type="text/javascript">
-                function pointValidate(e) {
-                    
-
-                    if (CKEDITOR.instances.FirstComment.getData() == "") {
-                        alert("Необходимо ввести описание!");
-                        e.preventDefault();
-                        event.returnValue = false;
-                        return;
+                // очистка поля с файлами   Резник К.
+                var inputFiles = $("input[type='file']");
+                $("#clear_files").on("click", function () {
+                    inputFiles.wrap('<form>').parent('form').trigger('reset');
+                    inputFiles.unwrap();
+                });
+                // функции валидации файлов по типу  Резник К.
+                function IsNotValidType(el) {
+                    var element = el;
+                    var allowTypes = ["jpg", "jpeg"];
+                    var currentType = "";
+                    var res = true;
+                    if (element.files == undefined || element.files.length == 0) {
+                        return false;
                     }
-
-                    if ($("input:file")[0].files.length == 0)
-                    {
-                        alert("Необходимо загрузить фото!");
-                        e.preventDefault();
-                        event.returnValue = false;
-                        return;
+                    for (var i = 0; i < element.files.length; i++) {
+                        if (element.files[i].name.lastIndexOf(".") != -1) {
+                            currentType = element.files[i].name.substring(element.files[i].name.lastIndexOf(".") + 1);
+                            var res = allowTypes.indexOf(currentType);
+                            res = allowTypes.indexOf(currentType) == -1?false:true;
+                        }
                     }
+                    return res;
                 }
+                // функция валидации файлов по размеру  Резник К.
+                function IsNotValidSize(el) {
+                    var element = el;
+                    var res = true;
+                    var allowSize = 1048576*3;                          //  3 Мб максимальный размер картинки
+                    if (element.files == undefined || element.files.length == 0) {
+                        return false;
+                    }
+                    for (var i = 0; i < element.files.length; i++) {
+                        var size = element.files[i].size;
+                        res = allowSize <= size ? false : true;
+                    }
+                    return res;
+                }
+
+                // функция валидации описания  Коноваленко А.
+                function pointValidate(e) {
+                    if (CKEDITOR.instances.FirstComment.getData() == "" || CKEDITOR.instances.FirstComment.getData() == undefined) {
+                        alert("Необходимо ввести описание!");
+                        //e.preventDefault();
+                        //event.returnValue = false;
+                        return false;
+                    }
+                    return true;
+                }
+
+                $("form").submit(function (ev) {
+                    var inputFiles = document.getElementById("upload_files");
+                    var isValidTypeSize = IsNotValidSize(inputFiles) && IsNotValidType(inputFiles);
+                    var isDescriptionEmpty = $("textarea[name='FirstComment']").val()==""?false:true;
+                    var res = isValidTypeSize && isDescriptionEmpty;
+                    if (!isValidTypeSize)
+                    {
+                        $("input[type='file']").css("border", "1px red solid");
+                    }
+                    return res?true:false;
+                });
             </script>
            
-            <div class="center_block">
-                <input id="subm" type="submit" value="Отправить" disabled  onclick="pointValidate(event);"/>
+            <div class="center_block vis">
+                <input id="subm" type="submit" value="Отправить" />
+                <p>
+                    @Html.ActionLink("Назад в галерею", "Gallery", "Point")
+                </p>
             </div>
        }
     </div>   
 </div>
 
-
-
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&sensor=false&language=uk"></script>                                          @*подключение Google Maps API*@
     <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>       @*подключение скрипта для кластеризации маркеров*@
     @Scripts.Render("~/Scripts/addpoint.js")
-    @Scripts.Render("~/Scripts/ckeditor/ckeditor.js") @* 7,04,15 - Малый Дмитрий, добавил Рендер для корректного отображения CKEditor`a*@
 }  

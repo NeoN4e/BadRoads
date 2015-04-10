@@ -6,7 +6,7 @@
 }
 @if (Model != null && Model.Count() > 0)
 {
-    foreach (var item in Model)                   //создаю неотображаемые элементы для передачи через них данных в скрипт JS
+    foreach (var item in Model)                   // create undisplayable tags to transfer data in js script
     {
     <p data-latitude="@item.GeoData.Latitude" data-longitude="@item.GeoData.Longitude" data-adress="@item.GeoData.FullAddress" data-id="@item.ID" class="points"></p>
     }
@@ -37,9 +37,26 @@
     </div>
 </div>
 @section Scripts {
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=uk"></script>
-    @*подключение Google Maps API*@
+     @*connect script Google Maps API depends on the chosen language*@
+    @if (ViewBag.Lang == "uk")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=uk"></script>
+    }
+    else if (ViewBag.Lang == "ru")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+    }
+    else if (ViewBag.Lang == "en")
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=en"></script>
+    }
+    else
+    {
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=ru"></script>
+    }
+    
+@*connect script for marker's clustering*@
     <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js"></script>
-    @*подключение скрипта для кластеризации маркеров*@
+    
     @Scripts.Render("~/Scripts/map.js")
 }

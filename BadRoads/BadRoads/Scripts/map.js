@@ -1,52 +1,52 @@
 ﻿$(document).ready(function () { AlreadySetLocation();  Initialize(); });
-var myLatlng;                                              // центр карты
-var map;                                                   // карта
-var geocoder;                                              // объект класса Geocoder
-var markers = new Array();                                 // массив с маркерами для всех точек на карте
-var searchMarker;                                          // Маркер поиска улицы
-var imageMarker = "../../Images/marker.png";               // картинка для маркеров
-var imageSearchMarker = "../../Images/newmarker.png";      // картинка для маркера поиска улицы
-var zoom;                                                  // масштаб карты
+var myLatlng;                                              // center of map
+var map;                                                   // map
+var geocoder;                                              // object of class Geocoder
+var markers = new Array();                                 // array with markers for all points on map
+var searchMarker;                                          // marker for street searching
+var imageMarker = "../../Images/marker.png";               // image for markers
+var imageSearchMarker = "../../Images/newmarker.png";      // image for marker for street searching
+var zoom;                                                  // map scale
 
 
-function AlreadySetLocation() {                                          // функция, если для карты заданы конкретные координаты центра. При переходе из экшена PointInfo
+function AlreadySetLocation() {                                          //function for specific coordinates of the map's center. If user came from action PointInfo
     var stringLocation = $("#stringforMap").data("str");
-    if (stringLocation != "") {                                            // выполняется, только если передавались координаты из экшена
+    if (stringLocation != "") {                                            //execute only if coordinates have been sent from action
         var arr = stringLocation.split("-");
-        myLatlng = new google.maps.LatLng(arr[0], arr[1]);                // задаем конкретные координаты
-        zoom = 14;                                                        // задаем приближенный масштаб для карты
+        myLatlng = new google.maps.LatLng(arr[0], arr[1]);                // set specific coordinates
+        zoom = 14;                                                        // set approximate scale for map
     }
     else
     {
-        myLatlng = new google.maps.LatLng(48.466601, 35.018155);             // задаем координаты центра Днепропетровска
-        zoom = 13;                                                           // задаем обычный масштаб для карты
+        myLatlng = new google.maps.LatLng(48.466601, 35.018155);             //  set coordinates of the center of Dnipropetrovsk
+        zoom = 13;                                                           //  set usual scale for map 
     }
         
 }
 
 
-function SetPoints() {                                     // метод проставления всех точек на карте
-    var masPoints = document.getElementsByClassName("points");   // получаем координаты точек с html
+function SetPoints() {                                                    //method to set all points on map
+    var masPoints = document.getElementsByClassName("points");            // get coordiantes of all points from html
     if (masPoints.length > 0) {
         for (var x = 0; x < masPoints.length; x++) {
             var la = $(masPoints[x]).data('latitude');
             la = la.replace(",", ".");
             var ln = $(masPoints[x]).data('longitude');
             ln = ln.replace(",", ".");
-            markers[x] = new google.maps.Marker({                    // создаем маркер
+            markers[x] = new google.maps.Marker({                    // create marker
                 position: new google.maps.LatLng(la, ln),
                 map: map,
                 icon: imageMarker,
                 title: $(masPoints[x]).data('adress')
             });
-            markers[x].idPoint = $(masPoints[x]).data('id');                        // присваиваем маркеру свойство с ID точки
-            google.maps.event.addListener(markers[x], 'click', function () {       // подписываем маркер на событие click
-                window.location.assign("../../Point/PointInfo/" + this.idPoint);   // переход на экшен подробного отображения точки
+            markers[x].idPoint = $(masPoints[x]).data('id');                          // set marker's property with point's ID
+            google.maps.event.addListener(markers[x], 'click', function () {         // sign marker on event "click"
+                window.location.assign("../../Point/PointInfo/" + this.idPoint);     //   jump in the action of detailed view of point
             });
         }
 
-        var markerClusterer = new MarkerClusterer(map, markers,                                 // создание объекта MarkerClusterer для группировки маркеров на карте
-        {                                                                                               // настройки группировки
+        var markerClusterer = new MarkerClusterer(map, markers,                                 // create object MarkerClusterer to group markers on map
+        {                                                                                               // settings to group markers
             maxZoom: 13,
             gridSize: 50,
             styles: null
@@ -58,36 +58,36 @@ function SetPoints() {                                     // метод про�
 
 
 function Initialize() {
-    geocoder = new google.maps.Geocoder();      // создание объекта Geocoder
-    var mapOptions = {                          // задание настроек для карты
+    geocoder = new google.maps.Geocoder();      // create Geocoder object
+    var mapOptions = {                          //  set options for map 
         center: myLatlng,
         zoom: zoom,
-        mapTypeId: google.maps.MapTypeId.ROADMAP      // тип карты. ROADMAP - дорожная
+        mapTypeId: google.maps.MapTypeId.ROADMAP      // type of map. ROADMAP - for roads
     };
-    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);           // создание карты
-    SetPoints();                                                                            // вызываем метод проставления всех точек на карте
+    map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);           // create map
+    SetPoints();                                                                            // call the method to set all points on map
 
 
-    //Инициализация маркера поиска без него совсем плохо
-    //02 04 2015 Коноваленко А.В.
+    // Initialization of marker for search
+    //02.04.2015 Konovalenko Anton
     searchMarker = new google.maps.Marker({
         map: map,
         icon: imageSearchMarker,
         draggable: true,
     });
-    google.maps.event.addListener(searchMarker, 'click', function () {   // подписываем маркер на событие click
+    google.maps.event.addListener(searchMarker, 'click', function () {             // sign marker on event "click"
         var stringForMap = this.latOk + "-" + this.longOk;
-        window.location.assign("../../Point/Add?stringForMap=" + stringForMap);   // переход в экшен создания точки
+        window.location.assign("../../Point/Add?stringForMap=" + stringForMap);   // path to the action of point creation
     });
 }
 
 
 
-//Автокомплит плюс позиционирование
-//02 04 2015 Коноваленко А.В.
+//Autocomplete and positioning
+//02.04.2015 Konovalenko Anton
 $(function() {
     $("#searchAdress").autocomplete({
-        //Определяем значение для адреса при геокодировании
+        //determine the value for adress of geocoding
         source: function (request, response) {
             var geocoderRequest = {
             //    'address': request.term,
@@ -110,7 +110,7 @@ $(function() {
             })
         },
 
-        //Выполняется при выборе конкретного адреса
+        // Execute when specific adress was selected
         select: function(event, ui) {
             var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
             map.setCenter(location);

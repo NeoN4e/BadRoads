@@ -117,8 +117,8 @@ namespace BadRoads.Controllers
             {
                 ViewBag.MarkerLocation = stringForMap;
                 ViewBag.Problems = db.Defects.ToList();                // defect list for selecting the form
-                //List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // a list of validates points
-                List<Point> listPoints = db.Points.ToList<Point>();    //список всех точек в базе
+                List<Point> listPoints = db.Points.Where(v => v.isValid == true).ToList<Point>();   // a list of validates points
+                //List<Point> listPoints = db.Points.ToList<Point>();    //список всех точек в базе
                 return View(listPoints);                               // view whith list of Points
             }
             else
@@ -136,7 +136,15 @@ namespace BadRoads.Controllers
             Comment c = new Comment();
             c = p.Comments.FirstOrDefault();                                   // передаем первый комментарий к точке как описание
             ViewBag.Description = c.ContentText;
-
+            HttpCookie cookie = Request.Cookies["lang"];   // определяем текущий язык
+            if (cookie != null)
+            {
+                ViewBag.Lang = cookie.Value;
+            }
+            else                                           // если язык еще не устанавливался, передаем русский по умолчанию
+            {
+                ViewBag.Lang = "ru";
+            }
             return View(p);
         }
 
@@ -146,13 +154,15 @@ namespace BadRoads.Controllers
         /// </summary>
         /// <returns>List of points that require moderation</returns>
         [Authorize(Roles = "Moderator, Administrator")]
-        public ActionResult ModerationList()
+        public ActionResult ModerationList(int? page, bool? flag)
         {
+            int pointsOnPage = 8;
             if (User.Identity.IsAuthenticated)    // Auth check
             {
                 List<Point> NeedModeratePoints = db.Points.Where(p => p.isValid == false).ToList(); //Creating and filling a list of points that require moderation
 
-                return View(NeedModeratePoints);
+                //return View(NeedModeratePoints);
+                return View(SortByLastComment(NeedModeratePoints).ToPagedList<Point>(page ?? 1, pointsOnPage));
             }
             else
             {
@@ -172,10 +182,10 @@ namespace BadRoads.Controllers
             int pointsOnPage = 8;//maximum Point elements on page
             if (flag != true)
             {
-                PaginatorList = db.Points.ToList<Point>();
+                PaginatorList = db.Points.Where(v => v.isValid == true).ToList<Point>();    //только проверенные точкиотображаются в галерее 09.04.15 Дон
             }
-            //return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); uncomment after adding normal data in database
-            return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
+            return View(SortByLastComment(PaginatorList).ToPagedList<Point>(page ?? 1, pointsOnPage)); //uncomment after adding normal data in database
+            //return View(PaginatorList.ToPagedList<Point>(page ?? 1, pointsOnPage));
         }
         /// <summary>
         /// show points on pages using partial view
@@ -287,36 +297,52 @@ namespace BadRoads.Controllers
             return View();
         }
 
-        public ActionResult DeletePoint(int id)          // экшен удаления точки модератором. Принимает ID точки.     Волков Антон. 06.04.15
+        public ActionResult DeletePoint(int id)          // action to delete point by moderator. Takes ID of point.
         {
-            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //  если авторизован с ролью "модератор"
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))     //   if authorized and role is "Moderator"
             {
-                Point p = db.Points.Find(id);                                   // находим точку по ID   
-                db.Points.Remove(p);                                            // удаляем точку.
-                db.SaveChanges();                                               // сохраняем изменения в базе
+                Point p = db.Points.Find(id);                                   // find point by ID  
+                db.Points.Remove(p);                                            // delete point
+                db.SaveChanges();                                              // save the changes in  the database
 
-                ImageHelper.DeleteAllUploadFiles(id);       // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
-                return RedirectToAction("Map", "Home");                        // переход на основную карту
+                ImageHelper.DeleteAllUploadFiles(id);                          // Y.Kovalenko 08/04/2015 delete folder whith uploads foto
+                return RedirectToAction("Map", "Home");                        // redirect to main map
             }
             else
-                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации                    
+                return RedirectToAction("Login", "Account");                              // else redirect to Login action                   
         }
 
-        public ActionResult ConfirmPoint(int id)               // экшен валидации точки модератором. Принимает ID точки.     Волков Антон 06.04.15
+        public ActionResult ConfirmPoint(int id)               // action of point's validation. Takes ID of point.
         {
-            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                    //  если авторизован с ролью "модератор"
+            if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                    //  if authorized and role is "Moderator"
             {
-                Point p = db.Points.Find(id);                                                  // находим точку по ID   
-                p.isValid = true;                                                              // подтверждаем точку
+                Point p = db.Points.Find(id);                                                  // find point by ID  
+                p.isValid = true;                                                              // confirm point
+                var def = p.Defect;                                                    // prevent strange loss of value Defect. 09.04.15 - Don
                 try
                 {
-                    db.SaveChanges();            // сохраняем изменения в базе !!!! НЕ СОХРАНЯЕТСЯ   выкидывает исключение!!!!!!!
+                    db.SaveChanges();                                                         // try to save the changes in  the database
                 }
-                catch { }
-                return RedirectToAction("Map", "Home");                                        // переход на основную карту
+                catch(DbEntityValidationException ex)
+                {
+                    var errorMessages = (from eve in ex.EntityValidationErrors
+                                         let entity = eve.Entry.Entity.GetType().Name
+                                         from ev in eve.ValidationErrors
+                                         select new
+                                         {
+                                             Entity = entity,
+                                             PropertyName = ev.PropertyName,
+                                             ErrorMessage = ev.ErrorMessage
+                                         });
+
+                    var fullErrorMessage = string.Join("; ", errorMessages.Select(e => string.Format("[Entity: {0}, Property: {1}] {2}", e.Entity, e.PropertyName, e.ErrorMessage)));
+
+                    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+                }
+                return RedirectToAction("Map", "Home");                                        // redirect to main map
             }
             else
-                return RedirectToAction("Login", "Account");                              // иначе перенаправляем к экшену авторизации
+                return RedirectToAction("Login", "Account");                                    // else redirect to Login action
         }
         public JsonResult Autocomplete(string term)
         {
