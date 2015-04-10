@@ -1,7 +1,7 @@
 ﻿<div class="popupblock">
-        <h3>Ошибка!</h3>
+        <h3>@Resources.Resource._Error!</h3>
         <p>
-            При выполнении запроса произошла ошибка.<br />
+            @Resources.Resource._ErrorOccurred.<br />
             @ViewBag.Message.
         </p>
         <button onclick="new function () { $('.popupblock').css('display', 'none'); $(location).attr('href', '@Url.Action("Map", "Home")');}">Ok</button>

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BadRoads.Models.Point>
 @{
-    ViewBag.Title = "Карта с дефектами дорог"; <!-- NEED LOCALIZATION -->
+    ViewBag.Title = @Resources.Resource._MapTitle; <!-- NEED LOCALIZATION -->
 
     <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 }
@@ -15,10 +15,9 @@
 @if (ViewBag.NeedShowPopup == true)
 {    
     <div class="popupblock">
-        <h3>Спасибо</h3>
+        <h3>@Resources.Resource._Thank</h3>
         <p>
-            Ваша точка добавлена, но требует модерации.<br />
-            Пройдет совсем немного времени и наш модератор добавит Вашу проблему в общий список.
+            @Resources.Resource._ThankYou
         </p>
         <button onclick="new function () { $('.popupblock').css('display', 'none');}">Ok</button>
         <!-- NEED LOCALIZATION -->
@@ -27,7 +26,7 @@
 <div class="section group vh8">
     <div class="col second span_5_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
-        <input class="searchmap" type="text" id="searchAdress" placeholder="Поиск" /><!-- NEED LOCALIZATION -->
+        <input class="searchmap" type="text" id="searchAdress" placeholder=@Resources.Resource._Search /><!-- NEED LOCALIZATION -->
         <div id="resultSearch f"></div>
     </div>
 </div>

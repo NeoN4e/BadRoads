@@ -1,6 +1,6 @@
 ﻿@model BadRoads.Models.RegisterModel
 @{
-    ViewBag.Title = "Регистрация";
+    ViewBag.Title = @Resources.Resource._Register;
 }
 <div class="section group hd"></div>
 <div class="section group">
@@ -11,7 +11,7 @@
 <div class="section group">
     <div class="col span_1_of_3 hd"></div>
     <div class="col span_1_of_3">
-        <h2 class="center_text">Заполните поля для регистрации</h2>
+        <h2 class="center_text">@Resources.Resource._FillFieldsRegistration</h2>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -35,11 +35,11 @@
                 </li>
             </ol>
             <div class="center_block">
-            <input type="submit" value="Зарегистрировать" />
+            <input type="submit" value=@Resources.Resource._EndRegister />
                 </div>
         }      
         <div class="center_text">
-             <h2 class="center_text">Вы можете зарегистрироваться с помощью учетных записей социальных сетей</h2>
+             <h2 class="center_text">@Resources.Resource._RegisterSocialNetwork</h2>
             @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
         </div>
     </div>

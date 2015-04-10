@@ -8,18 +8,18 @@
 }
 <div class="section group">
     <div class="col span_5_of_5">
-        <h1 class="center_text">Список проблем требущих модерации</h1>
+        <h1 class="center_text">@Resources.Resource._ModerationList1</h1>
         <!--требуется локализация-->
         <div id="resultSearch">
             @foreach (var item in Model)
             {
-                <a href="@Url.Action("PointInfo", "Point", new { id = item.ID })" title="Перейти к точке">
+                <a href="@Url.Action("PointInfo", "Point", new { id = item.ID })" title=@Resources.Resource._ModerationList2>
                     <!--требуется локализация-->
                     <div class="grid w4">
                         <div class="title">
                             <h3>@item.Defect на @item.GeoData.FullAddress</h3>
                             <!--требуется локализация-->
-                            <h3>Добавлено: @item.Date.ToShortDateString() - @item.Date.ToLongTimeString()</h3>
+                            <h3>@Resources.Resource._Added @item.Date.ToShortDateString() - @item.Date.ToLongTimeString()</h3>
                             <!--требуется локализация-->
                         </div>
                         <div class="img">

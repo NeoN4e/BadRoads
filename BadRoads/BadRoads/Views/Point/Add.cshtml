@@ -8,7 +8,7 @@
 <p id="stringforMap" data-str="@ViewBag.MarkerLocation"></p>
 <div class="section group">
     <div class="col span_2_of_3">
-        <h1 class="center_text">Укажите дефект на карте</h1>
+        <h1 class="center_text">@Resources.Resource._DefectOnTheMap</h1>
         <div id="map"></div>
     </div>   
     <div class="col span_1_of_3">
@@ -17,22 +17,22 @@
        {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <h1 class=" center_text">Добавить информацию о дефекте на дороге</h1>
-            <label class="f t">Адрес:</label>
+            <h1 class=" center_text">@Resources.Resource._AddDefect</h1>
+            <label class="f t">@Resources.Resource._Adress</label>
             <input name="adresset" id="adresset" class="f" type="text" readonly />              @*адрес точки*@
-            <label class="f t">Координаты:</label>
+            <label class="f t">@Resources.Resource._Coordinates</label>
             <input name="latitude" id="latitude" class="f-2" type="text" readonly />            @*координаты - широта*@
             <input name="longitude" id="longitude" class="f-2" type="text" readonly />           @*координаты  - долгота*@
-            <label class="f t">Выберите фото для загрузки (файл не более 3мб):</label>
+            <label class="f t">@Resources.Resource._PhotoDownLoad</label>
             <input name="upload" type="file" multiple id="upload_files"/><span id="clear_files">X</span>
-            <label class="f t">Выберите проблему:</label>
+            <label class="f t">@Resources.Resource._SelectIssue</label>
             <select name="DefName" class="sel f">
                     @foreach (var item in ViewBag.Problems)
                     {
                         <option>@item</option>
                     }
             </select>
-            <label class="f t">Дополнительное описание:</label>
+            <label class="f t">@Resources.Resource._AdvancedDescription</label>
             <textarea class="f ht" name="FirstComment"></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@                    
             <script type="text/javascript">
                 // очистка поля с файлами   Резник К.
@@ -99,9 +99,9 @@
             </script>
            
             <div class="center_block vis">
-                <input id="subm" type="submit" value="Отправить" />
+                <input id="subm" type="submit" value=@Resources.Resource._Send />
                 <p>
-                    @Html.ActionLink("Назад в галерею", "Gallery", "Point")
+                    @Html.ActionLink(@Resources.Resource._BackToGallery, "Gallery", "Point")
                 </p>
             </div>
        }
