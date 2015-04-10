@@ -41,10 +41,10 @@
     }
 }
         </div>
-        <label class="f mtopnul bold ">Описание:</label>
+        <label class="f mtopnul bold ">@Resources.Resource._Description</label>
         <label class="f mtopnul vis">@Html.Raw(ViewBag.Description)</label>
         @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
-        <label class="f mtopnul bold">Комментарии:</label>
+        <label class="f mtopnul bold">@Resources.Resource._Comments</label>
         <div class="scrolly comnt vis">
             @if (Model.Comments != null && Model.Comments.Count > 0)                       // если коллекция с комментариями не пуста
             {
@@ -59,7 +59,7 @@
             }
             else                                             // если коллекция пуста
             {
-                <p class="in-block f mtopnul">Пока нет комментариев. Будьте первым.</p>            // добавляем одну заглушку
+                <p class="in-block f mtopnul">@Resources.Resource._NotComments</p>            // добавляем одну заглушку
             }
         </div>
         @if (Request.IsAuthenticated)                               // если пользователь авторизован, может комментировать
@@ -70,7 +70,7 @@
             @Html.Hidden("Id", @Model.ID) @* 7,04,15 - Малый Дмитрий, Добавил возвращение ID модели в AddComment Action*@
             <textarea class="f h100" name="NewComment" placeholder="Коментируем..."></textarea> @* 7,04,15 - Малый Дмитрий, Изменил textarea на "CKEditor"*@
             <div class="center_block vis">
-                <input id="subm" type="submit" value="Отправить" />
+                <input id="subm" type="submit" value=@Resources.Resource._Send />
                 <p>
                     @Html.ActionLink("Назад в галерею", "Gallery", "Point")
                 </p>

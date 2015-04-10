@@ -117,22 +117,124 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ab" xml:space="preserve">
-    <value>О нас</value>
+  <data name="_AddDefect" xml:space="preserve">
+    <value>Добавить информацию о дефекте на дороге</value>
   </data>
-  <data name="ChooseLang" xml:space="preserve">
-    <value>Выберите язык</value>
+  <data name="_Added" xml:space="preserve">
+    <value>Добавлено:</value>
   </data>
-  <data name="Con" xml:space="preserve">
-    <value>Контакты</value>
+  <data name="_Adress" xml:space="preserve">
+    <value>Адрес:</value>
   </data>
-  <data name="Hom" xml:space="preserve">
-    <value>Домашняя страница</value>
+  <data name="_AdvancedDescription" xml:space="preserve">
+    <value>Дополнительное описание:</value>
   </data>
-  <data name="Log" xml:space="preserve">
+  <data name="_BackToGallery" xml:space="preserve">
+    <value>Назад в галерею</value>
+  </data>
+  <data name="_Comments" xml:space="preserve">
+    <value>Комментарии:</value>
+  </data>
+  <data name="_Coordinates" xml:space="preserve">
+    <value>Координаты:</value>
+  </data>
+  <data name="_DefectOnTheMap" xml:space="preserve">
+    <value>Укажите дефект на карте</value>
+  </data>
+  <data name="_Description" xml:space="preserve">
+    <value>Описание:</value>
+  </data>
+  <data name="_EndRegister" xml:space="preserve">
+    <value>Зарегистрировать</value>
+  </data>
+  <data name="_EnterLoginPassword" xml:space="preserve">
+    <value>Введите логин и пароль</value>
+  </data>
+  <data name="_EnterSocialAccount" xml:space="preserve">
+    <value>Войти с помощью социальных сетей</value>
+  </data>
+  <data name="_EnterStreet" xml:space="preserve">
+    <value>Введите улицу:</value>
+  </data>
+  <data name="_Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="_ErrorOccurred" xml:space="preserve">
+    <value>При выполнении запроса произошла ошибка</value>
+  </data>
+  <data name="_FillFieldsRegistration" xml:space="preserve">
+    <value>Заполните поля для регистрации</value>
+  </data>
+  <data name="_Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="_Galery" xml:space="preserve">
+    <value>Галерея</value>
+  </data>
+  <data name="_ImageHelperExeptionConstructor" xml:space="preserve">
+    <value>Только файлы с расширением \".jpg\" или \".jpeg\" могут быть добавлены</value>
+  </data>
+  <data name="_IndexTitle1" xml:space="preserve">
+    <value>Цель проекта: сбор данных о состоянии дорог Украины и вывод полученных результатов на общую карту страны. Наш сайт объединяет тех, кто столкнулся с некомпетентностью дорожных и иных служб Украины, которые не выполняют свои обязательства.</value>
+  </data>
+  <data name="_IndexTitle2" xml:space="preserve">
+    <value>Фотографируйте на дороге повреждения дорожного покрытия.</value>
+  </data>
+  <data name="_IndexTitle3" xml:space="preserve">
+    <value>Регистрируйтесь на нашем сайте и загружайте фото дефектов.</value>
+  </data>
+  <data name="_IndexTitle4" xml:space="preserve">
+    <value>Просматривайте карту или галерею с дефектами дорог.</value>
+  </data>
+  <data name="_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="_Main" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="_Map" xml:space="preserve">
+    <value>Карта</value>
+  </data>
+  <data name="_MapTitle" xml:space="preserve">
+    <value>Карта с дефектами дороги</value>
+  </data>
+  <data name="_ModerationList1" xml:space="preserve">
+    <value>Список проблем требующих модерации</value>
+  </data>
+  <data name="_ModerationList2" xml:space="preserve">
+    <value>Перейти к точке</value>
+  </data>
+  <data name="_NotComments" xml:space="preserve">
+    <value>Пока нет комментариев. Будьте первым.</value>
+  </data>
+  <data name="_PhotoDownLoad" xml:space="preserve">
+    <value>Выберите фото для загрузки (файл не более 3мб):</value>
+  </data>
+  <data name="_Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="_RegisterSocialNetwork" xml:space="preserve">
+    <value>Вы можете зарегистрироваться с помощью учетных записей социальных сетей</value>
+  </data>
+  <data name="_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="_SelectIssue" xml:space="preserve">
+    <value>Выберите проблему:</value>
+  </data>
+  <data name="_Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="_SignIn" xml:space="preserve">
     <value>Войти</value>
   </data>
-  <data name="Logo" xml:space="preserve">
-    <value>Ваша эмблема</value>
+  <data name="_SingOut" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="_Thank" xml:space="preserve">
+    <value>Спасибо</value>
+  </data>
+  <data name="_ThankYou" xml:space="preserve">
+    <value>Спасибо Вам за добавление проблемного места. После модерации место будет добавлено в базу и станет доступно для просмотра и комментариев.</value>
   </data>
 </root>

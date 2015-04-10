@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Галерея";
+    ViewBag.Title = @Resources.Resource._Galery;
 }
 <div class="section group">   
     <div class="col second span_4_of_5">
@@ -8,13 +8,13 @@
     </div>
     <div class="col first span_1_of_5">
         <div class="hd2"></div>
-        <h2 class="center_text">Фильтр</h2>
-        <label class="f t">Введите улицу:</label>
+        <h2 class="center_text">@Resources.Resource._Filter</h2>
+        <label class="f t">@Resources.Resource._EnterStreet</label>
         @using (Ajax.BeginForm("Search", new AjaxOptions { UpdateTargetId = "resultSearch" }))
         {            
             <input class="f" type="text" />
             <div class="center_block">
-                <input type="submit" value="Фильтровать" name="searchtext" />
+                <input type="submit" value=@Resources.Resource._Filter name="searchtext" />
             </div>
         }
     </div>

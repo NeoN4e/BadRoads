@@ -21,6 +21,14 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+
+        function SubM() {
+            $('#sub').click();           
+        }
+
+    </script>
 </head>
 <body>
     <header id="menu">
@@ -35,20 +43,24 @@
                 </div>
             </a>
         }
-        <select name="lang" id="lang">
-            <option value="RU">RU</option>
-            <option value="UK">UA</option>
-            <option value="EN">EN</option>
-        </select>
+        @using (Html.BeginForm("ChangeCulture", "Home"))
+        {
+            <select name="lang" id="lang" onchange="SubM()">
+                <option value="ru">RU</option>
+                <option value="uk">UA</option>
+                <option value="en">EN</option>
+            </select>
+            <input id="sub" type="submit" hidden>
+        }
         <div id="logo">
             <a href="/">
                 <img src="~/Images/logo_badroads.png" alt="badroads"></a>
         </div>
-       <form action="@Url.Action("Search","Point")">
+        <form action="@Url.Action("Search", "Point")">
             <span id="srch_wrapper">
-                <input class="search" name="searchText" type="text" placeholder="Поиск" id="srch_input">
+                <input class="search" name="searchText" type="text" placeholder=@Resources.Resource._Search id="srch_input">
                 <span id="srch_clear">X</span>
-            </span> 
+            </span>
             <input class="search" type="submit" value="GO">
         </form>
         <nav>
@@ -57,19 +69,19 @@
                     @Html.Partial("_LoginPartial")
                 </li>
                 <a href="/">
-                    <li>Главная</li>
+                    <li>@Resources.Resource._Main</li>
                 </a>
                 <a href="/Home/Map">
-                    <li>Карта</li>
+                    <li>@Resources.Resource._Map</li>
                 </a>
                 <a href="/Point/Gallery">
-                    <li>Галерея</li>
+                    <li>@Resources.Resource._Galery</li>
                 </a>
                 @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
                 {
-                 <a href="/Point/ModerationList">
-                    <li>Модерация</li>
-                 </a>
+                    <a href="/Point/ModerationList">
+                        <li>Модерация</li>
+                    </a>
                 }
             </ul>
         </nav>
@@ -80,4 +92,5 @@
     </div>
     @RenderSection("scripts", required: false)
 </body>
+    <script type="text/javascript" src="Scripts/cultureSaver.js"></script>
 </html>
