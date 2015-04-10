@@ -4,15 +4,6 @@
     <p id="stringforMap" data-latitude="@Model.GeoData.Latitude" data-longitude="@Model.GeoData.Longitude" data-adress="@Model.GeoData.FullAddress"></p>    //create undisplayable tags to transfer data in js script
 }
 
-@if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
-{                                                                                                   // главное оставить такую ссылку и проверку в if              - Волков Антон.  06.04.15
-    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a> 
-    if (Model.isValid==false)
-    {
-        @*Кнопка валидации видна только для неотмодерированных точек 09.04.15 Дон*@
-        <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
-    }
-}
 <div class="section group">
     <div class="col span_3_of_5">
         <h1 class="center_text">@ViewBag.Title</h1>
@@ -39,7 +30,18 @@
         <div id="mapinfo"></div>
     </div>
     <div class="col span_2_of_5">
-        <label class="f mtop8vh bold ">Описание:</label>
+        <div class="center_block vh8">
+            @if (Request.IsAuthenticated && Roles.IsUserInRole("Moderator"))                                    // Юра Хилько, здесь в тег <a> можно поместить, что угодно, не обязательно <button>,
+{                                                                                                   // главное оставить такую ссылку и проверку в if              - Волков Антон.  06.04.15
+    <a href="../../Point/DeletePoint?id=@Model.ID"><button>Удалить точку</button></a> 
+    if (Model.isValid==false)
+    {
+        @*Кнопка валидации видна только для неотмодерированных точек 09.04.15 Дон*@
+        <a href="../../Point/ConfirmPoint?id=@Model.ID"><button>Подтвердить точку</button></a>
+    }
+}
+        </div>
+        <label class="f mtopnul bold ">Описание:</label>
         <label class="f mtopnul vis">@Html.Raw(ViewBag.Description)</label>
         @* 7,04,15 - Малый Дмитрий, изменил вывод данных на вывод типа html*@
         <label class="f mtopnul bold">Комментарии:</label>
