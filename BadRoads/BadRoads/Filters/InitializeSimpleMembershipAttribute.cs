@@ -29,15 +29,19 @@ namespace BadRoads.Filters
 
                 try
                 {
+                    BadroadsDataContext DB = new BadroadsDataContext();
                     using (var context = new UsersContext())
                     {
                         if (!context.Database.Exists())
                         {
                             // Create the SimpleMembership database without Entity Framework migration schema
-                            ((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                            //((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                    
+                            DB.Database.CreateIfNotExists();
                         }
                     }
 
+                    DB.Database.Initialize(true);
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                    
                     //Начавльное наполнение БД
