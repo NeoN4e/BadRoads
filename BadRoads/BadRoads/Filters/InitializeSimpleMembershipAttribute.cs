@@ -25,23 +25,25 @@ namespace BadRoads.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                //Database.SetInitializer<UsersContext>(null);
 
                 try
                 {
-                    BadroadsDataContext DB = new BadroadsDataContext();
-                    using (var context = new UsersContext())
+
+                    using (BadroadsDataContext db = new BadroadsDataContext())
                     {
-                        if (!context.Database.Exists())
-                        {
-                            // Create the SimpleMembership database without Entity Framework migration schema
-                            //((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
-                    
-                            DB.Database.CreateIfNotExists();
-                        }
+                        
+                        //if (!context.Database.Exists())
+                        //{
+                        //    // Create the SimpleMembership database without Entity Framework migration schema
+                        //    //((IObjectContextAdapter)context).ObjectContext.CreateDatabase();
+                        //    //BadroadsDataContext DB = new BadroadsDataContext();
+                        db.Database.Initialize(true);
+
+                        //}
                     }
 
-                    DB.Database.Initialize(true);
+                    //DB.Database.Initialize(true);
                     WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                    
                     //Начавльное наполнение БД
