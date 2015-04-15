@@ -51,13 +51,13 @@ namespace BadRoads.Controllers
                 {
                     lat = lat.Substring(0, 10); // reduce the size of characters after the decimal point
                 }
-                lat = lat.Replace(".", ",");
+                //lat = lat.Replace(".", ",");
                 string lng = collection["longitude"];
                 if (lng.Count() > 10)
                 {
                     lng = lng.Substring(0, 10); // reduce the size of characters after the decimal point
                 }
-                lng = lng.Replace(".", ",");
+                //lng = lng.Replace(".", ",");
                 double latdouble = Convert.ToDouble(lat);
                 double lngdouble = Convert.ToDouble(lng);
 
