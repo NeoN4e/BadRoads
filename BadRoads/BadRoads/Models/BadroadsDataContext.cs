@@ -11,7 +11,7 @@ namespace BadRoads.Models
     /// Вспомогательный клас для инициализации БД + НАполнение первоначальными данными
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    class DbInitializer : CreateDatabaseIfNotExists<BadroadsDataContext>
+    class DbInitializer : DropCreateDatabaseIfModelChanges<BadroadsDataContext>
     {
         protected override void Seed(BadroadsDataContext context)
         {
@@ -47,6 +47,9 @@ namespace BadRoads.Models
             //Удалим связанные фотографии
             this.Set<Photo>().RemoveRange(this.Set<Photo>().Where(p=>p.Points.Count==0));
 
+            //Удалим устаревшие геоданные
+            //this.Set<GeoData>().RemoveRange(this.Set<GeoData>().Where(g => g.Point == null));
+
             this.SaveChanges();
 
             base.Dispose(disposing);
@@ -78,6 +81,9 @@ namespace BadRoads.Models
                     //mc.MapLeftKey("id_Point");
                     //mc.MapRightKey("id_Photo");
                 });
+            
+            //Связь поинта и геодаты
+            modelBuilder.Entity<Point>().HasOptional(p =>  p.GeoData).WithRequired(g=>g.Point).WillCascadeOnDelete(true);
 
         }
 
@@ -208,6 +214,8 @@ namespace BadRoads.Models
         
         /// <summary>Точный адрес объекта</summary>
         public string FullAddress{get;set;}
+
+        public virtual Point Point { get; set; }        
     }
 
     /// <summary>Дефект дороги</summary>
